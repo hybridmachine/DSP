@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignalGenerator;
+using SignalProcessor;
 using System.IO;
 
 namespace Discrete_Fourier_Transform
@@ -12,22 +13,36 @@ namespace Discrete_Fourier_Transform
     {
         static void Main(string[] args)
         {
-            List<double> signals = Sinusoid.GetSignal(32, 2);
+            List<double> signal = Sinusoid.GetSignal(128, 3);
+            FrequencyDomain frequencyDomain = DFT.Transform(signal);
+            List<double> synthesis = DFT.Synthesize(frequencyDomain);
 
-            FileStream output = new FileStream("sinusoid.csv", FileMode.Create);
-
-            if (output.CanWrite)
+            try
             {
-                StreamWriter writer = new StreamWriter(output);
-                int idx = 0;
-                foreach (double signal in signals)
+                FileStream output = new FileStream("sinusoid.csv", FileMode.Create);
+
+                if (output.CanWrite)
                 {
-                    writer.WriteLine(idx + "," + signal);
-                    idx++;
+                    StreamWriter writer = new StreamWriter(output);
+
+                    // Write header row
+                    writer.WriteLine("Index, Signal, Synthesis");
+
+                    for (int idx = 0; idx < signal.Count; idx++)
+                    {
+                        double sampleVal = signal[idx];
+                        double synthVal = synthesis[idx];
+                        writer.WriteLine(idx + "," + sampleVal + "," + synthVal);
+                        idx++;
+                    }
+
+                    writer.Close();
                 }
-                writer.Close();
+                output.Close();
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
-            output.Close();
         }
     }
 }
