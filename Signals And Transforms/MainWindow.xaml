@@ -12,8 +12,8 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <GroupBox 
                 Grid.Row="0"
@@ -27,14 +27,18 @@
             </Border>
         </GroupBox>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Label Margin="10,5,0,0" Content="Signal Scale:" />
-            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,1,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SignalScale}"/>
-            
-            <Label Margin="10,5,0,0" Content="Sample Count:" />
-            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,1,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SampleCount}"/>
+            <StackPanel.Background>
+                <ImageBrush ImageSource="Resources/LeaderBar.png" Opacity="0.5"/>
+            </StackPanel.Background>
+            <Label Margin="10,0,0,0" Content="Signal Scale:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SignalScale}" VerticalAlignment="Center"/>
 
-            <Label Margin="10,5,0,0" Content="Cycle Count:" />
-            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,1,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding CycleCount}"/>
+            <Label Margin="10,0,0,0" Content="Sample Count:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SampleCount}" VerticalAlignment="Center"/>
+
+            <Label Margin="10,0,0,0" Content="Cycle Count:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding CycleCount}" VerticalAlignment="Center"/>
         </StackPanel>
+
     </Grid>
 </Window>
