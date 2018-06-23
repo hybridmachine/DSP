@@ -8,4 +8,5 @@ In these examples a sample rate of 8000 samples/second was used on a 100hz sine 
 ![Screenshot](Docs/HighPassExample.png)
 
 ## Low Pass Filter:
+Zoom in to see the smoother low frequency synthesized signal in the noisy original signal
 ![Screenshot](Docs/LowPassExample.png)
