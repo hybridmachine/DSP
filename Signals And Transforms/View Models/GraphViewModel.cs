@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
 using OxyPlot;
 using OxyPlot.Series;
 using SignalGenerator;
 using SignalProcessor;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SampleGenerator;
+using SignalGenerator.Generators;
 
 namespace Signals_And_Transforms.View_Models
 {
     public class GraphViewModel : INotifyPropertyChanged
     {
-        List<double> signal;
-        FrequencyDomain frequencyDomain;
-        List<double> synthesis;
+        List<double> _signal;
+        FrequencyDomain _frequencyDomain;
+        List<double> _synthesis;
         double _signalScale;
         int _sampleCount;
         int _cycleCount;
@@ -55,13 +56,26 @@ namespace Signals_And_Transforms.View_Models
 
         private void GetNewModel()
         {
-            signal = Sinusoid.GetSignal(_sampleCount, _cycleCount);
-            frequencyDomain = DFT.Transform(signal);
-            synthesis = DFT.Synthesize(frequencyDomain);
+            ISignalGenerator sinusoid = new Sinusoid();
+            ISignalGenerator random = new WhiteNoise();
+
+            Sample sinusoidSamp = new Sample(8000, 1, 100, sinusoid);
+            Sample sinusoidSamp2 = new Sample(8000, 1, 1000, sinusoid);
+            Sample whiteNoise = new Sample(8000, 1, 1000, random);
+            Sample summedSignal = sinusoidSamp.SumWithSample(sinusoidSamp2).SumWithSample(whiteNoise);
+
+            _signal = summedSignal.GetNextSamplesForTimeSlice(100);
+            _frequencyDomain = DFT.Transform(_signal);
+            _synthesis = DFT.Synthesize(_frequencyDomain);
+
+            //ISignalGenerator sinusoid = new Sinusoid();
+            //signal = sinusoid.GetSignal(_sampleCount, _cycleCount);
+            //frequencyDomain = DFT.Transform(signal);
+            //synthesis = DFT.Synthesize(frequencyDomain);
 
             this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
-            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, synthesis.Count - 1, 1.0, "Synthesis"));
-            this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, signal.Count - 1, 1.0, "Signal"));
+            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _synthesis.Count - 1, 1.0, "Synthesis"));
+            this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, _signal.Count - 1, 1.0, "Signal"));
 
             NotifyPropertyChanged("MyModel");
         }
@@ -100,23 +114,23 @@ namespace Signals_And_Transforms.View_Models
         private double getSynthesis(double index)
         {
             int idx = (int)index;
-            if (idx >= synthesis.Count || idx < 0)
+            if (idx >= _synthesis.Count || idx < 0)
             {
                 return 0.0;
             }
 
-            return synthesis[idx];
+            return _synthesis[idx];
         }
 
         private double getSignal(double index)
         {
             int idx = (int)index;
-            if (idx >= signal.Count || idx < 0)
+            if (idx >= _signal.Count || idx < 0)
             {
                 return 0.0;
             }
 
-            return signal[idx] * SignalScale;
+            return _signal[idx] * SignalScale;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

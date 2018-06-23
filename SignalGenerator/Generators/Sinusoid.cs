@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SignalGenerator
+namespace SignalGenerator.Generators
 {
-    public class Sinusoid
+    public class Sinusoid : ISignalGenerator
     {
         // Generate a simple sinusoid
-        public static List<double> GetSignal(int sampleCount, int cycles)
+        public List<double> GetSignal(int sampleCount, int cycles)
         {
             List<double> samples = new List<double>(sampleCount);
             double theta;

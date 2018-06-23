@@ -9,21 +9,39 @@ namespace SignalProcessor
     public class FrequencyDomain
     {
         public List<double> RealComponent;
+        public List<double> RealScalingFactor; // When filtering, the scaling factor for each frequency component in real domain
         public List<double> ImaginaryComponent;
 
         public FrequencyDomain(int timeDomainLen)
         {
             int freqDomainLen = (timeDomainLen / 2) + 1;
             RealComponent = new List<double>(freqDomainLen);
+            RealScalingFactor = new List<double>(freqDomainLen);
             ImaginaryComponent = new List<double>(freqDomainLen);
 
             for (int K = 0; K < freqDomainLen; K++)
             {
                 RealComponent.Add(0.0);
                 ImaginaryComponent.Add(0.0);
+                RealScalingFactor.Add((double)K/freqDomainLen); // For now test high pass filter 
             }
         }
 
+        public double ScaledRealComponent(int K)
+        {
+            if (K >= RealComponent.Count)
+                return 0.0;
+
+            return (RealComponent[K] * RealScalingFactor[K]);
+        }
+
+        public double ScaledImaginaryComponent(int K)
+        {
+            if (K >= ImaginaryComponent.Count)
+                return 0.0;
+
+            return (ImaginaryComponent[K] * RealScalingFactor[K]);
+        }
     }
 
     public class DFT
@@ -67,8 +85,8 @@ namespace SignalProcessor
 
             for (int K = 0; K < freqDomainLen; K++)
             {
-                cosineAmplitudes.Add(frequencyDomain.RealComponent[K] / (timeDomainLen / 2));
-                sineAmplitudes.Add(-1 * frequencyDomain.ImaginaryComponent[K] / (timeDomainLen / 2));
+                cosineAmplitudes.Add(frequencyDomain.ScaledRealComponent(K) / (timeDomainLen / 2));
+                sineAmplitudes.Add(-1 * frequencyDomain.ScaledImaginaryComponent(K) / (timeDomainLen / 2));
             }
             
             // Fixup the endpoints

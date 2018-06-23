@@ -111,6 +111,10 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SampleGenerator\SampleGenerator.csproj">
+      <Project>{A90D34C6-4DF1-4DDA-B365-0D2A79EC0F41}</Project>
+      <Name>SampleGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SignalGenerator\SignalGenerator.csproj">
       <Project>{29c2ce4a-a041-482a-aa0d-77bc55e0b9bc}</Project>
       <Name>SignalGenerator</Name>

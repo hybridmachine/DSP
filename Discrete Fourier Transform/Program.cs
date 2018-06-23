@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignalGenerator;
+using SignalGenerator.Generators;
 using SignalProcessor;
 using System.IO;
+using SampleGenerator;
 
 namespace Discrete_Fourier_Transform
 {
@@ -13,7 +15,9 @@ namespace Discrete_Fourier_Transform
     {
         static void Main(string[] args)
         {
-            List<double> signal = Sinusoid.GetSignal(128, 3);
+            ISignalGenerator sinusoid = new Sinusoid();
+            Sample sinusoidSamp = new Sample(1000, 1, 200, sinusoid);
+            List<double> signal = sinusoidSamp.GetNextSamplesForTimeSlice(10);
             FrequencyDomain frequencyDomain = DFT.Transform(signal);
             List<double> synthesis = DFT.Synthesize(frequencyDomain);
 
