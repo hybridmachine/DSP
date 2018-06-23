@@ -1,5 +1,4 @@
-# DSP
-Digital Signal Processing Projects
+# Digital Signal Processing
 
 Discreet Fourier Transform Implementation with filters and visualization.
 
