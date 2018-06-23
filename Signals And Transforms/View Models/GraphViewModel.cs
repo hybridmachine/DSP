@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SampleGenerator;
 using SignalGenerator.Generators;
+using SignalProcessor.Filters;
 
 namespace Signals_And_Transforms.View_Models
 {
@@ -22,6 +23,7 @@ namespace Signals_And_Transforms.View_Models
         double _signalScale;
         int _sampleCount;
         int _cycleCount;
+        private string _filterType;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,7 +32,7 @@ namespace Signals_And_Transforms.View_Models
             _sampleCount = 128;
             _cycleCount = 5;
             _signalScale = 1.0;
-
+            _filterType = "None";
             GetNewModel();
         }
 
@@ -62,10 +64,29 @@ namespace Signals_And_Transforms.View_Models
             Sample sinusoidSamp = new Sample(8000, 1, 100, sinusoid);
             Sample sinusoidSamp2 = new Sample(8000, 1, 1000, sinusoid);
             Sample whiteNoise = new Sample(8000, 1, 1000, random);
-            Sample summedSignal = sinusoidSamp.SumWithSample(sinusoidSamp2).SumWithSample(whiteNoise);
+            Sample summedSignal = sinusoidSamp.SumWithSample(whiteNoise);
+            IDFTFilter filter = null;
+
+            switch (_filterType)
+            {
+                case "Low":
+                    filter = new SimplePassFilter(0.10, PASSTYPE.LOW);
+                    break;
+                case "High":
+                    filter = new SimplePassFilter(0.10, PASSTYPE.HIGH);
+                    break;
+                default:
+                    break;
+            }
 
             _signal = summedSignal.GetNextSamplesForTimeSlice(100);
             _frequencyDomain = DFT.Transform(_signal);
+
+            if (filter != null)
+            {
+                _frequencyDomain.ApplyFilter(filter);
+            }
+
             _synthesis = DFT.Synthesize(_frequencyDomain);
 
             //ISignalGenerator sinusoid = new Sinusoid();
@@ -92,6 +113,19 @@ namespace Signals_And_Transforms.View_Models
                     NotifyPropertyChanged();
                     GetNewModel();
                 }
+            }
+        }
+
+        public String FilterType
+        {
+            get
+            {
+                return _filterType;
+            }
+            set
+            {
+                _filterType = value;
+                GetNewModel();
             }
         }
 

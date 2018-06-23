@@ -33,11 +33,12 @@
             <Label Margin="10,0,0,0" Content="Signal Scale:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
             <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SignalScale}" VerticalAlignment="Center"/>
 
-            <Label Margin="10,0,0,0" Content="Sample Count:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SampleCount}" VerticalAlignment="Center"/>
-
-            <Label Margin="10,0,0,0" Content="Cycle Count:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding CycleCount}" VerticalAlignment="Center"/>
+            <Label Margin="10,0,0,0" Content="Synthesis Filter:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
+            <ComboBox Margin="7" Text="{Binding FilterType}" VerticalAlignment="Center" Height="Auto" Width="140">
+                <ComboBoxItem Name="LowPass">Low</ComboBoxItem>
+                <ComboBoxItem Name="HighPass">High</ComboBoxItem>
+                <ComboBoxItem Name="None">None</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
 
     </Grid>

@@ -9,22 +9,31 @@ namespace SignalProcessor
     public class FrequencyDomain
     {
         public List<double> RealComponent;
-        public List<double> RealScalingFactor; // When filtering, the scaling factor for each frequency component in real domain
+        public List<double> ScalingFactor; // When filtering, the scaling factor for each frequency component in real domain
         public List<double> ImaginaryComponent;
 
         public FrequencyDomain(int timeDomainLen)
         {
             int freqDomainLen = (timeDomainLen / 2) + 1;
             RealComponent = new List<double>(freqDomainLen);
-            RealScalingFactor = new List<double>(freqDomainLen);
+            ScalingFactor = new List<double>(freqDomainLen);
             ImaginaryComponent = new List<double>(freqDomainLen);
 
             for (int K = 0; K < freqDomainLen; K++)
             {
                 RealComponent.Add(0.0);
                 ImaginaryComponent.Add(0.0);
-                RealScalingFactor.Add((double)K/freqDomainLen); // For now test high pass filter 
+                ScalingFactor.Add(1.0);
             }
+        }
+
+        /// <summary>
+        /// Users can call this and alter the filter values (low to high, 0 -> Count)
+        /// </summary>
+        /// <returns></returns>
+        public void ApplyFilter(IDFTFilter filter)
+        {
+            filter.ScaleFrequencies(ScalingFactor);
         }
 
         public double ScaledRealComponent(int K)
@@ -32,7 +41,7 @@ namespace SignalProcessor
             if (K >= RealComponent.Count)
                 return 0.0;
 
-            return (RealComponent[K] * RealScalingFactor[K]);
+            return (RealComponent[K] * ScalingFactor[K]);
         }
 
         public double ScaledImaginaryComponent(int K)
@@ -40,7 +49,7 @@ namespace SignalProcessor
             if (K >= ImaginaryComponent.Count)
                 return 0.0;
 
-            return (ImaginaryComponent[K] * RealScalingFactor[K]);
+            return (ImaginaryComponent[K] * ScalingFactor[K]);
         }
     }
 
