@@ -54,10 +54,14 @@ namespace SampleGenerator
             {
                 numSamplesToGet = _samples.Count - curIDX - 1;
                 if (numSamplesToGet <= 0)
-                    return null;
+                { 
+                    // Roll over to the beginning
+                    _sampleIDX = 0;
+                    return GetNextSamplesForTimeSlice(milliseconds);
+                }
             }
             _sampleIDX += numSamplesToGet;
-            return _samples.GetRange(_sampleIDX, numSamplesToGet);
+            return _samples.GetRange(curIDX, numSamplesToGet);
         }
 
         public void ResetSampleIndex()

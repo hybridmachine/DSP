@@ -12,11 +12,13 @@ using System.Runtime.CompilerServices;
 using SampleGenerator;
 using SignalGenerator.Generators;
 using SignalProcessor.Filters;
+using System.Windows.Threading;
 
 namespace Signals_And_Transforms.View_Models
 {
     public class GraphViewModel : INotifyPropertyChanged
     {
+        private DispatcherTimer _dispatchTimer;
         List<double> _signal;
         FrequencyDomain _frequencyDomain;
         List<double> _synthesis;
@@ -24,6 +26,9 @@ namespace Signals_And_Transforms.View_Models
         int _sampleCount;
         int _cycleCount;
         private string _filterType;
+        Sample _signalSample;
+        int _framesPerSecond = 0;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,6 +38,17 @@ namespace Signals_And_Transforms.View_Models
             _cycleCount = 5;
             _signalScale = 1.0;
             _filterType = "None";
+            _dispatchTimer = new DispatcherTimer();
+            FramesPerSecond = 10;
+            GetModelData(20);
+            GetNewModel();
+
+            _dispatchTimer.Tick += DispatchTimer_Tick;
+            _dispatchTimer.Start();
+        }
+
+        private void DispatchTimer_Tick(object sender, EventArgs e)
+        {
             GetNewModel();
         }
 
@@ -56,7 +72,31 @@ namespace Signals_And_Transforms.View_Models
             }
         }
 
-        private void GetNewModel()
+        public int FramesPerSecond
+        {
+            get
+            {
+                return _framesPerSecond;
+            }
+            set
+            {
+                _framesPerSecond = value;
+                if (_framesPerSecond <= 0)
+                {
+                    _dispatchTimer.Stop();
+                }
+                else
+                { 
+                    _dispatchTimer.Interval = new TimeSpan(0, 0, 0, 0, (1000 / _framesPerSecond));
+                    if (!_dispatchTimer.IsEnabled)
+                    {
+                        _dispatchTimer.Start();
+                    }
+                }        
+                NotifyPropertyChanged();
+            }
+        }
+        private void GetModelData(int timeslice)
         {
             ISignalGenerator sinusoid = new Sinusoid();
             ISignalGenerator random = new WhiteNoise();
@@ -64,7 +104,11 @@ namespace Signals_And_Transforms.View_Models
             Sample sinusoidSamp = new Sample(8000, 1, 100, sinusoid);
             Sample sinusoidSamp2 = new Sample(8000, 1, 1000, sinusoid);
             Sample whiteNoise = new Sample(8000, 1, 1000, random);
-            Sample summedSignal = sinusoidSamp.SumWithSample(whiteNoise);
+            _signalSample = sinusoidSamp.SumWithSample(whiteNoise);
+            
+        }
+        private void GetNewModel()
+        {
             IDFTFilter filter = null;
 
             switch (_filterType)
@@ -79,7 +123,7 @@ namespace Signals_And_Transforms.View_Models
                     break;
             }
 
-            _signal = summedSignal.GetNextSamplesForTimeSlice(100);
+            _signal = _signalSample.GetNextSamplesForTimeSlice(20);
             _frequencyDomain = DFT.Transform(_signal);
 
             if (filter != null)
@@ -89,10 +133,6 @@ namespace Signals_And_Transforms.View_Models
 
             _synthesis = DFT.Synthesize(_frequencyDomain);
 
-            //ISignalGenerator sinusoid = new Sinusoid();
-            //signal = sinusoid.GetSignal(_sampleCount, _cycleCount);
-            //frequencyDomain = DFT.Transform(signal);
-            //synthesis = DFT.Synthesize(frequencyDomain);
 
             this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
             this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _synthesis.Count - 1, 1.0, "Synthesis"));
