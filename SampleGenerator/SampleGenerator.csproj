@@ -48,6 +48,10 @@
       <Project>{29C2CE4A-A041-482A-AA0D-77BC55E0B9BC}</Project>
       <Name>SignalGenerator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SignalProcessor\SignalProcessor.csproj">
+      <Project>{25B83837-7985-4FE3-9524-2B88ACED7F47}</Project>
+      <Name>SignalProcessor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

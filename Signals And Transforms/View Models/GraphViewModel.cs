@@ -10,9 +10,9 @@ using SignalProcessor;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SampleGenerator;
-using SignalGenerator.Generators;
 using SignalProcessor.Filters;
 using System.Windows.Threading;
+using Signals_And_Transforms.Models;
 
 namespace Signals_And_Transforms.View_Models
 {
@@ -26,7 +26,6 @@ namespace Signals_And_Transforms.View_Models
         int _sampleCount;
         int _cycleCount;
         private string _filterType;
-        Sample _signalSample;
         int _framesPerSecond = 0;
 
 
@@ -40,7 +39,6 @@ namespace Signals_And_Transforms.View_Models
             _filterType = "None";
             _dispatchTimer = new DispatcherTimer();
             FramesPerSecond = 10;
-            GetModelData(20);
             GetNewModel();
 
             _dispatchTimer.Tick += DispatchTimer_Tick;
@@ -96,40 +94,25 @@ namespace Signals_And_Transforms.View_Models
                 NotifyPropertyChanged();
             }
         }
-        private void GetModelData(int timeslice)
-        {
-            ISignalGenerator sinusoid = new Sinusoid();
-            ISignalGenerator random = new WhiteNoise();
 
-            Sample sinusoidSamp = new Sample(8000, 1, 100, sinusoid);
-            Sample sinusoidSamp2 = new Sample(8000, 1, 1000, sinusoid);
-            Sample whiteNoise = new Sample(8000, 1, 1000, random);
-            _signalSample = sinusoidSamp.SumWithSample(whiteNoise);
-            
-        }
         private void GetNewModel()
         {
-            IDFTFilter filter = null;
 
             switch (_filterType)
             {
                 case "Low":
-                    filter = new SimplePassFilter(0.10, PASSTYPE.LOW);
+                    SampleData.SetFilter(PASSTYPE.LOW);
                     break;
                 case "High":
-                    filter = new SimplePassFilter(0.10, PASSTYPE.HIGH);
+                    SampleData.SetFilter(PASSTYPE.HIGH);
                     break;
                 default:
+                    SampleData.SetFilter(PASSTYPE.NONE);
                     break;
             }
 
-            _signal = _signalSample.GetNextSamplesForTimeSlice(20);
-            _frequencyDomain = DFT.Transform(_signal);
-
-            if (filter != null)
-            {
-                _frequencyDomain.ApplyFilter(filter);
-            }
+            _signal = SampleData.GetNextSamplesForTimeSlice(20);
+            _frequencyDomain = SampleData.FreqDomain;
 
             _synthesis = DFT.Synthesize(_frequencyDomain);
 

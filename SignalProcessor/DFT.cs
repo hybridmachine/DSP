@@ -33,7 +33,17 @@ namespace SignalProcessor
         /// <returns></returns>
         public void ApplyFilter(IDFTFilter filter)
         {
-            filter.ScaleFrequencies(ScalingFactor);
+            if (null == filter)
+            {
+                for (int idx = 0; idx < ScalingFactor.Count; idx++)
+                {
+                    ScalingFactor[idx] = 1.0;
+                }
+            }
+            else
+            {
+                filter.ScaleFrequencies(ScalingFactor);
+            }
         }
 
         public double ScaledRealComponent(int K)

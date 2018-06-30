@@ -8,7 +8,8 @@ namespace SignalProcessor
 {
     public enum PASSTYPE
     {
-        LOW = 0,
+        NONE = 0,
+        LOW,
         HIGH
     };
 

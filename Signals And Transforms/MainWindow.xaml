@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Signals_And_Transforms.View_Models"
+        xmlns:views="clr-namespace:Signals_And_Transforms.Views"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="Signals And Transforms" Height="450" Width="800">
@@ -12,7 +13,8 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="45*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <GroupBox 
@@ -23,10 +25,10 @@
                 Height="Auto"
                 Margin="10">
             <Border CornerRadius="3" Background="Beige">
-                <oxy:PlotView MinHeight="300" Model="{Binding MyModel}"/>
+                <oxy:PlotView Model="{Binding MyModel}"/>
             </Border>
         </GroupBox>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
             <StackPanel.Background>
                 <ImageBrush ImageSource="Resources/LeaderBar.png" Opacity="0.5"/>
             </StackPanel.Background>
@@ -43,6 +45,6 @@
                 <ComboBoxItem Name="None">None</ComboBoxItem>
             </ComboBox>
         </StackPanel>
-
+        <views:HistogramView VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1"/>
     </Grid>
 </Window>

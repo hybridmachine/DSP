@@ -18,6 +18,7 @@ namespace SignalProcessor.Filters
         }
         public void ScaleFrequencies(List<double> scalingVector)
         {
+            int vecCount = scalingVector.Count;
             int clipIDX = (int)Math.Floor((double)scalingVector.Count * _passPercent);
 
             for (int idx = 0; idx < scalingVector.Count; idx++)
@@ -35,7 +36,7 @@ namespace SignalProcessor.Filters
                 }
                 else if (_passType == PASSTYPE.HIGH)
                 {
-                    if (idx >= clipIDX)
+                    if (idx >= (vecCount - clipIDX))
                     {
                         scalingVector[idx] = 1.0;
                     }

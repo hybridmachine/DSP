@@ -3,6 +3,7 @@
  * 
  * */
 using SignalGenerator;
+using SignalProcessor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace SampleGenerator
         protected int _sampleRate;
         protected double _seconds;
         protected double _hertz;
+        protected FrequencyDomain _frequencyDomain;
         protected List<double> _samples;
+        protected List<double> _sliceSignal; // The signal data for a slice
         int _sampleIDX;
 
         /// <summary>
@@ -46,6 +49,22 @@ namespace SampleGenerator
             _sampleIDX = 0;
         }
 
+        public FrequencyDomain GetFrequencyDomainForSlice
+        {
+            get
+            {
+                return _frequencyDomain;
+            }
+        }
+
+        public List<Double> GetSignalSlice
+        {
+            get
+            {
+                return _sliceSignal;
+            }
+        }
+
         public List<double>GetNextSamplesForTimeSlice(double milliseconds)
         {
             int numSamplesToGet = (int)Math.Floor((milliseconds / 1000) * _sampleRate);
@@ -61,7 +80,9 @@ namespace SampleGenerator
                 }
             }
             _sampleIDX += numSamplesToGet;
-            return _samples.GetRange(curIDX, numSamplesToGet);
+            _sliceSignal = _samples.GetRange(curIDX, numSamplesToGet);
+            _frequencyDomain = DFT.Transform(_sliceSignal);
+            return _sliceSignal;
         }
 
         public void ResetSampleIndex()
