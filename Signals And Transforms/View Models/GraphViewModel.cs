@@ -111,15 +111,15 @@ namespace Signals_And_Transforms.View_Models
                     break;
             }
 
-            _signal = SampleData.GetNextSamplesForTimeSlice(20);
+            _signal = SampleData.Get50Padded64ChannelSamples();
             _frequencyDomain = SampleData.FreqDomain;
 
             _synthesis = DFT.Synthesize(_frequencyDomain);
 
 
             this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
-            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _synthesis.Count - 1, 1.0, "Synthesis"));
-            this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, _signal.Count - 1, 1.0, "Signal"));
+            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, 1000 - 1, 1.0, "Synthesis")); // Clip synthesis to signal sample count
+            this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, 1000 - 1, 1.0, "Signal"));
 
             NotifyPropertyChanged("MyModel");
         }
