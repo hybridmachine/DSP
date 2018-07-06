@@ -1,0 +1,2 @@
+2018-07-05:	See page 202, 203 (Chapter 10) of "The Scientist and Engineer's guide to Digital Signal Processing". There is a discussion on how
+to interpolate a signal as well as how to increase the sampling resolution.
