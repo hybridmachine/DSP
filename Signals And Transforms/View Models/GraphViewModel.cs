@@ -27,7 +27,7 @@ namespace Signals_And_Transforms.View_Models
         int _cycleCount;
         private string _filterType;
         int _framesPerSecond = 0;
-
+        private int _filterClipPercentage;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,6 +38,9 @@ namespace Signals_And_Transforms.View_Models
             _signalScale = 1.0;
             _filterType = "None";
             _dispatchTimer = new DispatcherTimer();
+            _signal = new List<double>(1000);
+            _synthesis = new List<double>(1000);
+
             FramesPerSecond = 10;
             GetNewModel();
 
@@ -101,25 +104,29 @@ namespace Signals_And_Transforms.View_Models
             switch (_filterType)
             {
                 case "Low":
-                    SampleData.SetFilter(PASSTYPE.LOW);
+                    SampleData.SetFilter(PASSTYPE.LOW, _filterClipPercentage/100.0);
                     break;
                 case "High":
-                    SampleData.SetFilter(PASSTYPE.HIGH);
+                    SampleData.SetFilter(PASSTYPE.HIGH, _filterClipPercentage/100.0);
                     break;
                 default:
-                    SampleData.SetFilter(PASSTYPE.NONE);
+                    SampleData.SetFilter(PASSTYPE.NONE, _filterClipPercentage/100.0);
                     break;
             }
 
-            _signal = SampleData.Get50Padded64ChannelSamples();
-            _frequencyDomain = SampleData.FreqDomain;
+            _synthesis.Clear();
+            _signal.Clear();
+            while (_signal.Count < 1000)
+            { 
+                _signal.AddRange(SampleData.Get50Padded64ChannelSamples());
+                _frequencyDomain = SampleData.FreqDomain;
 
-            _synthesis = DFT.Synthesize(_frequencyDomain);
-
+                _synthesis.AddRange(DFT.Synthesize(_frequencyDomain));
+            }
 
             this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
-            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, 1000 - 1, 1.0, "Synthesis")); // Clip synthesis to signal sample count
-            this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, 1000 - 1, 1.0, "Signal"));
+            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _signal.Count - 1, 1.0, "Synthesis")); // Clip synthesis to signal sample count
+           // this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, _signal.Count - 1, 1.0, "Signal"));
 
             NotifyPropertyChanged("MyModel");
         }
@@ -148,6 +155,23 @@ namespace Signals_And_Transforms.View_Models
             set
             {
                 _filterType = value;
+                GetNewModel();
+            }
+        }
+
+        public int FilterClipPercentage
+        {
+            get
+            {
+                return _filterClipPercentage;
+            }
+            set
+            {
+                _filterClipPercentage = value > 0 ? value : 0;
+                if (_filterClipPercentage > 100)
+                    _filterClipPercentage = 100;
+
+                NotifyPropertyChanged();
                 GetNewModel();
             }
         }

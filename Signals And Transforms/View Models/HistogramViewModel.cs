@@ -38,7 +38,6 @@ namespace Signals_And_Transforms.View_Models
         private void GetNewModel()
         {
          
-            _signal = _signalSample.GetNextSamplesForTimeSlice(20);
             _frequencyDomain = SampleData.FreqDomain;
 
             MyModel = new PlotModel { Title = "Frequency Histogram" };
@@ -48,11 +47,12 @@ namespace Signals_And_Transforms.View_Models
             var linearAxis2 = new LinearAxis();
             MyModel.Axes.Add(linearAxis2);
             var linearBarSeries1 = new LinearBarSeries();
-            linearBarSeries1.Title = "Frequency";
+            linearBarSeries1.Title = "Hertz";
 
             for (int idx = 0; idx < _frequencyDomain.RealComponent.Count; idx++)
             {
-                linearBarSeries1.Points.Add(new DataPoint(idx, _frequencyDomain.ScaledRealComponent(idx)));
+                int hz = (int)Math.Floor((0.5) * ((float)idx / (float)(_frequencyDomain.RealComponent.Count - 1)) * SampleData.SignalSample.SampleRate);
+                linearBarSeries1.Points.Add(new DataPoint(hz, _frequencyDomain.Magnitude(idx)));
             }
             
             MyModel.Series.Add(linearBarSeries1);

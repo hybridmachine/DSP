@@ -4,6 +4,7 @@
  * */
 using SignalGenerator;
 using SignalProcessor;
+using SignalProcessor.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,20 +36,40 @@ namespace SampleGenerator
             _seconds = seconds;
             _hertz = hertz;
 
-            int sampleCount = (int)Math.Ceiling(_sampleRate * _seconds);
-            int cycleCount = (int)Math.Ceiling(_seconds * _hertz);
-
+            
             if (sigGen != null)
             { 
-                _samples = sigGen.GetSignal(sampleCount, cycleCount);
+                _samples = sigGen.GetSignal(SampleCount, CycleCount);
             }
             else
             {
-                _samples = new List<double>(cycleCount); // Create empty sample list
+                _samples = new List<double>(CycleCount); // Create empty sample list
             }
             _sampleIDX = 0;
         }
 
+        public int SampleRate
+        {
+            get
+            {
+                return _sampleRate;
+            }
+        }
+        public int SampleCount
+        {
+            get
+            {
+                return (int)Math.Ceiling(_sampleRate * _seconds);
+            }
+        }
+
+        public int CycleCount
+        {
+            get
+            {
+                return (int)Math.Ceiling(_seconds * _hertz);
+            }
+        }
         public FrequencyDomain GetFrequencyDomainForSlice
         {
             get
@@ -68,7 +89,7 @@ namespace SampleGenerator
         // 64 channel DFT done on 50 samples + 14 zeros padded right
         public List<double> Get50Padded64ChannelSamples()
         {
-            int numSamplesToGet = 32;
+            int numSamplesToGet = 64;
             int curIDX = _sampleIDX;
             if (curIDX + numSamplesToGet >= _samples.Count)
             {

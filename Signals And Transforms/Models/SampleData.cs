@@ -31,18 +31,18 @@ namespace Signals_And_Transforms.Models
 
                         Sample sinusoidSamp = new Sample(16000, 1, 500, sinusoid);
                         Sample sinusoidSamp2 = new Sample(16000, 1, 7000, sinusoid);
-                        Sample whiteNoise = new Sample(16000, 1, 2000, random);
+                        Sample whiteNoise = new Sample(16000, 1, 1000, random);
                         Sample squareWave = new Sample(8000, 1, 400, square);
-                        _signalSample = sinusoidSamp.SumWithSample(sinusoidSamp2);
+                        _signalSample = sinusoidSamp.SumWithSample(whiteNoise);
                     }
 
-                    _signalSample.GetNextSamplesForTimeSlice(20); // Prime the pump
+                    _signalSample.Get50Padded64ChannelSamples(); // Prime the pump
                     return _signalSample;
                 }
             }
         }
 
-        public static void SetFilter(PASSTYPE _filterType)
+        public static void SetFilter(PASSTYPE _filterType, double clipPercent)
         {
             if (_filterType == PASSTYPE.NONE)
             {
@@ -50,7 +50,7 @@ namespace Signals_And_Transforms.Models
             }
             else
             {
-                _filter = new SimplePassFilter(0.15, _filterType);
+                _filter = new SimplePassFilter(clipPercent, _filterType);
             }
         }
 

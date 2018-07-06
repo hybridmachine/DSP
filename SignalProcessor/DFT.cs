@@ -61,6 +61,23 @@ namespace SignalProcessor
 
             return (ImaginaryComponent[K] * ScalingFactor[K]);
         }
+
+
+        // See page 162, Equation 8-6 and 8-7 in "The Scientist and Engineer's Guide to Digital Signal Processing
+        #region polarcoords
+        public double Magnitude(int k)
+        {
+            return Math.Sqrt(Math.Pow(ScaledRealComponent(k), 2) + Math.Pow(ScaledImaginaryComponent(k), 2));
+        }
+
+        public double Phase(int k)
+        {
+            if (ScaledRealComponent(k) == 0)
+                return Math.PI / 2.0;
+
+            return Math.Atan(ScaledImaginaryComponent(k) / ScaledRealComponent(k));
+        }
+        #endregion
     }
 
     public class DFT
