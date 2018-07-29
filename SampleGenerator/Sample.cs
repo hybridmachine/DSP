@@ -110,7 +110,7 @@ namespace SampleGenerator
             for (int cnt = 0; cnt < padLen; cnt++)
                 paddedSignal.Add(0.0);
 
-            _frequencyDomain = DFT.Transform(paddedSignal);
+            _frequencyDomain = DFT.CorrelationTransform(paddedSignal);
             return _sliceSignal;
         }
 
@@ -130,7 +130,7 @@ namespace SampleGenerator
             }
             _sampleIDX += numSamplesToGet;
             _sliceSignal = _samples.GetRange(curIDX, numSamplesToGet);
-            _frequencyDomain = DFT.Transform(_sliceSignal);
+            _frequencyDomain = DFT.CorrelationTransform(_sliceSignal);
             return _sliceSignal;
         }
 

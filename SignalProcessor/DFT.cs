@@ -83,11 +83,71 @@ namespace SignalProcessor
     public class DFT
     {
         /// <summary>
+        /// This algorithm is derived from Chapter 12 (table 12-4) of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
+        /// </summary>
+        /// <param name="timeDomain"></param>
+        /// <returns></returns>
+        public static FrequencyDomain FastFourierTransform(List<double> timeDomain)
+        {
+            FrequencyDomain fftResult = new FrequencyDomain(timeDomain.Count);
+            // The FFT operates in place, store the timeDomain samples in the real component (leave the imaginary compoenent zeroed)
+            fftResult.RealComponent.Clear();
+            fftResult.RealComponent.AddRange(timeDomain);
+
+            int n = timeDomain.Count;
+            int nm1 = n - 1;
+            int nd2 = n / 2;
+            int m = (int)(Math.Log(n) / Math.Log(2));
+            int j = nd2;
+
+            #region bitreversal
+            int k;
+            for (int idx = 1; idx < (n - 2); idx++)
+            {
+                if (j < idx)
+                { 
+                    double tr = fftResult.RealComponent[j];
+                    double ti = fftResult.ImaginaryComponent[j];
+                    fftResult.RealComponent[j] = fftResult.RealComponent[idx];
+                    fftResult.ImaginaryComponent[j] = fftResult.ImaginaryComponent[idx];
+                    fftResult.RealComponent[idx] = tr;
+                    fftResult.ImaginaryComponent[idx] = ti;
+                }
+                k = nd2;
+                while (j <= k)
+                {
+                    j = j + k;
+                    k=k/2;
+                }
+                j = j + k;
+            }
+            #endregion
+
+            #region stageLoop
+            for (int L = 1; L <= m; L++)
+            {
+                int le = (int)2 ^ L;
+                int le2 = le / 2;
+                int ur = 1;
+                int ui = 0;
+
+                double sr = Math.Cos(Math.PI / le2);
+                double si = -1 * Math.Sin(Math.PI / le2);
+
+                // TODO, complete from table 12-4 http://www.dspguide.com/ch12/3.htm
+
+            }
+            #endregion
+
+            return fftResult;
+        }
+
+        /// <summary>
         /// This algorithm is derived from P 160 (Table 8-2) of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
         /// </summary>
         /// <param name="timeDomain"></param>
         /// <returns></returns>
-        public static FrequencyDomain Transform(List<double> timeDomain)
+        public static FrequencyDomain CorrelationTransform(List<double> timeDomain)
         {
             int timeDomainLen = timeDomain.Count;
             FrequencyDomain frequencyDomain = new FrequencyDomain(timeDomainLen);
