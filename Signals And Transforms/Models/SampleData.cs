@@ -33,7 +33,7 @@ namespace Signals_And_Transforms.Models
                         Sample sinusoidSamp2 = new Sample(16000, 1, 7000, sinusoid);
                         Sample whiteNoise = new Sample(16000, 1, 1000, random);
                         Sample squareWave = new Sample(8000, 1, 400, square);
-                        _signalSample = sinusoidSamp.SumWithSample(whiteNoise);
+                        _signalSample = sinusoidSamp;//.SumWithSample(whiteNoise);
                     }
 
                     _signalSample.Get50Padded64ChannelSamples(); // Prime the pump

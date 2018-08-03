@@ -15,11 +15,11 @@ namespace SignalProcessor
         public FrequencyDomain(int timeDomainLen)
         {
             int freqDomainLen = (timeDomainLen / 2) + 1;
-            RealComponent = new List<double>(freqDomainLen);
-            ScalingFactor = new List<double>(freqDomainLen);
-            ImaginaryComponent = new List<double>(freqDomainLen);
+            RealComponent = new List<double>(timeDomainLen);
+            ScalingFactor = new List<double>(timeDomainLen);
+            ImaginaryComponent = new List<double>(timeDomainLen);
 
-            for (int K = 0; K < freqDomainLen; K++)
+            for (int K = 0; K < timeDomainLen; K++)
             {
                 RealComponent.Add(0.0);
                 ImaginaryComponent.Add(0.0);
@@ -93,11 +93,17 @@ namespace SignalProcessor
             // The FFT operates in place, store the timeDomain samples in the real component (leave the imaginary compoenent zeroed)
             fftResult.RealComponent.Clear();
             fftResult.RealComponent.AddRange(timeDomain);
+            fftResult.ImaginaryComponent.Clear();
+            fftResult.ImaginaryComponent.Capacity = timeDomain.Count;
+            for (int idx = 0; idx < timeDomain.Count; idx++)
+            {
+                fftResult.ImaginaryComponent.Add(0.0);
+            }
 
             int n = timeDomain.Count;
             int nm1 = n - 1;
             int nd2 = n / 2;
-            int m = (int)(Math.Log(n) / Math.Log(2));
+            int m = (int)(Math.Log(n, 2));
             int j = nd2;
 
             #region bitreversal
@@ -126,16 +132,33 @@ namespace SignalProcessor
             #region stageLoop
             for (int L = 1; L <= m; L++)
             {
-                int le = (int)2 ^ L;
+                int le = (int)Math.Pow(2, L);
                 int le2 = le / 2;
-                int ur = 1;
-                int ui = 0;
+                double ur = 1;
+                double ui = 0;
 
                 double sr = Math.Cos(Math.PI / le2);
                 double si = -1 * Math.Sin(Math.PI / le2);
+                double tr;
+                double ti;
 
-                // TODO, complete from table 12-4 http://www.dspguide.com/ch12/3.htm
-
+                for (j = 1; j <= le2; j++)
+                {
+                    int jm1 = j - 1;
+                    for (int idx = jm1; idx <= nm1; idx += le)
+                    {
+                        int ip = (idx + le2) - 1;
+                        tr = fftResult.RealComponent[ip] * ur - fftResult.ImaginaryComponent[ip] * ui;
+                        ti = fftResult.RealComponent[ip] * ui + fftResult.ImaginaryComponent[ip] * ur;
+                        fftResult.RealComponent[ip] = fftResult.RealComponent[idx] - tr;
+                        fftResult.ImaginaryComponent[ip] = fftResult.ImaginaryComponent[idx] - ti;
+                        fftResult.RealComponent[idx] = fftResult.RealComponent[idx] + tr;
+                        fftResult.ImaginaryComponent[idx] = fftResult.ImaginaryComponent[idx] + ti;
+                    }
+                    tr = ur;
+                    ur = tr * sr - ui * si;
+                    ui = tr * si + ui * sr;
+                }
             }
             #endregion
 
