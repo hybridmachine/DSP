@@ -29,7 +29,7 @@ namespace Signals_And_Transforms.Models
                         ISignalGenerator random = new WhiteNoise();
                         ISignalGenerator square = new SquareIshWave();
 
-                        Sample sinusoidSamp = new Sample(16000, 1, 500, sinusoid);
+                        Sample sinusoidSamp = new Sample(8000, 1, 500, sinusoid);
                         Sample sinusoidSamp2 = new Sample(16000, 1, 7000, sinusoid);
                         Sample whiteNoise = new Sample(16000, 1, 1000, random);
                         Sample squareWave = new Sample(8000, 1, 400, square);

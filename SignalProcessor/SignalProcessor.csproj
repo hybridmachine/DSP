@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DFT.cs" />
+    <Compile Include="CorrelationFourierTransform.cs" />
+    <Compile Include="FastFourierTransform.cs" />
     <Compile Include="Filters\SimplePassFilter.cs" />
+    <Compile Include="FrequencyDomain.cs" />
+    <Compile Include="IDFT.cs" />
     <Compile Include="IDFTFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -18,8 +18,9 @@ namespace Discrete_Fourier_Transform
             ISignalGenerator sinusoid = new Sinusoid();
             Sample sinusoidSamp = new Sample(1000, 1, 200, sinusoid);
             List<double> signal = sinusoidSamp.GetNextSamplesForTimeSlice(10);
-            FrequencyDomain frequencyDomain = DFT.CorrelationTransform(signal);
-            List<double> synthesis = DFT.Synthesize(frequencyDomain);
+            IDFT transform = new CorrelationFourierTransform();
+            FrequencyDomain frequencyDomain = transform.Transform(signal);
+            List<double> synthesis = transform.Synthesize(frequencyDomain);
 
             try
             {

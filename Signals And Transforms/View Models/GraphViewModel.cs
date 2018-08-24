@@ -116,12 +116,13 @@ namespace Signals_And_Transforms.View_Models
 
             _synthesis.Clear();
             _signal.Clear();
+            IDFT transform = new FastFourierTransform();
             while (_signal.Count < 1000)
             { 
                 _signal.AddRange(SampleData.Get50Padded64ChannelSamples());
                 _frequencyDomain = SampleData.FreqDomain;
 
-                _synthesis.AddRange(DFT.Synthesize(_frequencyDomain));
+                _synthesis.AddRange(transform.Synthesize(_frequencyDomain));
             }
 
             this.MyModel = new PlotModel { Title = "Signal And Synthesis" };

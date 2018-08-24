@@ -110,8 +110,9 @@ namespace SampleGenerator
             for (int cnt = 0; cnt < padLen; cnt++)
                 paddedSignal.Add(0.0);
 
+            IDFT transform = new FastFourierTransform();
             //_frequencyDomain = DFT.CorrelationTransform(paddedSignal);
-            _frequencyDomain = DFT.FastFourierTransform(paddedSignal);
+            _frequencyDomain = transform.Transform(paddedSignal);
             return _sliceSignal;
         }
 
@@ -132,7 +133,8 @@ namespace SampleGenerator
             _sampleIDX += numSamplesToGet;
             _sliceSignal = _samples.GetRange(curIDX, numSamplesToGet);
             //_frequencyDomain = DFT.CorrelationTransform(_sliceSignal);
-            _frequencyDomain = DFT.FastFourierTransform(_sliceSignal);
+            IDFT transform = new FastFourierTransform();
+            _frequencyDomain = transform.Transform(_sliceSignal);
             return _sliceSignal;
         }
 

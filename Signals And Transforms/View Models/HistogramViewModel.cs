@@ -21,7 +21,6 @@ namespace Signals_And_Transforms.View_Models
     public class HistogramViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        List<double> _signal;
         FrequencyDomain _frequencyDomain;
         
         public PlotModel MyModel { get; private set; }
