@@ -36,21 +36,21 @@ namespace SignalProcessor
 
             #region bitreversal
             int k;
-            for (int idx = 1; idx < (n - 2); idx++)
+            for (int idx = 1; idx <= (n - 2); idx++)
             {
                 if (j < idx)
                 { 
-                    double tr = fftResult.RealComponent[j];
-                    double ti = fftResult.ImaginaryComponent[j];
-                    fftResult.RealComponent[j] = fftResult.RealComponent[idx];
-                    fftResult.ImaginaryComponent[j] = fftResult.ImaginaryComponent[idx];
-                    fftResult.RealComponent[idx] = tr;
-                    fftResult.ImaginaryComponent[idx] = ti;
+                    double tr = fftResult.RealComponent[j-1];
+                    double ti = fftResult.ImaginaryComponent[j-1];
+                    fftResult.RealComponent[j-1] = fftResult.RealComponent[idx-1];
+                    fftResult.ImaginaryComponent[j-1] = fftResult.ImaginaryComponent[idx-1];
+                    fftResult.RealComponent[idx-1] = tr;
+                    fftResult.ImaginaryComponent[idx-1] = ti;
                 }
                 k = nd2;
-                while (j <= k)
+                while (j >= k)
                 {
-                    j = j + k;
+                    j = j - k;
                     k=k/2;
                 }
                 j = j + k;
@@ -75,7 +75,7 @@ namespace SignalProcessor
                     int jm1 = j - 1;
                     for (int idx = jm1; idx <= nm1; idx += le)
                     {
-                        int ip = (idx + le2) - 1;
+                        int ip = (idx + le2);
                         tr = fftResult.RealComponent[ip] * ur - fftResult.ImaginaryComponent[ip] * ui;
                         ti = fftResult.RealComponent[ip] * ui + fftResult.ImaginaryComponent[ip] * ur;
                         fftResult.RealComponent[ip] = fftResult.RealComponent[idx] - tr;

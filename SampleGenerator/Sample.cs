@@ -133,7 +133,8 @@ namespace SampleGenerator
             _sampleIDX += numSamplesToGet;
             _sliceSignal = _samples.GetRange(curIDX, numSamplesToGet);
             //_frequencyDomain = DFT.CorrelationTransform(_sliceSignal);
-            IDFT transform = new FastFourierTransform();
+            //IDFT transform = new FastFourierTransform();
+            IDFT transform = new CorrelationFourierTransform();
             _frequencyDomain = transform.Transform(_sliceSignal);
             return _sliceSignal;
         }
