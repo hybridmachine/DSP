@@ -58,9 +58,10 @@ namespace TestConvolution
                 inputIdx++;
             }
 
-            List<double> output = convolver.Convolve(kernel, input);
+            ConvolutionType type = ConvolutionType.INPUTSIDE;
+            List<double> output = convolver.Convolve(kernel, input, type);
 
-            Console.WriteLine("# Output signal:");
+            Console.WriteLine("# Convolution Type: " + type + " signal:");
 
             foreach (double val in output)
             {
