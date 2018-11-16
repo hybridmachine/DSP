@@ -16,14 +16,29 @@ namespace TestConvolution
             List<double> kernel = new List<double>(100);
             List<double> input = new List<double>(100);
 
-            if (args.Count() < 2)
+            if (args.Count() < 3)
             {
-                Console.WriteLine("usage: TestConvolution.exe <kernel file> <input file>");
+                Console.WriteLine("usage: TestConvolution.exe <kernel file> <input file> [I,O]");
                 return;
             }
 
             FileStream kernelFile = File.OpenRead(args[0]);
             FileStream inputFile = File.OpenRead(args[1]);
+
+            ConvolutionType type;
+            if ("I" == args[2])
+            {
+                type = ConvolutionType.INPUTSIDE;
+            }
+            else if ("O" == args[2])
+            {
+                type = ConvolutionType.OUTPUTSIDE;
+            }
+            else
+            {
+                Console.WriteLine("Type must be either I or O (inputside or outputside)");
+                return;
+            }
 
             StreamReader kernelStream = new StreamReader(kernelFile);
             StreamReader inputStream = new StreamReader(inputFile);
@@ -58,7 +73,6 @@ namespace TestConvolution
                 inputIdx++;
             }
 
-            ConvolutionType type = ConvolutionType.INPUTSIDE;
             List<double> output = convolver.Convolve(kernel, input, type);
 
             Console.WriteLine("# Convolution Type: " + type + " signal:");
