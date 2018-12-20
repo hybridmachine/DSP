@@ -20,6 +20,7 @@ namespace Discrete_Convolution.View_Models
         public InputConvolutionOutputViewModel()
         {
             LoadInitialInputModel();
+            LoadInitialConvolutionModel();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,13 +28,14 @@ namespace Discrete_Convolution.View_Models
         private void LoadInitialInputModel()
         {
             InputModel = new PlotModel { Title = "Input Signal" };
-            var linearAxis1 = new LinearAxis();
-            linearAxis1.Position = AxisPosition.Bottom;
-            InputModel.Axes.Add(linearAxis1);
-            var linearAxis2 = new LinearAxis();
-            InputModel.Axes.Add(linearAxis2);
-            var linearBarSeries1 = new ScatterSeries();
+            var linearBarSeries1 = new ScatterSeries { MarkerType = MarkerType.Circle };
             linearBarSeries1.Title = "Signal";
+
+            
+            linearBarSeries1.Points.Add(new ScatterPoint(1, 1));
+            linearBarSeries1.Points.Add(new ScatterPoint(2, 2));
+            linearBarSeries1.Points.Add(new ScatterPoint(3, 3));
+            linearBarSeries1.Points.Add(new ScatterPoint(4, 4));
 
             InputModel.Series.Add(linearBarSeries1);
 
@@ -42,7 +44,19 @@ namespace Discrete_Convolution.View_Models
 
         private void LoadInitialConvolutionModel()
         {
+            ConvolutionModel = new PlotModel { Title = "Input Signal" };
+            var linearBarSeries1 = new ScatterSeries { MarkerType = MarkerType.Circle };
+            linearBarSeries1.Title = "Signal";
 
+
+            linearBarSeries1.Points.Add(new ScatterPoint(1, 1));
+            linearBarSeries1.Points.Add(new ScatterPoint(2, 2));
+            linearBarSeries1.Points.Add(new ScatterPoint(3, 3));
+            linearBarSeries1.Points.Add(new ScatterPoint(4, 4));
+
+            ConvolutionModel.Series.Add(linearBarSeries1);
+
+            NotifyPropertyChanged("ConvolutionModel");
         }
 
         private void LoadInitialOutputModel()

@@ -28,6 +28,16 @@ namespace DSP
             }
         }
 
+        // This algorithm is derived from Table Chapter 7 section on Correlation of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
+        // http://www.dspguide.com/ch7/3.htm
+        public List<Double> Correlate(List<double> target, List<double> signal)
+        {
+            // Correlation is performed by flipping either the target or signal and then running convolution
+            List<double> invertedTarget = new List<double>(target);
+            invertedTarget.Reverse();
+            return InputSideConvolution(invertedTarget, signal);
+        }
+
         // This algorithm is derived from Table 6-1 of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
         // http://www.dspguide.com/ch6/3.htm
         private List<double> InputSideConvolution(List<double> kernel, List<double> input)

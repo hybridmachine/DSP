@@ -25,11 +25,12 @@
                 Height="Auto"
                 Margin="10">
             <Border CornerRadius="3" Background="Beige">
-                <StackPanel Orientation="Horizontal">
-                    <oxy:PlotView Model="{Binding InputModel}"/>
-                    <oxy:PlotView Model="{Binding ConvolutionModel}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="8">
+                    <oxy:PlotView MinWidth="400" Model="{Binding InputModel}"/>
+                    <oxy:PlotView MinWidth="400" Model="{Binding ConvolutionModel}"/>
                 </StackPanel>
             </Border>
+
         </GroupBox>
         <GroupBox 
                 Grid.Row="1"
@@ -40,7 +41,7 @@
                 Margin="10">
             <Border CornerRadius="3" Background="Beige">
                 <StackPanel Orientation="Horizontal">
-                    <oxy:PlotView Model="{Binding OutputModel}"/>
+                    <oxy:PlotView MinWidth="800" Model="{Binding OutputModel}"/>
                 </StackPanel>
             </Border>
         </GroupBox>
