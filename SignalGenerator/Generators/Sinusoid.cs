@@ -13,12 +13,14 @@ namespace SignalGenerator.Generators
         {
             List<double> samples = new List<double>(sampleCount);
             double theta;
+            double amplitude;
 
             for (int sample = 0; sample < sampleCount; sample++)
             {
                 theta = cycles * ((double)sample / (double)(sampleCount - 1)) * 2 * Math.PI;
-                Console.Out.WriteLine("Sample " + sample + " radian " + theta);
-                samples.Add(Math.Sin(theta));
+                amplitude = Math.Sin(theta);
+                Console.Out.WriteLine("Sample " + sample + " radian " + theta + " amplitude " + amplitude);
+                samples.Add(amplitude);
             }
             return samples;
         }

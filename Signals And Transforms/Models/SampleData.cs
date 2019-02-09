@@ -29,14 +29,14 @@ namespace Signals_And_Transforms.Models
                         ISignalGenerator random = new WhiteNoise();
                         ISignalGenerator square = new SquareIshWave();
 
-                        Sample sinusoidSamp = new Sample(8000, 1, 500, sinusoid);
-                        Sample sinusoidSamp2 = new Sample(16000, 1, 7000, sinusoid);
-                        Sample whiteNoise = new Sample(16000, 1, 1000, random);
-                        Sample squareWave = new Sample(8000, 1, 400, square);
+                        Sample sinusoidSamp = new Sample(8000, 1, 2, sinusoid);
+                        //Sample sinusoidSamp2 = new Sample(16000, 1, 7000, sinusoid);
+                        //Sample whiteNoise = new Sample(16000, 1, 1000, random);
+                        //Sample squareWave = new Sample(8000, 1, 400, square);
                         _signalSample = sinusoidSamp;//.SumWithSample(whiteNoise);
+                        _signalSample.GetPaddedChannelSample(64,0); // Prime the pump
                     }
 
-                    _signalSample.Get50Padded64ChannelSamples(); // Prime the pump
                     return _signalSample;
                 }
             }
@@ -70,10 +70,10 @@ namespace Signals_And_Transforms.Models
         /// Get the next 50 samples, the Frequency Domain is padded to 64 in its calculation
         /// </summary>
         /// <returns></returns>
-        public static List<double> Get50Padded64ChannelSamples()
+        public static List<double> GetPaddedChannelSample(int sampleCount, int padCount)
         {
             NewSlice?.Invoke(null, null);
-            return SignalSample.Get50Padded64ChannelSamples();
+            return SignalSample.GetPaddedChannelSample(sampleCount, padCount);
         }
 
         public static List<double> GetNextSamplesForTimeSlice(int millis)

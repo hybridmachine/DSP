@@ -87,32 +87,35 @@ namespace SampleGenerator
         }
         
         // 64 channel DFT done on 50 samples + 14 zeros padded right
-        public List<double> Get50Padded64ChannelSamples()
+        public List<double> GetPaddedChannelSample(int sampleCount, int padCount)
         {
-            int numSamplesToGet = 64;
+            int numSamplesToGet = (sampleCount - padCount);
             int curIDX = _sampleIDX;
             if (curIDX + numSamplesToGet >= _samples.Count)
             {
-                numSamplesToGet = _samples.Count - curIDX - 1;
+                numSamplesToGet = _samples.Count - curIDX;
                 if (numSamplesToGet <= 0)
                 {
                     // Roll over to the beginning
                     _sampleIDX = 0;
-                    return Get50Padded64ChannelSamples();
+                    return GetPaddedChannelSample(sampleCount, padCount);
                 }
             }
+
             _sampleIDX += numSamplesToGet;
             _sliceSignal = _samples.GetRange(curIDX, numSamplesToGet);
 
-            List<double> paddedSignal = new List<double>(_sliceSignal);
+            List<double> paddedSignal = new List<double>(sampleCount);
+            paddedSignal.AddRange(_sliceSignal);
             // Pad
             int padLen  = (64 - numSamplesToGet);
             for (int cnt = 0; cnt < padLen; cnt++)
                 paddedSignal.Add(0.0);
 
-            IDFT transform = new FastFourierTransform();
+            IDFT ff_transform = new FastFourierTransform();
+            IDFT cdf_tranform = new CorrelationFourierTransform();
             //_frequencyDomain = DFT.CorrelationTransform(paddedSignal);
-            _frequencyDomain = transform.Transform(paddedSignal);
+            _frequencyDomain = cdf_tranform.Transform(paddedSignal);
             return _sliceSignal;
         }
 

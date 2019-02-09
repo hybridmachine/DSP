@@ -116,18 +116,20 @@ namespace Signals_And_Transforms.View_Models
 
             _synthesis.Clear();
             _signal.Clear();
-            IDFT transform = new FastFourierTransform();
-            while (_signal.Count < 1000)
-            { 
-                _signal.AddRange(SampleData.Get50Padded64ChannelSamples());
+            IDFT transform = new CorrelationFourierTransform();
+            int sampleCount = 64;
+            int padCount = 0;
+            do
+            {
+                _signal.AddRange(SampleData.GetPaddedChannelSample(sampleCount, padCount));
                 _frequencyDomain = SampleData.FreqDomain;
 
-                _synthesis.AddRange(transform.Synthesize(_frequencyDomain));
-            }
+                _synthesis.AddRange(transform.Synthesize(_frequencyDomain).Take((sampleCount - padCount)));
+            } while (_signal.Count < SampleData.SignalSample.SampleCount);
 
-            this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
+                this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
             this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _signal.Count - 1, 1.0, "Synthesis")); // Clip synthesis to signal sample count
-           // this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, _signal.Count - 1, 1.0, "Signal"));
+            this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, _signal.Count - 1, 1.0, "Signal"));
 
             NotifyPropertyChanged("MyModel");
         }
