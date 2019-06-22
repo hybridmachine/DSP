@@ -115,7 +115,7 @@ namespace SampleGenerator
             IDFT ff_transform = new FastFourierTransform();
             IDFT cdf_tranform = new CorrelationFourierTransform();
             //_frequencyDomain = DFT.CorrelationTransform(paddedSignal);
-            _frequencyDomain = cdf_tranform.Transform(paddedSignal);
+            _frequencyDomain = ff_transform.Transform(paddedSignal);
             return _sliceSignal;
         }
 

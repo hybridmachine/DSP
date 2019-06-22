@@ -116,7 +116,10 @@ namespace Signals_And_Transforms.View_Models
 
             _synthesis.Clear();
             _signal.Clear();
-            IDFT transform = new CorrelationFourierTransform();
+            //IDFT transform = new CorrelationFourierTransform();
+            IDFT transform = new FastFourierTransform();
+
+
             int sampleCount = 64;
             int padCount = 0;
             do

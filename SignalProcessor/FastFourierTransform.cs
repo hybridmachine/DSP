@@ -10,25 +10,10 @@ namespace SignalProcessor
 
     public class FastFourierTransform : IDFT
     {
-        /// <summary>
-        /// This algorithm is derived from Chapter 12 (table 12-4) of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
-        /// </summary>
-        /// <param name="timeDomain"></param>
-        /// <returns></returns>
-        public FrequencyDomain Transform(List<double> timeDomain)
-        {
-            FrequencyDomain fftResult = new FrequencyDomain(timeDomain.Count, this);
-            // The FFT operates in place, store the timeDomain samples in the real component (leave the imaginary compoenent zeroed)
-            fftResult.RealComponent.Clear();
-            fftResult.RealComponent.AddRange(timeDomain);
-            fftResult.ImaginaryComponent.Clear();
-            fftResult.ImaginaryComponent.Capacity = timeDomain.Count;
-            for (int idx = 0; idx < timeDomain.Count; idx++)
-            {
-                fftResult.ImaginaryComponent.Add(0.0);
-            }
 
-            int n = timeDomain.Count;
+        private FrequencyDomain Transform(FrequencyDomain frequencyDomain)
+        {
+            int n = frequencyDomain.RealComponent.Count;
             int nm1 = n - 1;
             int nd2 = n / 2;
             int m = (int)(Math.Log(n, 2));
@@ -38,20 +23,20 @@ namespace SignalProcessor
             int k;
             for (int idx = 1; idx <= (n - 2); idx++)
             {
-                if (j < idx)
-                { 
-                    double tr = fftResult.RealComponent[j-1];
-                    double ti = fftResult.ImaginaryComponent[j-1];
-                    fftResult.RealComponent[j-1] = fftResult.RealComponent[idx-1];
-                    fftResult.ImaginaryComponent[j-1] = fftResult.ImaginaryComponent[idx-1];
-                    fftResult.RealComponent[idx-1] = tr;
-                    fftResult.ImaginaryComponent[idx-1] = ti;
+                if (idx <= j)
+                {
+                    double tr = frequencyDomain.RealComponent[j-1];
+                    double ti = frequencyDomain.ImaginaryComponent[j-1];
+                    frequencyDomain.RealComponent[j-1] = frequencyDomain.RealComponent[idx];
+                    frequencyDomain.ImaginaryComponent[j-1] = frequencyDomain.ImaginaryComponent[idx];
+                    frequencyDomain.RealComponent[idx] = tr;
+                    frequencyDomain.ImaginaryComponent[idx] = ti;
                 }
                 k = nd2;
-                while (j >= k)
+                while (j > k)
                 {
                     j = j - k;
-                    k=k/2;
+                    k = k / 2;
                 }
                 j = j + k;
             }
@@ -76,12 +61,12 @@ namespace SignalProcessor
                     for (int idx = jm1; idx <= nm1; idx += le)
                     {
                         int ip = (idx + le2);
-                        tr = fftResult.RealComponent[ip] * ur - fftResult.ImaginaryComponent[ip] * ui;
-                        ti = fftResult.RealComponent[ip] * ui + fftResult.ImaginaryComponent[ip] * ur;
-                        fftResult.RealComponent[ip] = fftResult.RealComponent[idx] - tr;
-                        fftResult.ImaginaryComponent[ip] = fftResult.ImaginaryComponent[idx] - ti;
-                        fftResult.RealComponent[idx] = fftResult.RealComponent[idx] + tr;
-                        fftResult.ImaginaryComponent[idx] = fftResult.ImaginaryComponent[idx] + ti;
+                        tr = frequencyDomain.RealComponent[ip] * ur - frequencyDomain.ImaginaryComponent[ip] * ui;
+                        ti = frequencyDomain.RealComponent[ip] * ui + frequencyDomain.ImaginaryComponent[ip] * ur;
+                        frequencyDomain.RealComponent[ip] = frequencyDomain.RealComponent[idx] - tr;
+                        frequencyDomain.ImaginaryComponent[ip] = frequencyDomain.ImaginaryComponent[idx] - ti;
+                        frequencyDomain.RealComponent[idx] = frequencyDomain.RealComponent[idx] + tr;
+                        frequencyDomain.ImaginaryComponent[idx] = frequencyDomain.ImaginaryComponent[idx] + ti;
                     }
                     tr = ur;
                     ur = tr * sr - ui * si;
@@ -90,7 +75,27 @@ namespace SignalProcessor
             }
             #endregion
 
-            return fftResult;
+            return frequencyDomain;
+        }
+        /// <summary>
+        /// This algorithm is derived from Chapter 12 (table 12-4) of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
+        /// </summary>
+        /// <param name="timeDomain"></param>
+        /// <returns></returns>
+        public FrequencyDomain Transform(List<double> timeDomain)
+        {
+            FrequencyDomain fftResult = new FrequencyDomain(timeDomain.Count, this);
+            // The FFT operates in place, store the timeDomain samples in the real component (leave the imaginary compoenent zeroed)
+            fftResult.RealComponent.Clear();
+            fftResult.RealComponent.AddRange(timeDomain);
+            fftResult.ImaginaryComponent.Clear();
+            fftResult.ImaginaryComponent.Capacity = timeDomain.Count;
+            for (int idx = 0; idx < timeDomain.Count; idx++)
+            {
+                fftResult.ImaginaryComponent.Add(0.0);
+            }
+
+            return Transform(fftResult);
         }
 
         /// <summary>
@@ -101,6 +106,14 @@ namespace SignalProcessor
         /// <returns></returns>
         public List<double> Synthesize(FrequencyDomain frequencyDomain)
         {
+            for (int k = 0; k < frequencyDomain.frequencyDomainLen; k++)
+            {
+                frequencyDomain.ImaginaryComponent[k] *= -1;
+            }
+
+            // Transformation happens in place
+            Transform(frequencyDomain);
+
             // Chainge the sign of the imaginary component
             for (int i = 0; i < frequencyDomain.frequencyDomainLen; i++)
             {
