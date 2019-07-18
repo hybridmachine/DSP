@@ -25,15 +25,15 @@ namespace SignalProcessor
             {
                 if (idx <= j)
                 {
-                    double tr = frequencyDomain.RealComponent[j-1];
-                    double ti = frequencyDomain.ImaginaryComponent[j-1];
-                    frequencyDomain.RealComponent[j-1] = frequencyDomain.RealComponent[idx];
-                    frequencyDomain.ImaginaryComponent[j-1] = frequencyDomain.ImaginaryComponent[idx];
+                    double tr = frequencyDomain.RealComponent[j];
+                    double ti = frequencyDomain.ImaginaryComponent[j];
+                    frequencyDomain.RealComponent[j] = frequencyDomain.RealComponent[idx];
+                    frequencyDomain.ImaginaryComponent[j] = frequencyDomain.ImaginaryComponent[idx];
                     frequencyDomain.RealComponent[idx] = tr;
                     frequencyDomain.ImaginaryComponent[idx] = ti;
                 }
                 k = nd2;
-                while (!(k>=j))
+                while (!(k>j))
                 {
                     j = j - k;
 

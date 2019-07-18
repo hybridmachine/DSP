@@ -86,7 +86,7 @@ namespace SampleGenerator
             }
         }
         
-        // 64 channel DFT done on 50 samples + 14 zeros padded right
+        // 64 channel sample with padCount zeros padded right
         public List<double> GetPaddedChannelSample(int sampleCount, int padCount)
         {
             int numSamplesToGet = (sampleCount - padCount);
@@ -108,7 +108,7 @@ namespace SampleGenerator
             List<double> paddedSignal = new List<double>(sampleCount);
             paddedSignal.AddRange(_sliceSignal);
             // Pad
-            int padLen  = (64 - numSamplesToGet);
+            int padLen  = (sampleCount - numSamplesToGet);
             for (int cnt = 0; cnt < padLen; cnt++)
                 paddedSignal.Add(0.0);
 

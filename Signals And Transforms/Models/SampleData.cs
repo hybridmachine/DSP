@@ -30,11 +30,11 @@ namespace Signals_And_Transforms.Models
                         ISignalGenerator square = new SquareIshWave();
 
                         Sample sinusoidSamp = new Sample(8000, 1, 2, sinusoid);
-                        //Sample sinusoidSamp2 = new Sample(16000, 1, 7000, sinusoid);
-                        //Sample whiteNoise = new Sample(16000, 1, 1000, random);
+                        Sample sinusoidSamp2 = new Sample(8000, 1, 8, sinusoid);
+                        //Sample whiteNoise = new Sample(8000, 1, 1000, random);
                         //Sample squareWave = new Sample(8000, 1, 400, square);
-                        _signalSample = sinusoidSamp;//.SumWithSample(whiteNoise);
-                        _signalSample.GetPaddedChannelSample(64,0); // Prime the pump
+                        _signalSample = sinusoidSamp.SumWithSample(sinusoidSamp2);
+                        _signalSample.GetPaddedChannelSample(256,0); // Prime the pump
                     }
 
                     return _signalSample;
