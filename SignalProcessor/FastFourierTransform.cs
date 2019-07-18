@@ -33,10 +33,14 @@ namespace SignalProcessor
                     frequencyDomain.ImaginaryComponent[idx] = ti;
                 }
                 k = nd2;
-                while (j > k)
+                while (!(k>=j))
                 {
                     j = j - k;
-                    k = k / 2;
+
+                    if (k >= 2)
+                    {
+                        k = k / 2;
+                    }
                 }
                 j = j + k;
             }
