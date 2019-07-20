@@ -56,6 +56,7 @@ namespace Signals_And_Transforms.View_Models
             
             MyModel.Series.Add(linearBarSeries1);
 
+            MyModel.TitleFontSize = 12;
             NotifyPropertyChanged("MyModel");
         }
 

@@ -36,5 +36,20 @@ namespace Signals_And_Transforms
                 if (binding != null) { binding.UpdateSource(); }
             }
         }
+
+        private void HistogramView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_Up(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Button_Click_Down(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

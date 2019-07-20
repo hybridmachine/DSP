@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command Classes\RelayCommand.cs" />
     <Compile Include="Models\SampleData.cs" />
     <Compile Include="View Models\GraphViewModel.cs" />
     <Compile Include="View Models\HistogramViewModel.cs" />

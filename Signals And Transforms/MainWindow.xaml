@@ -13,27 +13,35 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <GroupBox 
-                Grid.Row="0"
-                VerticalAlignment="Stretch" 
-                VerticalContentAlignment="Stretch" 
-                HorizontalAlignment="Stretch"
-                Height="Auto"
-                Margin="10">
-            <Border CornerRadius="3" Background="Beige">
-                <oxy:PlotView Model="{Binding MyModel}"/>
-            </Border>
-        </GroupBox>
+
+        <oxy:PlotView Model="{Binding MyModel}" Margin="0,0,0,0" Grid.Row="0"/>
+
+        <views:HistogramView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,-10,0,0" Grid.Row="1"/>
+
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <StackPanel.Background>
                 <ImageBrush ImageSource="Resources/LeaderBar.png" Opacity="0.5"/>
             </StackPanel.Background>
-            <Label Margin="10,0,0,0" Content="Signal Scale:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SignalScale}" VerticalAlignment="Center"/>
+            <Label Margin="10,0,0,0" Content="Synthesis Offset:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Vertical" Margin="0,5,0,5" VerticalAlignment="Stretch">
+                <Grid VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <Button Height="10" Grid.Row="0" VerticalAlignment="Top" Command="{Binding Path=IncrementOffsetCmd}">
+                        <Path Fill="Black" Data="M 0 6 L 12 6 L 6 0 Z"/>
+                    </Button>
+                    <Button Grid.Row="1" VerticalAlignment="Bottom" Command="{Binding Path=DecrementOffsetCommand}">
+                        <Path Fill="Black" Data="M 0 0 L 6 6 L 12 0 Z"/>
+                    </Button>
+                </Grid>
+            </StackPanel>
+            <!--<TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding SynthesisOffset}" VerticalAlignment="Center"/>-->
 
             <Label Margin="10,0,0,0" Content="Frames Per Second:" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center"/>
             <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding FramesPerSecond}" VerticalAlignment="Center"/>
@@ -49,6 +57,6 @@
             <TextBox HorizontalAlignment="Left" Height="20" Width="40" Margin="5,0,0,0" KeyUp="TextBox_KeyEnterUpdate" Text="{Binding FilterClipPercentage}" VerticalAlignment="Center"/>
 
         </StackPanel>
-        <views:HistogramView VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1"/>
+
     </Grid>
 </Window>

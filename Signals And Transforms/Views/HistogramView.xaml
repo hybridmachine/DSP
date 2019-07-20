@@ -10,19 +10,8 @@
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
-        <GroupBox 
-                Grid.Row="0"
-                VerticalAlignment="Stretch" 
-                VerticalContentAlignment="Stretch" 
-                HorizontalAlignment="Stretch"
-                Height="Auto"
-                Margin="10">
-            <Border CornerRadius="3" Background="Beige">
-                <oxy:PlotView Model="{Binding MyModel}"/>
-            </Border>
-        </GroupBox>
+        <oxy:PlotView Grid.Row="0" Model="{Binding MyModel}"/>
     </Grid>
 </UserControl>

@@ -13,6 +13,7 @@ using SampleGenerator;
 using SignalProcessor.Filters;
 using System.Windows.Threading;
 using Signals_And_Transforms.Models;
+using System.Windows.Input;
 
 namespace Signals_And_Transforms.View_Models
 {
@@ -48,13 +49,69 @@ namespace Signals_And_Transforms.View_Models
             _dispatchTimer.Start();
         }
 
+        private ICommand _incrementSynthesisOffset;
+        public ICommand IncrementOffsetCmd
+        {
+            get
+            {
+                if (_incrementSynthesisOffset == null)
+                {
+                    _incrementSynthesisOffset = new RelayCommand(
+                        p => this.CanIncrement,
+                        p => this.IncrementOffset());
+                }
+                return _incrementSynthesisOffset;
+            }
+        }
+
+        private ICommand _decrementSynthesisOffset;
+        public ICommand DecrementOffsetCommand
+        {
+            get
+            {
+                if (_decrementSynthesisOffset == null)
+                {
+                    _decrementSynthesisOffset = new RelayCommand(
+                        p => this.CanDecrement,
+                        p => this.DecrementOffset());
+                }
+                return _decrementSynthesisOffset;
+            }
+        }
+        bool CanIncrement
+        {
+            get
+            {
+                return true;
+            }
+        }
+        bool CanDecrement
+        {
+            get
+            { 
+                return true;
+            }
+        }
+
+        void IncrementOffset()
+        {
+            SynthesisOffset += 0.2;
+            NotifyPropertyChanged();
+        }
+
+        void DecrementOffset()
+        {
+            SynthesisOffset -= 0.2;
+            NotifyPropertyChanged();
+        }
+
         private void DispatchTimer_Tick(object sender, EventArgs e)
         {
             GetNewModel();
         }
 
         public PlotModel MyModel { get; private set; }
-        public double SignalScale
+        public double SynthesisOffset
         {
             get
             {
@@ -131,8 +188,10 @@ namespace Signals_And_Transforms.View_Models
             } while (_signal.Count < SampleData.SignalSample.SampleCount);
 
                 this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
-            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _signal.Count - 1, 1.0, "Synthesis")); // Clip synthesis to signal sample count
             this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, _signal.Count - 1, 1.0, "Signal"));
+            this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _signal.Count - 1, 1.0, "Synthesis")); // Clip synthesis to signal sample count
+
+            this.MyModel.TitleFontSize = 12;
 
             NotifyPropertyChanged("MyModel");
         }
@@ -206,7 +265,7 @@ namespace Signals_And_Transforms.View_Models
                 return 0.0;
             }
 
-            return _synthesis[idx];
+            return (_synthesis[idx] - SynthesisOffset);
         }
 
         private double getSignal(double index)
@@ -217,7 +276,7 @@ namespace Signals_And_Transforms.View_Models
                 return 0.0;
             }
 
-            return _signal[idx] * SignalScale;
+            return _signal[idx];
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
