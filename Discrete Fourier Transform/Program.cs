@@ -15,30 +15,43 @@ namespace Discrete_Fourier_Transform
     {
         static void Main(string[] args)
         {
-            ISignalGenerator sinusoid = new Sinusoid();
-            Sample sinusoidSamp = new Sample(1000, 1, 200, sinusoid);
-            List<double> signal = sinusoidSamp.GetNextSamplesForTimeSlice(10);
-            IDFT transform = new CorrelationFourierTransform();
-            FrequencyDomain frequencyDomain = transform.Transform(signal);
-            List<double> synthesis = transform.Synthesize(frequencyDomain);
-
+            // ISignalGenerator sinusoid = new Sinusoid();
+            // Sample sinusoidSamp = new Sample(1000, 1, 200, sinusoid);
+            // List<double> signal = sinusoidSamp.GetNextSamplesForTimeSlice(64);
+            // IDFT transform = new FastFourierTransform();
+            // FrequencyDomain frequencyDomain = transform.Transform(signal);
+            // List<double> synthesis = transform.Synthesize(frequencyDomain);
+            
             try
             {
-                FileStream output = new FileStream("sinusoid.csv", FileMode.Create);
+                StreamReader input = new StreamReader(args[0]);
+                List<double> signal = new List<double>(64);
+
+                while(input.Peek() > 0)
+                {
+                    double value;
+                    if (Double.TryParse(input.ReadLine(), out value))
+                    {
+                        signal.Add(value);
+                    }
+                }
+                IDFT transform = new FastFourierTransform();
+                FrequencyDomain frequencyDomain = transform.Transform(signal);
+                //List<double> synthesis = transform.Synthesize(frequencyDomain);
+                FileStream output = new FileStream("FourierTransformResults.csv", FileMode.Create);
 
                 if (output.CanWrite)
                 {
                     StreamWriter writer = new StreamWriter(output);
 
                     // Write header row
-                    writer.WriteLine("Index, Signal, Synthesis");
+                    writer.WriteLine("Index, Signal, Synthesis, Real, Imaginary");
 
                     for (int idx = 0; idx < signal.Count; idx++)
                     {
                         double sampleVal = signal[idx];
-                        double synthVal = synthesis[idx];
-                        writer.WriteLine(idx + "," + sampleVal + "," + synthVal);
-                        idx++;
+                        double synthVal = 0.0f;
+                        writer.WriteLine(idx + "," + sampleVal + "," + synthVal + "," + frequencyDomain.RealComponent[idx] + "," + frequencyDomain.ImaginaryComponent[idx]);
                     }
 
                     writer.Close();

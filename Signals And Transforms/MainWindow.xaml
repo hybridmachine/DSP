@@ -13,8 +13,8 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70*"/>
-            <RowDefinition Height="22*"/>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="46*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
