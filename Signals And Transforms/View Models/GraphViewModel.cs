@@ -182,12 +182,12 @@ namespace Signals_And_Transforms.View_Models
             do
             {
                 _signal.AddRange(SampleData.GetPaddedChannelSample(sampleCount, padCount));
-                _frequencyDomain = SampleData.FreqDomain;
+                _frequencyDomain = new FrequencyDomain(SampleData.FreqDomain); // Get a copy so we can show the histogram correctly when using the FFT which synthesizes in place
 
                 _synthesis.AddRange(transform.Synthesize(_frequencyDomain).Take((sampleCount - padCount)));
             } while (_signal.Count < SampleData.SignalSample.SampleCount);
 
-                this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
+            this.MyModel = new PlotModel { Title = "Signal And Synthesis" };
             this.MyModel.Series.Add(new FunctionSeries(getSignal, 0, _signal.Count - 1, 1.0, "Signal"));
             this.MyModel.Series.Add(new FunctionSeries(getSynthesis, 0, _signal.Count - 1, 1.0, "Synthesis")); // Clip synthesis to signal sample count
 

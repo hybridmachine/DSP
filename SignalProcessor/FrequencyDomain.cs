@@ -37,6 +37,15 @@ namespace SignalProcessor
             }
         }
 
+        // Copy constructor
+        public FrequencyDomain(FrequencyDomain rh)
+        {
+            this.RealComponent = new List<double>(rh.RealComponent);
+            this.ScalingFactor = new List<double>(rh.ScalingFactor);
+            this.ImaginaryComponent = new List<double>(rh.ImaginaryComponent);
+            this.frequencyDomainLen = rh.frequencyDomainLen;
+        }
+
         /// <summary>
         /// Users can call this and alter the filter values (low to high, 0 -> Count)
         /// </summary>
