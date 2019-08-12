@@ -4,10 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Discrete_Convolution"
+        xmlns:localModels="clr-namespace:Discrete_Convolution.View_Models"
         xmlns:views="clr-namespace:Discrete_Convolution.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <localModels:ConvolutionViewModel />
+    </Window.DataContext>
     <Grid>
-        <views:InputConvolutionOutputView/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Ribbon x:Name="RibbonWin" SelectedIndex="0" Grid.Row="0">
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonButton x:Name="LoadSignal" SmallImageSource="Images/LoadSignal.png" Click="LoadSignal_Click"/>
+                    <RibbonButton x:Name="LoadFilterKernel" SmallImageSource="Images/LoadFilter.png" Click="LoadFilterKernel_Click"/>
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+        </Ribbon>
+        <views:InputConvolutionOutputView Grid.Row="1"/>
     </Grid>
 </Window>

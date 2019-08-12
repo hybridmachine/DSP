@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Discrete_Convolution.View_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,41 @@ namespace Discrete_Convolution
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void LoadSignal_Click(object sender, RoutedEventArgs e)
+        {
+            var dataContext = DataContext as ConvolutionViewModel;
+            var fileDialog = new System.Windows.Forms.OpenFileDialog();
+            fileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            var result = fileDialog.ShowDialog();
+            switch (result)
+            {
+                case System.Windows.Forms.DialogResult.OK:
+                    dataContext.SignalFile = fileDialog.FileName;
+                    break;
+                case System.Windows.Forms.DialogResult.Cancel:
+                default:
+                    break;
+            }
+
+        }
+
+        private void LoadFilterKernel_Click(object sender, RoutedEventArgs e)
+        {
+            var dataContext = DataContext as ConvolutionViewModel;
+            var fileDialog = new System.Windows.Forms.OpenFileDialog();
+            fileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            var result = fileDialog.ShowDialog();
+            switch (result)
+            {
+                case System.Windows.Forms.DialogResult.OK:
+                    dataContext.FilterFile = fileDialog.FileName;
+                    break;
+                case System.Windows.Forms.DialogResult.Cancel:
+                default:
+                    break;
+            }
         }
     }
 }
