@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:Discrete_Convolution"
         xmlns:localModels="clr-namespace:Discrete_Convolution.View_Models"
         xmlns:views="clr-namespace:Discrete_Convolution.Views"
+        xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <localModels:ConvolutionViewModel />
+        <localModels:ConvolutionViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -24,6 +25,12 @@
                 </RibbonQuickAccessToolBar>
             </Ribbon.QuickAccessToolBar>
         </Ribbon>
-        <views:InputConvolutionOutputView Grid.Row="1"/>
+        <!--<charting:Chart Grid.Row="1" DataContext="{Binding}" Name="SignalChart" Title="{Binding ChartName}">
+            <charting:ScatterSeries DependentValuePath="SignalData" IndependentValuePath="SignalIndependantData" ItemsSource="{Binding}">
+            </charting:ScatterSeries>
+        </charting:Chart>-->
+        <charting:Chart Grid.Row="1" Name="LineChart" Title="{Binding ChartName}">
+            <charting:LineSeries DependentValuePath="SignalData" IndependentValuePath="SignalIndependantData" ItemsSource="{Binding}" IsSelectionEnabled="True"/>
+        </charting:Chart>
     </Grid>
 </Window>
