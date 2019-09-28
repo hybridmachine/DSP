@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discrete Fourier Transform"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalGenerator", "SignalGenerator\SignalGenerator.csproj", "{29C2CE4A-A041-482A-AA0D-77BC55E0B9BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalProcessor", "SignalProcessor\SignalProcessor.csproj", "{25B83837-7985-4FE3-9524-2B88ACED7F47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalProcessor", "SignalProcessor\SignalProcessor.csproj", "{25B83837-7985-4FE3-9524-2B88ACED7F47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signals And Transforms", "Signals And Transforms\Signals And Transforms.csproj", "{770D4F6B-9F4E-4D32-AA6F-1FBE2744A2B9}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discrete Convolution", "Discrete Convolution\Discrete Convolution.csproj", "{6AE1AA71-50FC-46E6-9325-2D7080C267DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{7B4527BE-4035-4C31-88BA-5AF59258D0D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalProcessorService", "SignalProcessorService\SignalProcessorService.csproj", "{3C1381AD-7E88-41FB-9351-EC8A07113CCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
