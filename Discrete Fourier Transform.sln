@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discrete Convolution", "Dis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{7B4527BE-4035-4C31-88BA-5AF59258D0D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalProcessorService", "SignalProcessorService\SignalProcessorService.csproj", "{3C1381AD-7E88-41FB-9351-EC8A07113CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalProcessorService", "SignalProcessorService\SignalProcessorService.csproj", "{8082445A-1106-4302-9A35-32F4CEBF1676}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +65,10 @@ Global
 		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C1381AD-7E88-41FB-9351-EC8A07113CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
