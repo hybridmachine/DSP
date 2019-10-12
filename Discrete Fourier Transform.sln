@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discrete Fourier Transform", "Discrete Fourier Transform\Discrete Fourier Transform.csproj", "{F2F429DC-63DA-41C3-8152-BFBB53FE5608}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalGenerator", "SignalGenerator\SignalGenerator.csproj", "{29C2CE4A-A041-482A-AA0D-77BC55E0B9BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalProcessor", "SignalProcessor\SignalProcessor.csproj", "{25B83837-7985-4FE3-9524-2B88ACED7F47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalProcessor", "SignalProcessor\SignalProcessor.csproj", "{25B83837-7985-4FE3-9524-2B88ACED7F47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signals And Transforms", "Signals And Transforms\Signals And Transforms.csproj", "{770D4F6B-9F4E-4D32-AA6F-1FBE2744A2B9}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConvolution", "TestConvolution\TestConvolution.csproj", "{8EACEDDC-C384-405A-9E60-91E44F78D9D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discrete Convolution", "Discrete Convolution\Discrete Convolution.csproj", "{6AE1AA71-50FC-46E6-9325-2D7080C267DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{7B4527BE-4035-4C31-88BA-5AF59258D0D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalProcessorService", "SignalProcessorService\SignalProcessorService.csproj", "{8082445A-1106-4302-9A35-32F4CEBF1676}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{6AE1AA71-50FC-46E6-9325-2D7080C267DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE1AA71-50FC-46E6-9325-2D7080C267DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE1AA71-50FC-46E6-9325-2D7080C267DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B4527BE-4035-4C31-88BA-5AF59258D0D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8082445A-1106-4302-9A35-32F4CEBF1676}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
