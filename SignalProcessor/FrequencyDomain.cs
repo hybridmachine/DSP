@@ -13,6 +13,14 @@ namespace SignalProcessor
         public List<double> ImaginaryComponent;
         public int frequencyDomainLen;
 
+        /// <summary>
+        /// This constructor is used by the JSON to POCO system in the web service, which then sets the publicly available
+        /// properties directly
+        /// </summary>
+        public FrequencyDomain()
+        {
+           
+        }
         public FrequencyDomain(int timeDomainLen, IDFT dft)
         {
             frequencyDomainLen = 0;

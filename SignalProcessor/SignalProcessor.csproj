@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.1.0</AssemblyVersion>
-    <FileVersion>0.1.1.0</FileVersion>
-    <PackageReleaseNotes>Initial release for nuget.org. Early alpha, API will change.</PackageReleaseNotes>
+    <AssemblyVersion>0.1.2.0</AssemblyVersion>
+    <FileVersion>0.1.2.0</FileVersion>
+    <PackageReleaseNotes>Added default constructor to FrequencyDomain so JSON to POCO construction can happen in the SignalProcesorService FFT web service (currently being built, to be released later)</PackageReleaseNotes>
     <Copyright>2019 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Corelation)</Description>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>
@@ -16,6 +16,8 @@
     <Company>Brian Tabone</Company>
     <RepositoryUrl>https://github.com/hybridmachine/DSP</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/hybridmachine/DSP/projects/1</PackageProjectUrl>
+    <PackageTags>signal processing fft analysis</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
