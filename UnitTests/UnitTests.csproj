@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompledFourierTransformTest.cs" />
     <Compile Include="ConvolutionViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +66,10 @@
     <ProjectReference Include="..\Discrete Convolution\Discrete Convolution.csproj">
       <Project>{6ae1aa71-50fc-46e6-9325-2d7080c267de}</Project>
       <Name>Discrete Convolution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SignalProcessor\SignalProcessor.csproj">
+      <Project>{25b83837-7985-4fe3-9524-2b88aced7f47}</Project>
+      <Name>SignalProcessor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace SignalProcessor
 {
     public class FrequencyDomain
     {
+        public Complex FourierCoefficients;
+        public List<double> FrequencyAmplitudes;
+
         public List<double> RealComponent;
         public List<double> ScalingFactor; // When filtering, the scaling factor for each frequency component in real domain
         public List<double> ImaginaryComponent;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace SignalProcessor
 {
@@ -10,6 +11,54 @@ namespace SignalProcessor
 
     public class FastFourierTransform : IDFT
     {
+        /// <summary>
+        /// Adapted from Udemy course "Master the Fourier transform and its applications" by Mike X Cohen
+        /// </summary>
+        /// <param name="timeDomain">Time series data</param>
+        /// <returns></returns>
+        public FrequencyDomain ComplexTransform(List<double> timeDomain)
+        {
+            int timeDomainLen = timeDomain.Count;
+            // Prepare the Fourier Transform
+            List<double> fourTime = new List<double>(timeDomainLen);
+            List<Complex> fCoefs = new List<Complex>(timeDomainLen);
+
+            List<Complex> csw = new List<Complex>(timeDomainLen);
+
+            // Setup the fourier time array
+            for(int idx = 0; idx < timeDomainLen; idx++)
+            {
+                fourTime.Add((double)idx / (double)timeDomainLen);
+            }
+
+            for (int fi = 1; fi <= timeDomainLen; fi++)
+            {
+                // Compute complex sine wave
+                foreach(double timeVal in fourTime)
+                {
+                    Complex negOneI = new Complex(0, -1);
+                    Complex euler = new Complex(Math.E, 0);
+                    
+                    Complex value = Complex.Pow(euler, (negOneI * Math.PI * 2 * (fi - 1) * timeVal));
+                    csw.Add(value);
+                }
+
+                // Compute dot product between signal and complex sine wave
+                Complex dotProduct = new Complex(0, 0);
+                for (int idx = 0; idx < timeDomainLen; idx++)
+                {
+                    dotProduct += ((csw[idx] * timeDomain[idx]) / timeDomainLen);
+                }
+                
+                fCoefs.Add(dotProduct);
+                if (fi == timeDomainLen)
+                {
+                    Console.WriteLine("Stop debugger here to check csw");
+                }
+                csw.Clear();
+            }
+            return null;
+        }
 
         private FrequencyDomain Transform(FrequencyDomain frequencyDomain)
         {
