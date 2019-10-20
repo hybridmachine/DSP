@@ -8,12 +8,14 @@ using SignalProcessor;
 namespace UnitTests
 {
     [TestClass]
-    public class CompledFourierTransformTest
+    public class ComplexFourierTransformTest
     {
         [TestMethod]
         public void TestComplexTransform()
         {
-            FastFourierTransform fourierTransform = new FastFourierTransform();
+            IDFT complexFourierTransform = new ComplexFastFourierTransform();
+            IDFT realFourierTransform = new RealFastFourierTransform();
+
             FrequencyDomain result;
             FrequencyDomain realFormatResult;
             List<double> recreatedSignal;
@@ -35,10 +37,10 @@ namespace UnitTests
                 signal.Add(signalValue);
             }
 
-            result = fourierTransform.ComplexTransform(signal);
-            realFormatResult = fourierTransform.Transform(signal.GetRange(0,32));
-            recreatedSignal = fourierTransform.Synthesize(realFormatResult);
-            recreatedSignalFromComplex = fourierTransform.ComplexSynthesize(result.FourierCoefficients);
+            result = complexFourierTransform.Transform(signal);
+            realFormatResult = realFourierTransform.Transform(signal.GetRange(0,32));
+            recreatedSignal = realFourierTransform.Synthesize(realFormatResult);
+            recreatedSignalFromComplex = complexFourierTransform.Synthesize(result);
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(realFormatResult);

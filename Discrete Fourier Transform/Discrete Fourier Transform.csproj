@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SignalProcessor, Version=0.1.3.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
+      <HintPath>..\packages\SignalProcessor.0.1.3\lib\netstandard2.0\SignalProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SampleGenerator\SampleGenerator.csproj">
@@ -56,10 +60,6 @@
     <ProjectReference Include="..\SignalGenerator\SignalGenerator.csproj">
       <Project>{29c2ce4a-a041-482a-aa0d-77bc55e0b9bc}</Project>
       <Name>SignalGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SignalProcessor\SignalProcessor.csproj">
-      <Project>{25b83837-7985-4fe3-9524-2b88aced7f47}</Project>
-      <Name>SignalProcessor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

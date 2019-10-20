@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Signals_And_Transforms</RootNamespace>
     <AssemblyName>Signals And Transforms</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -67,6 +68,9 @@
     </Reference>
     <Reference Include="OxyPlot.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Wpf.1.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalProcessor, Version=0.1.3.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
+      <HintPath>..\packages\SignalProcessor.0.1.3\lib\netstandard2.0\SignalProcessor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -150,16 +154,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SampleGenerator\SampleGenerator.csproj">
-      <Project>{A90D34C6-4DF1-4DDA-B365-0D2A79EC0F41}</Project>
+      <Project>{a90d34c6-4df1-4dda-b365-0d2a79ec0f41}</Project>
       <Name>SampleGenerator</Name>
     </ProjectReference>
     <ProjectReference Include="..\SignalGenerator\SignalGenerator.csproj">
       <Project>{29c2ce4a-a041-482a-aa0d-77bc55e0b9bc}</Project>
       <Name>SignalGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SignalProcessor\SignalProcessor.csproj">
-      <Project>{25b83837-7985-4fe3-9524-2b88aced7f47}</Project>
-      <Name>SignalProcessor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

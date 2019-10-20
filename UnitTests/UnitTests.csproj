@@ -50,7 +50,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompledFourierTransformTest.cs" />
+    <Compile Include="ComplexFourierTransformTest.cs" />
     <Compile Include="ConvolutionViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

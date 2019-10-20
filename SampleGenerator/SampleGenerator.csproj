@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SampleGenerator</RootNamespace>
     <AssemblyName>SampleGenerator</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,6 +37,9 @@
     <AssemblyOriginatorKeyFile>SampleGenerator.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SignalProcessor, Version=0.1.3.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
+      <HintPath>..\packages\SignalProcessor.0.1.3\lib\netstandard2.0\SignalProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,12 +58,9 @@
       <Project>{29C2CE4A-A041-482A-AA0D-77BC55E0B9BC}</Project>
       <Name>SignalGenerator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SignalProcessor\SignalProcessor.csproj">
-      <Project>{25B83837-7985-4FE3-9524-2B88ACED7F47}</Project>
-      <Name>SignalProcessor</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="SampleGenerator.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

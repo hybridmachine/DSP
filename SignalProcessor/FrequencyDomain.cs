@@ -32,7 +32,7 @@ namespace SignalProcessor
             {
                 frequencyDomainLen = (timeDomainLen / 2) + 1;
             }
-            else if (dft is FastFourierTransform)
+            else if (dft is RealFastFourierTransform)
             {
                 frequencyDomainLen = timeDomainLen;
             }
