@@ -15,7 +15,9 @@ namespace UnitTests
         {
             FastFourierTransform fourierTransform = new FastFourierTransform();
             FrequencyDomain result;
-            List<double> timeSeries;
+            FrequencyDomain realFormatResult;
+            List<double> recreatedSignal;
+            List<double> recreatedSignalFromComplex;
 
             int sampleRate = 1000; // hz
             List<double> timePoints = new List<double>(2 * sampleRate);
@@ -33,7 +35,15 @@ namespace UnitTests
                 signal.Add(signalValue);
             }
 
-            fourierTransform.ComplexTransform(signal);
+            result = fourierTransform.ComplexTransform(signal);
+            realFormatResult = fourierTransform.Transform(signal.GetRange(0,32));
+            recreatedSignal = fourierTransform.Synthesize(realFormatResult);
+            recreatedSignalFromComplex = fourierTransform.ComplexSynthesize(result.FourierCoefficients);
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(realFormatResult);
+            Assert.IsNotNull(recreatedSignal);
+            Assert.IsNotNull(recreatedSignalFromComplex);
         }
     }
 }

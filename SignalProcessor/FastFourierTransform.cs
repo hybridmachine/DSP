@@ -11,6 +11,56 @@ namespace SignalProcessor
 
     public class FastFourierTransform : IDFT
     {
+
+        public List<double> ComplexSynthesize(List<Complex> fCoefs)
+        {
+
+            int freqDomainLen = fCoefs.Count;
+            List<double> timeDomain = new List<double>(freqDomainLen);
+            List<Complex> csw = new List<Complex>(freqDomainLen);
+            List<Complex> reconstructedSignal = new List<Complex>(freqDomainLen);
+
+            List<double> fourTime = new List<double>(freqDomainLen);
+
+            // Setup the fourier time array
+            for (int idx = 0; idx < freqDomainLen; idx++)
+            {
+                fourTime.Add((double)idx / (double)freqDomainLen);
+                reconstructedSignal.Add(new Complex(0, 0));
+            }
+
+            for (int fi = 1; fi <= freqDomainLen; fi++)
+            {
+                Complex posOneI = new Complex(0, 1);
+                Complex euler = new Complex(Math.E, 0);
+
+                foreach (double timeVal in fourTime)
+                {
+                    Complex value = fCoefs[fi - 1] * Complex.Pow(euler, (posOneI * Math.PI * 2 * (fi - 1) * timeVal));
+                    csw.Add(value);
+                }
+
+                for (int idx = 0; idx < csw.Count; idx++)
+                {
+                    reconstructedSignal[idx] += csw[idx];
+                }
+
+                csw.Clear();
+            }
+
+            for (int idx = 0; idx < reconstructedSignal.Count; idx++)
+            {
+                reconstructedSignal[idx] /= freqDomainLen;
+            }
+
+            foreach(Complex sigVal in reconstructedSignal)
+            {
+                timeDomain.Add(sigVal.Real);
+            }
+
+            return timeDomain;
+        }
+
         /// <summary>
         /// Adapted from Udemy course "Master the Fourier transform and its applications" by Mike X Cohen
         /// </summary>
@@ -47,17 +97,17 @@ namespace SignalProcessor
                 Complex dotProduct = new Complex(0, 0);
                 for (int idx = 0; idx < timeDomainLen; idx++)
                 {
-                    dotProduct += ((csw[idx] * timeDomain[idx]) / timeDomainLen);
+                    dotProduct += ((csw[idx] * timeDomain[idx]));
                 }
                 
                 fCoefs.Add(dotProduct);
-                if (fi == timeDomainLen)
-                {
-                    Console.WriteLine("Stop debugger here to check csw");
-                }
                 csw.Clear();
             }
-            return null;
+
+            FrequencyDomain result = new FrequencyDomain();
+            result.FourierCoefficients = fCoefs;
+           
+            return result;
         }
 
         private FrequencyDomain Transform(FrequencyDomain frequencyDomain)
@@ -111,9 +161,9 @@ namespace SignalProcessor
                 for (j = 1; j <= le2; j++)
                 {
                     int jm1 = j - 1;
-                    for (int idx = jm1; idx <= nm1; idx += le)
+                    for (int idx = jm1; idx < nm1; idx += le)
                     {
-                        int ip = (idx + le2);
+                        int ip = (idx + le2) - 1;
                         tr = frequencyDomain.RealComponent[ip] * ur - frequencyDomain.ImaginaryComponent[ip] * ui;
                         ti = frequencyDomain.RealComponent[ip] * ui + frequencyDomain.ImaginaryComponent[ip] * ur;
                         frequencyDomain.RealComponent[ip] = frequencyDomain.RealComponent[idx] - tr;

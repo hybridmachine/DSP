@@ -9,7 +9,7 @@ namespace SignalProcessor
 {
     public class FrequencyDomain
     {
-        public Complex FourierCoefficients;
+        public List<Complex> FourierCoefficients;
         public List<double> FrequencyAmplitudes;
 
         public List<double> RealComponent;
