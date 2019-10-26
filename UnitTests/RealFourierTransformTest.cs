@@ -8,18 +8,17 @@ using SignalProcessor;
 namespace UnitTests
 {
     [TestClass]
-    public class ComplexFourierTransformTest
+    public class RealFourierTransformTest
     {
         public const double MaxDifference = 0.0001;
-
         [TestMethod]
-        public void TestComplexTransform()
+        public void TestRealTransform()
         {
-            IDFT complexFourierTransform = new ComplexFastFourierTransform();
-            
-            FrequencyDomain result;
-            List<double> recreatedSignal;
+            IDFT realFourierTransform = new RealFastFourierTransform();
 
+            FrequencyDomain realFormatResult;
+            List<double> recreatedSignal;
+            
             int sampleRate = 1000; // hz
             List<double> timePoints = new List<double>(2 * sampleRate);
 
@@ -36,10 +35,10 @@ namespace UnitTests
                 signal.Add(signalValue);
             }
 
-            result = complexFourierTransform.Transform(signal);
-            recreatedSignal = complexFourierTransform.Synthesize(result);
-
-            Assert.IsNotNull(result);
+            realFormatResult = realFourierTransform.Transform(signal.GetRange(0,256));
+            recreatedSignal = realFourierTransform.Synthesize(realFormatResult);
+            
+            Assert.IsNotNull(realFormatResult);
             Assert.IsNotNull(recreatedSignal);
 
             for (int idx = 0; idx < recreatedSignal.Count; idx++)

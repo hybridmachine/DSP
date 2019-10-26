@@ -61,9 +61,9 @@ namespace SignalProcessor
                 for (j = 1; j <= le2; j++)
                 {
                     int jm1 = j - 1;
-                    for (int idx = jm1; idx < nm1; idx += le)
+                    for (int idx = jm1; idx <= nm1; idx += le)
                     {
-                        int ip = (idx + le2) - 1;
+                        int ip = (idx + le2);
                         tr = frequencyDomain.RealComponent[ip] * ur - frequencyDomain.ImaginaryComponent[ip] * ui;
                         ti = frequencyDomain.RealComponent[ip] * ui + frequencyDomain.ImaginaryComponent[ip] * ur;
                         frequencyDomain.RealComponent[ip] = frequencyDomain.RealComponent[idx] - tr;

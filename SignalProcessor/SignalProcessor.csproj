@@ -3,24 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.4.0</AssemblyVersion>
-    <FileVersion>0.1.4.0</FileVersion>
-    <PackageReleaseNotes>Implemented complex fast fourier transform based on Udemy course "Master the Fourier transform and its applications" by Mike X Cohen
-
-https://www.udemy.com/course/fourier-transform-mxc/
-
-There are now RealFastFourierTransform and ComplexFastFourierTransform classes
-
-Unit tests for the signal processor can be found at 
-
-https://github.com/hybridmachine/DSP/tree/FFT_Filters/UnitTests 
-
-I will merge this into master when all is tested and ready
-
-Also fixed mis-spelling in title</PackageReleaseNotes>
+    <AssemblyVersion>0.1.5.0</AssemblyVersion>
+    <FileVersion>0.1.5.0</FileVersion>
+    <PackageReleaseNotes>Fixed bug in RealFastFourierTransform, added unit test specifically for this transform. For the unit test see https://github.com/hybridmachine/DSP/tree/FFT_Filters/UnitTests .</PackageReleaseNotes>
     <Copyright>2019 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.4</Version>
+    <Version>0.1.5</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>

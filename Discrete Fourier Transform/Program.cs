@@ -7,7 +7,6 @@ using SignalGenerator;
 using SignalGenerator.Generators;
 using SignalProcessor;
 using System.IO;
-using SampleGenerator;
 
 namespace Discrete_Fourier_Transform
 {
