@@ -70,7 +70,14 @@ namespace SignalProcessor
         /// </summary>
         /// <param name="timeDomain">Time series data</param>
         /// <returns></returns>
-        public FrequencyDomain Transform(List<double> timeDomain)
+        public FrequencyDomain Transform(List<double> timeDomain, double sampleRateHz)
+        {
+            FrequencyDomain result = FindFourierCoeffecients(timeDomain, sampleRateHz);
+            LoadFrequencyAmplitudes(result);
+            return result;
+        }
+
+        private static FrequencyDomain FindFourierCoeffecients(List<double> timeDomain, double sampleRateHz)
         {
             int timeDomainLen = timeDomain.Count;
             // Prepare the Fourier Transform
@@ -80,7 +87,7 @@ namespace SignalProcessor
             List<Complex> csw = new List<Complex>(timeDomainLen);
 
             // Setup the fourier time array
-            for(int idx = 0; idx < timeDomainLen; idx++)
+            for (int idx = 0; idx < timeDomainLen; idx++)
             {
                 fourTime.Add((double)idx / (double)timeDomainLen);
             }
@@ -88,11 +95,11 @@ namespace SignalProcessor
             for (int fi = 1; fi <= timeDomainLen; fi++)
             {
                 // Compute complex sine wave
-                foreach(double timeVal in fourTime)
+                foreach (double timeVal in fourTime)
                 {
                     Complex negOneI = new Complex(0, -1);
                     Complex euler = new Complex(Math.E, 0);
-                    
+
                     Complex value = Complex.Pow(euler, (negOneI * Math.PI * 2 * (fi - 1) * timeVal));
                     csw.Add(value);
                 }
@@ -103,17 +110,47 @@ namespace SignalProcessor
                 {
                     dotProduct += ((csw[idx] * timeDomain[idx]));
                 }
-                
+
                 fCoefs.Add(dotProduct);
                 csw.Clear();
             }
 
             FrequencyDomain result = new FrequencyDomain();
             result.FourierCoefficients = fCoefs;
-           
+            result.SampleRateHz = sampleRateHz;
             return result;
         }
 
+        private static void LoadFrequencyAmplitudes(FrequencyDomain frequencyDomain)
+        {
+            double sampleRate = frequencyDomain.SampleRateHz;
+            int points = frequencyDomain.FourierCoefficients.Count;
 
+            List<double> frequencyVector = linspace(0, sampleRate / 2, (int)Math.Floor((double)((points / 2) + 1)));
+            List<double> amplitudesVector = new List<double>(points);
+            foreach (Complex coefficient in frequencyDomain.FourierCoefficients)
+            {
+                double amplitude = 2 * (Complex.Abs(coefficient) / points);
+                amplitudesVector.Add(amplitude);
+            }
+
+            for (int idx = 0; idx < frequencyVector.Count; idx++)
+            {
+                frequencyDomain.FrequencyAmplitudes.Add(frequencyVector[idx], amplitudesVector[idx]);
+            }
+        }
+
+        private static List<double> linspace(double start, double end, int numPoints)
+        {
+            List<double> vector = new List<double>(numPoints+5);
+
+            double spacing = (end - start) / (double)(numPoints - 1);
+
+            for (double value = start; value <= end; value += spacing)
+            {
+                vector.Add(value);
+            }
+            return vector;
+        }
     }
 }

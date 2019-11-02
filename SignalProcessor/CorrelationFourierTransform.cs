@@ -13,11 +13,11 @@ namespace SignalProcessor
         /// </summary>
         /// <param name="timeDomain"></param>
         /// <returns></returns>
-        public FrequencyDomain Transform(List<double> timeDomain)
+        public FrequencyDomain Transform(List<double> timeDomain, double sampleRateHz)
         {
             int timeDomainLen = timeDomain.Count;
             FrequencyDomain frequencyDomain = new FrequencyDomain(timeDomainLen, this);
-
+            frequencyDomain.SampleRateHz = sampleRateHz;
             int freqDomainLen = frequencyDomain.RealComponent.Count;
 
             for (int K = 0; K < freqDomainLen; K++)

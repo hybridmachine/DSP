@@ -5,12 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignalProcessor;
+using System.IO;
+
 namespace UnitTests
 {
     [TestClass]
     public class ComplexFourierTransformTest
     {
-        public const double MaxDifference = 0.0001;
+        public const double MaxSignalDifference = 0.0001;
+        public const double MaxAmplitudeDifference = 0.01;
 
         [TestMethod]
         public void TestComplexTransform()
@@ -36,15 +39,33 @@ namespace UnitTests
                 signal.Add(signalValue);
             }
 
-            result = complexFourierTransform.Transform(signal);
+            result = complexFourierTransform.Transform(signal, sampleRate);
+            
+            // This file can be viewed in Excel for plotting of hz and amplitudes
+            StreamWriter amplitudeFile = new StreamWriter("frequencyAmplitudes.csv");
+            if (amplitudeFile != null)
+            {
+                amplitudeFile.WriteLine("HZ, Amplitude");
+                foreach (var frequencyAmplitude in result.FrequencyAmplitudes)
+                {
+                    amplitudeFile.WriteLine($"{frequencyAmplitude.Key}, {frequencyAmplitude.Value}");      
+                }
+            }
+            amplitudeFile.Close();
             recreatedSignal = complexFourierTransform.Synthesize(result);
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(recreatedSignal);
 
+            double amplitude40 = result.FrequencyAmplitudes[4.0];
+            double amplitude65 = result.FrequencyAmplitudes[6.5];
+
+            Assert.IsTrue(Math.Abs(amplitude40 - 2.5) <= MaxAmplitudeDifference);
+            Assert.IsTrue(Math.Abs(amplitude65 - 1.5) <= MaxAmplitudeDifference);
+
             for (int idx = 0; idx < recreatedSignal.Count; idx++)
             {
-                Assert.IsTrue((Math.Abs(recreatedSignal[idx] - signal[idx]) < MaxDifference));
+                Assert.IsTrue((Math.Abs(recreatedSignal[idx] - signal[idx]) <= MaxSignalDifference));
             }
         }
     }

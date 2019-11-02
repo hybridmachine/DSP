@@ -35,7 +35,7 @@ namespace UnitTests
                 signal.Add(signalValue);
             }
 
-            realFormatResult = realFourierTransform.Transform(signal.GetRange(0,256));
+            realFormatResult = realFourierTransform.Transform(signal.GetRange(0,256), sampleRate);
             recreatedSignal = realFourierTransform.Synthesize(realFormatResult);
             
             Assert.IsNotNull(realFormatResult);

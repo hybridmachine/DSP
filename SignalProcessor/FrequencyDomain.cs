@@ -10,8 +10,8 @@ namespace SignalProcessor
     public class FrequencyDomain
     {
         public List<Complex> FourierCoefficients;
-        public List<double> FrequencyAmplitudes;
-
+        public Dictionary<double, double> FrequencyAmplitudes; // hz, amplitude
+        public double SampleRateHz;
         public List<double> RealComponent;
         public List<double> ScalingFactor; // When filtering, the scaling factor for each frequency component in real domain
         public List<double> ImaginaryComponent;
@@ -23,7 +23,10 @@ namespace SignalProcessor
         /// </summary>
         public FrequencyDomain()
         {
-           
+            RealComponent = new List<double>();
+            ScalingFactor = new List<double>();
+            ImaginaryComponent = new List<double>();
+            FrequencyAmplitudes = new Dictionary<double, double>();
         }
         public FrequencyDomain(int timeDomainLen, IDFT dft)
         {
@@ -40,6 +43,7 @@ namespace SignalProcessor
             RealComponent = new List<double>(frequencyDomainLen);
             ScalingFactor = new List<double>(frequencyDomainLen);
             ImaginaryComponent = new List<double>(frequencyDomainLen);
+            FrequencyAmplitudes = new Dictionary<double, double>(frequencyDomainLen);
 
             for (int K = 0; K < frequencyDomainLen; K++)
             {
