@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Signals_And_Transforms"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="WindowBackground" Color="BlanchedAlmond"/>
+        <Style x:Key="LabelText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
     </Application.Resources>
 </Application>

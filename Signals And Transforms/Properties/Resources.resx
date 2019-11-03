@@ -117,4 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BTN_ADD_SIGNAL" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="SAMPLE_DETAILS" xml:space="preserve">
+    <value>{0}: {1} @ {2} hz at {3} samples/second for {4} seconds.</value>
+    <comment>Name, type, frequency, sampling hz</comment>
+  </data>
+  <data name="SAMPLING_HZ" xml:space="preserve">
+    <value>Samples/Second</value>
+  </data>
+  <data name="SIGNAL_HZ" xml:space="preserve">
+    <value>Hz</value>
+  </data>
+  <data name="SIGNAL_NAME" xml:space="preserve">
+    <value>Signal Name</value>
+  </data>
 </root>
