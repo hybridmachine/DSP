@@ -104,5 +104,14 @@ namespace Signals_And_Transforms.Properties {
                 return ResourceManager.GetString("SIGNAL_NAME", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signal.
+        /// </summary>
+        public static string SIGNAL_PLOT_TITLE {
+            get {
+                return ResourceManager.GetString("SIGNAL_PLOT_TITLE", resourceCulture);
+            }
+        }
     }
 }

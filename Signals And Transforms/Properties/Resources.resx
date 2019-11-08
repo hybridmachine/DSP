@@ -133,4 +133,7 @@
   <data name="SIGNAL_NAME" xml:space="preserve">
     <value>Signal Name</value>
   </data>
+  <data name="SIGNAL_PLOT_TITLE" xml:space="preserve">
+    <value>Signal</value>
+  </data>
 </root>

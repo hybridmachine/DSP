@@ -42,6 +42,8 @@ namespace Signals_And_Transforms.Views
                 model.Signals.Add(newSignal);
 
                 ClearValues();
+
+                model.PlotSignals();
             }
         }
 
