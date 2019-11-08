@@ -2,7 +2,7 @@
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using SignalProcessor;
-using Signals_And_Transforms.Models;
+using SignalsAndTransforms.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Signals_And_Transforms.View_Models
+namespace SignalsAndTransforms.View_Models
 {
     public class SignalGeneratorViewModel : INotifyPropertyChanged
     {

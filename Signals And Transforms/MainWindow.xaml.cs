@@ -1,4 +1,4 @@
-﻿using Signals_And_Transforms.View_Models;
+﻿using SignalsAndTransforms.View_Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Signals_And_Transforms
+namespace SignalsAndTransforms
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

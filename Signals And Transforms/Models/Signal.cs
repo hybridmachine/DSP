@@ -1,11 +1,11 @@
-﻿using Signals_And_Transforms.Properties;
+﻿using SignalsAndTransforms.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Signals_And_Transforms.Models
+namespace SignalsAndTransforms.Models
 {
     public enum SignalType
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signals And Transforms", "Signals And Transforms.csproj", "{770D4F6B-9F4E-4D32-AA6F-1FBE2744A2B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalsAndTransforms", "SignalsAndTransforms.csproj", "{770D4F6B-9F4E-4D32-AA6F-1FBE2744A2B9}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{A4EECEB2-C614-496B-88EA-2C246959F8A6}"
 EndProject

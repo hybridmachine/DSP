@@ -13,10 +13,10 @@ using SampleGenerator;
 using SignalGenerator.Generators;
 using SignalProcessor.Filters;
 using System.Windows.Threading;
-using Signals_And_Transforms.Models;
+using SignalsAndTransforms.Models;
 using OxyPlot.Axes;
 
-namespace Signals_And_Transforms.View_Models
+namespace SignalsAndTransforms.View_Models
 {
     public class HistogramViewModel : INotifyPropertyChanged
     {

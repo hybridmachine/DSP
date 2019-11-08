@@ -1,5 +1,5 @@
-﻿using Signals_And_Transforms.Models;
-using Signals_And_Transforms.View_Models;
+﻿using SignalsAndTransforms.Models;
+using SignalsAndTransforms.View_Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Signals_And_Transforms.Views
+namespace SignalsAndTransforms.Views
 {
     /// <summary>
     /// Interaction logic for SignalGenerator.xaml
@@ -57,10 +57,36 @@ namespace Signals_And_Transforms.Views
         private void ClearValues()
         {
             SignalName.Text = String.Empty;
-            SamplingHz.Text = String.Empty;
             SignalHz.Text = String.Empty;
-
+            SignalAmplitude.Text = "1.0";
             SignalName.Focus();
+        }
+
+        private void SignalsList_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                SignalGeneratorViewModel model = DataContext as SignalGeneratorViewModel;
+                if (model == null)
+                {
+                    return;
+                }
+
+                var selectedItems = SignalsList.SelectedItems;
+                List<Signal> copyOfSelectedItems = new List<Signal>(selectedItems.Count);
+
+                foreach (Signal item in selectedItems)
+                {
+                    copyOfSelectedItems.Add(item);
+                }
+
+                foreach (Signal item in copyOfSelectedItems)
+                {
+                    model.Signals.Remove(item);
+                }
+
+                model.PlotSignals();
+            }
         }
     }
 }

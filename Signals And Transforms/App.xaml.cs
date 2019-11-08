@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Signals_And_Transforms
+namespace SignalsAndTransforms
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -12,10 +12,10 @@ using System.Runtime.CompilerServices;
 using SampleGenerator;
 using SignalProcessor.Filters;
 using System.Windows.Threading;
-using Signals_And_Transforms.Models;
+using SignalsAndTransforms.Models;
 using System.Windows.Input;
 
-namespace Signals_And_Transforms.View_Models
+namespace SignalsAndTransforms.View_Models
 {
     public class GraphViewModel : INotifyPropertyChanged
     {

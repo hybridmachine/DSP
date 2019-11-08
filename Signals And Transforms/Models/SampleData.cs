@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Signals_And_Transforms.Models
+namespace SignalsAndTransforms.Models
 {
     public class SampleData
     {
