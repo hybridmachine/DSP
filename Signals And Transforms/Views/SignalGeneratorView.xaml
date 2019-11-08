@@ -35,7 +35,10 @@
         <ListView x:Name="SignalsList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" ItemsSource="{Binding Signals}" KeyUp="SignalsList_KeyUp"/>
         <oxy:Plot Grid.Column="3" Grid.Row="4" Margin="5" Title="{Binding Title}">
             <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding PlotPoints}"/>
+                <oxy:LineSeries ItemsSource="{Binding PlotPoints}"
+                                Color="Cyan" 
+                                MarkerFill="SteelBlue" 
+                                MarkerType="Square"/>
             </oxy:Plot.Series>
         </oxy:Plot>
         <oxy:Plot Grid.Column="3" Grid.Row="0"  Grid.RowSpan="4" Margin="5" Title="{x:Static res:Resources.PLOT_FREQUENCY_HISTOGRAM_TITLE}">
