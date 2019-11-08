@@ -11,7 +11,7 @@ namespace SignalProcessor
     /// </summary>
     public interface IDFT
     {
-        FrequencyDomain Transform(List<double> signal);
+        FrequencyDomain Transform(List<double> signal, double sampleRateHz);
         List<double> Synthesize(FrequencyDomain frequencyDomain);
     }
 }

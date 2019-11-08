@@ -112,7 +112,7 @@ namespace SampleGenerator
             for (int cnt = 0; cnt < padLen; cnt++)
                 paddedSignal.Add(0.0);
 
-            IDFT ff_transform = new FastFourierTransform();
+            IDFT ff_transform = new ComplexFastFourierTransform();
             IDFT cdf_tranform = new CorrelationFourierTransform();
             //_frequencyDomain = DFT.CorrelationTransform(paddedSignal);
             _frequencyDomain = ff_transform.Transform(paddedSignal);

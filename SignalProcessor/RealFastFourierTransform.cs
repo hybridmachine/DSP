@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace SignalProcessor
 {
-    
-
-    public class FastFourierTransform : IDFT
+    public class RealFastFourierTransform : IDFT
     {
 
         private FrequencyDomain Transform(FrequencyDomain frequencyDomain)
@@ -86,7 +85,7 @@ namespace SignalProcessor
         /// </summary>
         /// <param name="timeDomain"></param>
         /// <returns></returns>
-        public FrequencyDomain Transform(List<double> timeDomain)
+        public FrequencyDomain Transform(List<double> timeDomain, double sampleRateHz)
         {
             FrequencyDomain fftResult = new FrequencyDomain(timeDomain.Count, this);
             // The FFT operates in place, store the timeDomain samples in the real component (leave the imaginary compoenent zeroed)
@@ -94,6 +93,7 @@ namespace SignalProcessor
             fftResult.RealComponent.AddRange(timeDomain);
             fftResult.ImaginaryComponent.Clear();
             fftResult.ImaginaryComponent.Capacity = timeDomain.Count;
+            fftResult.SampleRateHz = sampleRateHz;
             for (int idx = 0; idx < timeDomain.Count; idx++)
             {
                 fftResult.ImaginaryComponent.Add(0.0);

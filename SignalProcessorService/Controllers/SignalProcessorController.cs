@@ -17,7 +17,7 @@ namespace SignalProcessorService.Controllers
         [HttpPost]
         public ActionResult<FrequencyDomain> FFT([FromBody] List<Double> value)
         {
-            FastFourierTransform fft = new FastFourierTransform();
+            ComplexFastFourierTransform fft = new ComplexFastFourierTransform();
             FrequencyDomain transform = fft.Transform(value);
             return Ok(transform);
         }
@@ -30,7 +30,7 @@ namespace SignalProcessorService.Controllers
         [HttpPost("inverse")]
         public ActionResult<List<Double>> InverseFFT([FromBody] FrequencyDomain fd)
         {
-            FastFourierTransform transformer = new FastFourierTransform();
+            ComplexFastFourierTransform transformer = new ComplexFastFourierTransform();
             return Ok(transformer.Synthesize(fd));
         }
     }

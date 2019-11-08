@@ -7,7 +7,6 @@ using SignalGenerator;
 using SignalGenerator.Generators;
 using SignalProcessor;
 using System.IO;
-using SampleGenerator;
 
 namespace Discrete_Fourier_Transform
 {
@@ -35,7 +34,7 @@ namespace Discrete_Fourier_Transform
                         signal.Add(value);
                     }
                 }
-                IDFT transform = new FastFourierTransform();
+                IDFT transform = new RealFastFourierTransform();
                 FrequencyDomain frequencyDomain = transform.Transform(signal);
                 //List<double> synthesis = transform.Synthesize(frequencyDomain);
                 FileStream output = new FileStream("FourierTransformResults.csv", FileMode.Create);

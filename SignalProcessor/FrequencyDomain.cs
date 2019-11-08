@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace SignalProcessor
 {
     public class FrequencyDomain
     {
+        public List<Complex> FourierCoefficients;
+        public Dictionary<double, double> FrequencyAmplitudes; // hz, amplitude
+        public double SampleRateHz;
         public List<double> RealComponent;
         public List<double> ScalingFactor; // When filtering, the scaling factor for each frequency component in real domain
         public List<double> ImaginaryComponent;
@@ -19,7 +23,10 @@ namespace SignalProcessor
         /// </summary>
         public FrequencyDomain()
         {
-           
+            RealComponent = new List<double>();
+            ScalingFactor = new List<double>();
+            ImaginaryComponent = new List<double>();
+            FrequencyAmplitudes = new Dictionary<double, double>();
         }
         public FrequencyDomain(int timeDomainLen, IDFT dft)
         {
@@ -28,7 +35,7 @@ namespace SignalProcessor
             {
                 frequencyDomainLen = (timeDomainLen / 2) + 1;
             }
-            else if (dft is FastFourierTransform)
+            else if (dft is RealFastFourierTransform)
             {
                 frequencyDomainLen = timeDomainLen;
             }
@@ -36,6 +43,7 @@ namespace SignalProcessor
             RealComponent = new List<double>(frequencyDomainLen);
             ScalingFactor = new List<double>(frequencyDomainLen);
             ImaginaryComponent = new List<double>(frequencyDomainLen);
+            FrequencyAmplitudes = new Dictionary<double, double>(frequencyDomainLen);
 
             for (int K = 0; K < frequencyDomainLen; K++)
             {
