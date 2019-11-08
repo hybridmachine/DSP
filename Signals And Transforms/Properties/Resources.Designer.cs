@@ -70,6 +70,15 @@ namespace Signals_And_Transforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequency Amplitudes.
+        /// </summary>
+        public static string PLOT_FREQUENCY_HISTOGRAM_TITLE {
+            get {
+                return ResourceManager.GetString("PLOT_FREQUENCY_HISTOGRAM_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: {1} @ {2} hz at {3} samples/second for {4} seconds..
         /// </summary>
         public static string SAMPLE_DETAILS {

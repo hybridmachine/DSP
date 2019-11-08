@@ -120,6 +120,9 @@
   <data name="BTN_ADD_SIGNAL" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="PLOT_FREQUENCY_HISTOGRAM_TITLE" xml:space="preserve">
+    <value>Frequency Amplitudes</value>
+  </data>
   <data name="SAMPLE_DETAILS" xml:space="preserve">
     <value>{0}: {1} @ {2} hz at {3} samples/second for {4} seconds.</value>
     <comment>Name, type, frequency, sampling hz</comment>
