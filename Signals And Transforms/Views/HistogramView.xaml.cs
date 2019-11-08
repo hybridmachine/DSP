@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Signals_And_Transforms.Views
+namespace SignalsAndTransforms.Views
 {
     /// <summary>
     /// Interaction logic for HistogramView.xaml

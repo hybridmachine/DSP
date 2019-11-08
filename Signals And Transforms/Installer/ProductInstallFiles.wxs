@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLLOCATION">
+            <Directory Id="dir7E220EDC847AD7F674C92451C63AED27" Name="app.publish" />
+            <Directory Id="dir23A3189054C3F25860189BFFABAD824E" Name="Properties" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="ProductComponents">
+            <Component Id="cmp40E52104BC4B25BDD82A7C6D3005AD4E" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filBEC2F41C0720FCF60134D40DE58FB42B" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.dll" />
+            </Component>
+            <Component Id="cmp22BD0ED3240A95C0F0B8E901DDF52457" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filC6344122699E16D07AD19C88339F6D42" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.Wpf.dll" />
+            </Component>
+            <Component Id="cmp0AC9CC60F127E9E658EA057E7E95B038" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filF298F063DA6ADCDE110693618106485A" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.Wpf.xml" />
+            </Component>
+            <Component Id="cmp5D3DC3F036CBC6842657E17C8AC2DA6B" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil2BBC22AD95647E7749EDC03B702A5747" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.xml" />
+            </Component>
+            <Component Id="cmp1FD4FB88A2970E1904E9228D51168923" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil92A3185E2FB540816C1382FEAF9BBF6E" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SampleGenerator.dll" />
+            </Component>
+            <Component Id="cmpDBAD9AC7D0EA0D302445E7ADEDDBF56E" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil5C1217E2A5C78235F5211FA1842A7C3B" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SampleGenerator.pdb" />
+            </Component>
+            <Component Id="cmp6C154B0065B99F1E44FFCEB073C2CC82" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil0E9BC3447D0848637A261BEFE842AC16" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalGenerator.dll" />
+            </Component>
+            <Component Id="cmpA9191AC7F4D1804311C12EBA2ACD95E0" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil031F781D26BF2787F7D12C2FA52FB32C" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalGenerator.pdb" />
+            </Component>
+            <Component Id="cmpFB3737E8187E098DAD797CB7EADD64F0" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil8967963121C1CE4B91113CD4E248BF30" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalProcessor.dll" />
+            </Component>
+            <Component Id="cmp7991164F90C488FA0D83AAC61776781C" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil669D6A11DC6B86A723EC26E2F2C3C6A0" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalsAndTransforms.application" />
+            </Component>
+            <Component Id="cmp02C8F5950E33DC582EB00C825C82D7C9" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil41798E866BC736CEC72FD22DC3251767" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalsAndTransforms.exe" />
+            </Component>
+            <Component Id="cmpF648B4BAF6EDC4B02B53007C85CCD2E0" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil8DB3A6C0F21A51A924395BBA9AA1B7F5" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalsAndTransforms.exe.config" />
+            </Component>
+            <Component Id="cmpB2DF2D812A1228DE83FE79EB7377F676" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filC29DB2BBB6CA77C742245E5830B43589" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalsAndTransforms.exe.manifest" />
+            </Component>
+            <Component Id="cmp091415C1164C0359AB613D5177286F5E" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil00CA866528C3A21C2D16018977998576" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalsAndTransforms.pdb" />
+            </Component>
+            <Component Id="cmp6B289FB6FD7E4B409201003A1EE25111" Directory="dir7E220EDC847AD7F674C92451C63AED27" Guid="*">
+                <File Id="filCC1B442EB56577201C25911A8DDFC55D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\app.publish\SignalsAndTransforms.exe" />
+            </Component>
+            <Component Id="cmp4DB7D721C46327B66AE9AD062F9F1358" Directory="dir23A3189054C3F25860189BFFABAD824E" Guid="*">
+                <File Id="fil7001DBE6CD10F260CD45092D6F3F17BE" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Properties\Resources.Designer.cs" />
+            </Component>
+            <Component Id="cmp8AD91B68D9163A5C50D2223F3F1DFF11" Directory="dir23A3189054C3F25860189BFFABAD824E" Guid="*">
+                <File Id="fil0B8D1017C64D229A540B591FFD5F1428" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Properties\Resources.resx" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>
