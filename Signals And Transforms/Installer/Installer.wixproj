@@ -48,7 +48,7 @@
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
   <Target Name="BeforeBuild">
-    <HeatDirectory OutputFile="$(ProjectDir)\ProductInstallFiles.wxs" Directory="..\bin\Debug" ComponentGroupName="ProductComponents" DirectoryRefId="INSTALLLOCATION" AutogenerateGuids="true" PreprocessorVariable="var.SignalsAndTransforms.TargetDir" SuppressRegistry="true" SuppressRootDirectory="true" ToolPath="$(WixToolPath)" NoLogo="true" />
+    <HeatDirectory OutputFile="$(ProjectDir)\ProductInstallFiles.wxs" Directory="..\bin\$(Configuration)" ComponentGroupName="ProductComponents" DirectoryRefId="INSTALLLOCATION" AutogenerateGuids="true" PreprocessorVariable="var.SignalsAndTransforms.TargetDir" SuppressRegistry="true" SuppressRootDirectory="true" ToolPath="$(WixToolPath)" NoLogo="true" />
   </Target>
   <Target Name="AfterBuild">
   </Target>
