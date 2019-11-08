@@ -28,6 +28,11 @@ namespace Signals_And_Transforms.View_Models
 
         public void PlotSignals()
         {
+            if (Signals.Count == 0)
+            {
+                return;
+            }
+
             PlotPoints = new List<DataPoint>();
             double sampleRate = Signals[0].SamplingHZ; // hz
             List<double> timePoints = new List<double>((int)(2 * sampleRate));
@@ -45,7 +50,7 @@ namespace Signals_And_Transforms.View_Models
 
                 foreach (Signal sig in Signals)
                 {
-                    signalValue += (Math.Sin(2 * Math.PI * sig.SignalHZ * timePointVal));
+                    signalValue += sig.Amplitude * (Math.Sin(2 * Math.PI * sig.SignalHZ * timePointVal));
                 }
                 signal.Add(signalValue);
             }

@@ -88,6 +88,15 @@ namespace Signals_And_Transforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amplitude.
+        /// </summary>
+        public static string SIGNAL_AMPLITUDE {
+            get {
+                return ResourceManager.GetString("SIGNAL_AMPLITUDE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hz.
         /// </summary>
         public static string SIGNAL_HZ {

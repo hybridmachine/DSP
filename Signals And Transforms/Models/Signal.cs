@@ -22,6 +22,7 @@ namespace Signals_And_Transforms.Models
         public double SamplingHZ;
         public double SignalHZ;
         public double SampleSeconds; // How long the signal is sampled for
+        public double Amplitude; 
         private List<Double> m_samples;
         public List<double> Samples
         {

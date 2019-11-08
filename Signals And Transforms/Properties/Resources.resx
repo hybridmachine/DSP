@@ -127,6 +127,9 @@
   <data name="SAMPLING_HZ" xml:space="preserve">
     <value>Samples/Second</value>
   </data>
+  <data name="SIGNAL_AMPLITUDE" xml:space="preserve">
+    <value>Amplitude</value>
+  </data>
   <data name="SIGNAL_HZ" xml:space="preserve">
     <value>Hz</value>
   </data>

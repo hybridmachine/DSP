@@ -33,14 +33,21 @@ namespace Signals_And_Transforms.Views
 
             if (model != null)
             {
-                Signal newSignal = new Signal();
-                newSignal.Name = SignalName.Text;
-                newSignal.SamplingHZ = double.Parse(SamplingHz.Text);
-                newSignal.SignalHZ = double.Parse(SignalHz.Text);
-                newSignal.SampleSeconds = 2.0;
-                newSignal.TypeOfSignal = SignalType.Sinusoid;
-                model.Signals.Add(newSignal);
-
+                try
+                {
+                    Signal newSignal = new Signal();
+                    newSignal.Name = SignalName.Text;
+                    newSignal.SamplingHZ = double.Parse(SamplingHz.Text);
+                    newSignal.SignalHZ = double.Parse(SignalHz.Text);
+                    newSignal.Amplitude = double.Parse(SignalAmplitude.Text);
+                    newSignal.SampleSeconds = 2.0;
+                    newSignal.TypeOfSignal = SignalType.Sinusoid;
+                    model.Signals.Add(newSignal);
+                }
+                catch (Exception ex)
+                {
+                    // Todo show to user
+                }
                 ClearValues();
 
                 model.PlotSignals();
