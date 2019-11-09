@@ -41,7 +41,8 @@
                 <ribbon:RibbonGroup x:Name="GroupFFT">
                     <ribbon:RibbonButton x:Name="BTN_FFT"
                                          LargeImageSource="Resources/Images/satellite-dish.png"
-                                         Label="{x:Static res:Resources.BTN_FFT}" />
+                                         Label="{x:Static res:Resources.BTN_FFT}" 
+                                         Click="BTN_FFT_Click"/>
                     <!--
                     <ribbon:RibbonButton x:Name="Button2"
                                          SmallImageSource="Resources/Images/satellite-dish.png"
@@ -57,10 +58,12 @@
                 <ribbon:RibbonGroup x:Name="GroupConvolve">
                     <ribbon:RibbonButton x:Name="BTN_Convolve"
                                          LargeImageSource="Resources/Images/asterisk.png"
-                                         Label="{x:Static res:Resources.BTC_CONVOLUTION}" />
+                                         Label="{x:Static res:Resources.BTC_CONVOLUTION}"
+                                         Click="BTN_Convolve_Click"/>
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
         <views:SignalGeneratorView Grid.Row="1" x:Name="SignalSetup"/>
+        <views:ConvolutionView Grid.Row="1" x:Name="ConvolutionView" Visibility="Collapsed" IsEnabled="False"/>
     </Grid>
 </Window>

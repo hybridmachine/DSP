@@ -109,6 +109,9 @@
     <Compile Include="View Models\GraphViewModel.cs" />
     <Compile Include="View Models\HistogramViewModel.cs" />
     <Compile Include="View Models\SignalGeneratorViewModel.cs" />
+    <Compile Include="Views\ConvolutionView.xaml.cs">
+      <DependentUpon>ConvolutionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HistogramView.xaml.cs">
       <DependentUpon>HistogramView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ConvolutionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HistogramView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

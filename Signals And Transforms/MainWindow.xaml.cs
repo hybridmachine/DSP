@@ -53,5 +53,23 @@ namespace SignalsAndTransforms
         {
 
         }
+
+        private void BTN_Convolve_Click(object sender, RoutedEventArgs e)
+        {
+            SignalSetup.Visibility = Visibility.Collapsed;
+            SignalSetup.IsEnabled = false;
+
+            ConvolutionView.Visibility = Visibility.Visible;
+            SignalSetup.IsEnabled = true;
+        }
+
+        private void BTN_FFT_Click(object sender, RoutedEventArgs e)
+        {
+            SignalSetup.Visibility = Visibility.Visible;
+            SignalSetup.IsEnabled = true;
+
+            ConvolutionView.Visibility = Visibility.Collapsed;
+            ConvolutionView.IsEnabled = false;
+        }
     }
 }
