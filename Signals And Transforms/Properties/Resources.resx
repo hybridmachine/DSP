@@ -117,11 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BTC_CONVOLUTION" xml:space="preserve">
+    <value>Convolve</value>
+  </data>
   <data name="BTN_ADD_SIGNAL" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="BTN_FFT" xml:space="preserve">
+    <value>FFT</value>
+  </data>
+  <data name="BTN_SIGNAL" xml:space="preserve">
+    <value>Signal</value>
+  </data>
+  <data name="CONVOLUTION_PLOT_TITLE" xml:space="preserve">
+    <value>Convolution Kernel</value>
+  </data>
   <data name="PLOT_FREQUENCY_HISTOGRAM_TITLE" xml:space="preserve">
     <value>Frequency Amplitudes</value>
+  </data>
+  <data name="RESULT_PLOT_TITLE" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="RIBBON_CONVOLUTION" xml:space="preserve">
+    <value>Convolution</value>
+  </data>
+  <data name="RIBBON_FREQUENCY_ANALYSIS" xml:space="preserve">
+    <value>Frequency Analysis</value>
+  </data>
+  <data name="RIBBON_TITLE" xml:space="preserve">
+    <value>Signal Analysis</value>
   </data>
   <data name="SAMPLE_DETAILS" xml:space="preserve">
     <value>{0}: {1} @ {2} hz at {3} samples/second for {4} seconds.</value>

@@ -61,6 +61,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convolve.
+        /// </summary>
+        public static string BTC_CONVOLUTION {
+            get {
+                return ResourceManager.GetString("BTC_CONVOLUTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string BTN_ADD_SIGNAL {
@@ -70,11 +79,74 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FFT.
+        /// </summary>
+        public static string BTN_FFT {
+            get {
+                return ResourceManager.GetString("BTN_FFT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signal.
+        /// </summary>
+        public static string BTN_SIGNAL {
+            get {
+                return ResourceManager.GetString("BTN_SIGNAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convolution Kernel.
+        /// </summary>
+        public static string CONVOLUTION_PLOT_TITLE {
+            get {
+                return ResourceManager.GetString("CONVOLUTION_PLOT_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Frequency Amplitudes.
         /// </summary>
         public static string PLOT_FREQUENCY_HISTOGRAM_TITLE {
             get {
                 return ResourceManager.GetString("PLOT_FREQUENCY_HISTOGRAM_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string RESULT_PLOT_TITLE {
+            get {
+                return ResourceManager.GetString("RESULT_PLOT_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convolution.
+        /// </summary>
+        public static string RIBBON_CONVOLUTION {
+            get {
+                return ResourceManager.GetString("RIBBON_CONVOLUTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency Analysis.
+        /// </summary>
+        public static string RIBBON_FREQUENCY_ANALYSIS {
+            get {
+                return ResourceManager.GetString("RIBBON_FREQUENCY_ANALYSIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signal Analysis.
+        /// </summary>
+        public static string RIBBON_TITLE {
+            get {
+                return ResourceManager.GetString("RIBBON_TITLE", resourceCulture);
             }
         }
         

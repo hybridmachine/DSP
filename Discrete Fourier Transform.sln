@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalProcessor", "SignalPr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleGenerator", "SampleGenerator\SampleGenerator.csproj", "{A90D34C6-4DF1-4DDA-B365-0D2A79EC0F41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Convolution", "Convolution\Convolution.csproj", "{6844C95C-312C-4465-934C-079BADFC795D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConvolution", "TestConvolution\TestConvolution.csproj", "{8EACEDDC-C384-405A-9E60-91E44F78D9D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discrete Convolution", "Discrete Convolution\Discrete Convolution.csproj", "{6AE1AA71-50FC-46E6-9325-2D7080C267DE}"
@@ -43,10 +41,6 @@ Global
 		{A90D34C6-4DF1-4DDA-B365-0D2A79EC0F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A90D34C6-4DF1-4DDA-B365-0D2A79EC0F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A90D34C6-4DF1-4DDA-B365-0D2A79EC0F41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6844C95C-312C-4465-934C-079BADFC795D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6844C95C-312C-4465-934C-079BADFC795D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6844C95C-312C-4465-934C-079BADFC795D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6844C95C-312C-4465-934C-079BADFC795D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8EACEDDC-C384-405A-9E60-91E44F78D9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8EACEDDC-C384-405A-9E60-91E44F78D9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EACEDDC-C384-405A-9E60-91E44F78D9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
