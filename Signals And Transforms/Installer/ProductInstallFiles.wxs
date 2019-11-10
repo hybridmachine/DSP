@@ -4,10 +4,24 @@
         <DirectoryRef Id="INSTALLLOCATION">
             <Directory Id="dir7E220EDC847AD7F674C92451C63AED27" Name="app.publish" />
             <Directory Id="dir23A3189054C3F25860189BFFABAD824E" Name="Properties" />
+            <Directory Id="dir7C2C83F6CC8AC47D9022A8AD6554F0C1" Name="x64" />
+            <Directory Id="dirE62C75B0DFC66B1F221D6A7BDE116F3B" Name="x86" />
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="ProductComponents">
+            <Component Id="cmp27EA2B61687E5A7DC650AE74087C769C" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil0F065753A31F13E6321AE36B2AAD06E5" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\EntityFramework.dll" />
+            </Component>
+            <Component Id="cmpC089A10BB84F4EFA42B4AD836B628DFA" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil45C508C3172777941868E32F1A08EC7F" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\EntityFramework.SqlServer.dll" />
+            </Component>
+            <Component Id="cmpA9009B0955E1A9E51C340E0B023E6D02" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filEC6B0E0C78BDA59A0820E556AF64F8A5" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\EntityFramework.SqlServer.xml" />
+            </Component>
+            <Component Id="cmpE60D13745A784BE18A10BE44EF030E68" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filD42A1DF6E53C1CA67CC42BE2D0C1A05B" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\EntityFramework.xml" />
+            </Component>
             <Component Id="cmp40E52104BC4B25BDD82A7C6D3005AD4E" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="filBEC2F41C0720FCF60134D40DE58FB42B" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.dll" />
             </Component>
@@ -50,6 +64,21 @@
             <Component Id="cmp091415C1164C0359AB613D5177286F5E" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="fil00CA866528C3A21C2D16018977998576" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalsAndTransforms.pdb" />
             </Component>
+            <Component Id="cmp062AD082597894B05E12C33F93F7CF77" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil102A30FBD68CF693D2B2325E489331C2" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Data.SQLite.dll" />
+            </Component>
+            <Component Id="cmp58085F89A5D7CB8E6F2DEDE0336D46DB" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil9B65193DC7A687320604CCB9802AFABF" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Data.SQLite.dll.config" />
+            </Component>
+            <Component Id="cmpD8C41F182258FD2A5FB82A6EEE805879" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil2093C6ACC6A41F05991A00FA3A4185AA" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Data.SQLite.EF6.dll" />
+            </Component>
+            <Component Id="cmp096ADC3AFD267BF9CCE488FCF611C73E" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil59E5309D5DC429FF2E2DE3ED371CC2F3" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Data.SQLite.Linq.dll" />
+            </Component>
+            <Component Id="cmp45BCA311C06724D90F4F78CC4C47C5D9" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil9B35045D99417590F2118B6F407DE8A7" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Data.SQLite.xml" />
+            </Component>
             <Component Id="cmp6B289FB6FD7E4B409201003A1EE25111" Directory="dir7E220EDC847AD7F674C92451C63AED27" Guid="*">
                 <File Id="filCC1B442EB56577201C25911A8DDFC55D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\app.publish\SignalsAndTransforms.exe" />
             </Component>
@@ -58,6 +87,12 @@
             </Component>
             <Component Id="cmp8AD91B68D9163A5C50D2223F3F1DFF11" Directory="dir23A3189054C3F25860189BFFABAD824E" Guid="*">
                 <File Id="fil0B8D1017C64D229A540B591FFD5F1428" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Properties\Resources.resx" />
+            </Component>
+            <Component Id="cmp2CC53C18C5BE3BACEE486B4630FB01F0" Directory="dir7C2C83F6CC8AC47D9022A8AD6554F0C1" Guid="*">
+                <File Id="fil51445029E4EDF9C9E5349EDA9AB08211" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\x64\SQLite.Interop.dll" />
+            </Component>
+            <Component Id="cmpEAC9E519DF3BB5A407CDD85A4B128AF0" Directory="dirE62C75B0DFC66B1F221D6A7BDE116F3B" Guid="*">
+                <File Id="filC47E4271B865893B6BEA412E9318E80D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\x86\SQLite.Interop.dll" />
             </Component>
         </ComponentGroup>
     </Fragment>
