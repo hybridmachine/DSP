@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SignalsAndTransforms.View_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,17 @@ namespace SignalsAndTransforms.Views
         public ConvolutionView()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            bool visibility = (bool)e.NewValue;
+            if (visibility == true)
+            {
+                ConvolutionViewModel model = DataContext as ConvolutionViewModel;
+
+                model?.PlotData();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SignalsAndTransforms.View_Models;
+﻿using SignalsAndTransforms.Managers;
+using SignalsAndTransforms.View_Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace SignalsAndTransforms
         {
             InitializeComponent();
             SignalSetup.DataContext = new SignalGeneratorViewModel();
+            ConvolutionView.DataContext = new ConvolutionViewModel();
+            WorkBookManager.Manager().CreateWorkBook("Test"); // For now create the test workbook, soon we'll add load/save/create to the UI
         }
 
         private void TextBox_KeyEnterUpdate(object sender, KeyEventArgs e)

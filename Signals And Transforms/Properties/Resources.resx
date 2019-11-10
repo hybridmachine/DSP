@@ -126,8 +126,17 @@
   <data name="BTN_FFT" xml:space="preserve">
     <value>FFT</value>
   </data>
+  <data name="BTN_SIGNAL" xml:space="preserve">
+    <value>Signal</value>
+  </data>
+  <data name="CONVOLUTION_PLOT_TITLE" xml:space="preserve">
+    <value>Convolution Kernel</value>
+  </data>
   <data name="PLOT_FREQUENCY_HISTOGRAM_TITLE" xml:space="preserve">
     <value>Frequency Amplitudes</value>
+  </data>
+  <data name="RESULT_PLOT_TITLE" xml:space="preserve">
+    <value>Result</value>
   </data>
   <data name="RIBBON_CONVOLUTION" xml:space="preserve">
     <value>Convolution</value>

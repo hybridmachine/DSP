@@ -41,7 +41,7 @@
                 <ribbon:RibbonGroup x:Name="GroupFFT">
                     <ribbon:RibbonButton x:Name="BTN_FFT"
                                          LargeImageSource="Resources/Images/satellite-dish.png"
-                                         Label="{x:Static res:Resources.BTN_FFT}" 
+                                         Label="{x:Static res:Resources.BTN_SIGNAL}" 
                                          Click="BTN_FFT_Click"/>
                     <!--
                     <ribbon:RibbonButton x:Name="Button2"

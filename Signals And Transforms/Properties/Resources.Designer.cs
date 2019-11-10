@@ -88,11 +88,38 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Signal.
+        /// </summary>
+        public static string BTN_SIGNAL {
+            get {
+                return ResourceManager.GetString("BTN_SIGNAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convolution Kernel.
+        /// </summary>
+        public static string CONVOLUTION_PLOT_TITLE {
+            get {
+                return ResourceManager.GetString("CONVOLUTION_PLOT_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Frequency Amplitudes.
         /// </summary>
         public static string PLOT_FREQUENCY_HISTOGRAM_TITLE {
             get {
                 return ResourceManager.GetString("PLOT_FREQUENCY_HISTOGRAM_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string RESULT_PLOT_TITLE {
+            get {
+                return ResourceManager.GetString("RESULT_PLOT_TITLE", resourceCulture);
             }
         }
         

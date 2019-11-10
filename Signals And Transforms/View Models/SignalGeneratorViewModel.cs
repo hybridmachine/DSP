@@ -2,6 +2,7 @@
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using SignalProcessor;
+using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace SignalsAndTransforms.View_Models
 {
     public class SignalGeneratorViewModel : INotifyPropertyChanged
     {
+        private WorkBookManager workBookManager;
+
         public ObservableCollection<Signal> Signals { get; private set; }
         public IList<DataPoint> PlotPoints { get; private set; }
         public IList<DataPoint> FrequencyHistogram { get; private set; }
@@ -24,7 +27,8 @@ namespace SignalsAndTransforms.View_Models
         public SignalGeneratorViewModel()
         {
             Signals = new ObservableCollection<Signal>();
-            Title = Properties.Resources.SIGNAL_PLOT_TITLE;       
+            Title = Properties.Resources.SIGNAL_PLOT_TITLE;
+            workBookManager = WorkBookManager.Manager();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -35,6 +39,11 @@ namespace SignalsAndTransforms.View_Models
             {
                 return;
             }
+
+            Signal workbookSourceSignal = new Signal();
+            workbookSourceSignal.SamplingHZ = Signals[0].SamplingHZ;
+            workbookSourceSignal.SampleSeconds = Signals[0].SampleSeconds;
+            workbookSourceSignal.TypeOfSignal = SignalType.Sinusoid;
 
             PlotPoints = new List<DataPoint>();
             FrequencyHistogram = new List<DataPoint>();
@@ -60,10 +69,13 @@ namespace SignalsAndTransforms.View_Models
                 signal.Add(signalValue);
             }
 
+            workbookSourceSignal.Samples.AddRange(signal);
+            workBookManager.ActiveWorkBook().SourceSignal = workbookSourceSignal;
+
             // Test data for now
-            for (int idx=0; idx<signal.Count;idx++)
+            for (int idx=0; idx<workbookSourceSignal.Samples.Count;idx++)
             {
-                PlotPoints.Add(new DataPoint(idx, signal[idx]));
+                PlotPoints.Add(new DataPoint(idx, workbookSourceSignal.Samples[idx]));
             }
 
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
@@ -80,8 +92,7 @@ namespace SignalsAndTransforms.View_Models
 
         private void NotifyPropertyChanged(string propertyName)
         {
-            PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-            PropertyChanged?.Invoke(this, args);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
