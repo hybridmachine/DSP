@@ -22,5 +22,6 @@ namespace SignalsAndTransforms.Models
 
         public Signal SourceSignal { get; set; }
         public Signal OutputSignal { get; set; }
+        public Signal ConvolutionKernel { get; set; }
     }
 }

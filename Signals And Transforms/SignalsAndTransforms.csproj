@@ -84,8 +84,8 @@
       <HintPath>..\packages\OxyPlot.Wpf.2.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
-    <Reference Include="SignalProcessor, Version=0.1.6.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
-      <HintPath>..\packages\SignalProcessor.0.1.6\lib\netstandard2.0\SignalProcessor.dll</HintPath>
+    <Reference Include="SignalProcessor, Version=0.1.7.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
+      <HintPath>packages\SignalProcessor.0.1.7\lib\netstandard2.0\SignalProcessor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

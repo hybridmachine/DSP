@@ -16,7 +16,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <oxy:Plot x:Name="SignalPlot" Grid.Column="0" Grid.Row="0" Margin="5" Title="{x:Static res:Resources.SIGNAL_PLOT_TITLE}">
@@ -41,6 +42,11 @@
                                 Color="Cyan" 
                                 MarkerFill="Purple" 
                                 MarkerType="Square"/>
+            </oxy:Plot.Series>
+        </oxy:Plot>
+        <oxy:Plot Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="2" Margin="5" Title="{x:Static res:Resources.PLOT_FREQUENCY_HISTOGRAM_TITLE}">
+            <oxy:Plot.Series>
+                <oxy:LineSeries ItemsSource="{Binding ResultFrequencyHistogram}"/>
             </oxy:Plot.Series>
         </oxy:Plot>
     </Grid>
