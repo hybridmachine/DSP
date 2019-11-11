@@ -1,4 +1,5 @@
-﻿using SignalsAndTransforms.Models;
+﻿using SignalsAndTransforms.DAL;
+using SignalsAndTransforms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace SignalsAndTransforms.Managers
     public sealed class WorkBookManager
     {
         private WorkBook activeWorkbook;
-
+        private WorkBookDAL workBookDAL;
         // Only one instance in the app
         private WorkBookManager()
         {
-
+            workBookDAL = new WorkBookDAL();
         }
 
         private static WorkBookManager Instance;
@@ -42,6 +43,7 @@ namespace SignalsAndTransforms.Managers
                 activeWorkbook = newWorkBook;
             }
 
+            workBookDAL.Create(newWorkBook);
             return newWorkBook;
         }
     }

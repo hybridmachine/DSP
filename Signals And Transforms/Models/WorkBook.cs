@@ -14,11 +14,12 @@ namespace SignalsAndTransforms.Models
         public WorkBook(String name)
         {
             Name = name;
+            Notes = String.Empty; // Needed by the DAL
         }
 
-        public String Name { get; private set; }
-        public String FilePath { get; private set; }
-        public String Notes { get; private set; }
+        public String Name { get; set; }
+        public String FilePath { get; set; }
+        public String Notes { get; set; }
 
         public Signal SourceSignal { get; set; }
         public Signal OutputSignal { get; set; }
