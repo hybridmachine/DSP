@@ -40,31 +40,31 @@ namespace SignalsAndTransforms.DAL
                 DatabaseInitializer.Initialize(sqlLiteConnection);
 
                 string sql = $@"INSERT INTO WorkBook ([Name],[Notes],[CreateDT]) VALUES (@Name, @Notes, datetime('now'))";
-                using (SqliteCommand cmd = new SqliteCommand(sql, sqlLiteConnection))
+               
+                using (var transaction = sqlLiteConnection.BeginTransaction())
                 {
-                    using (var transaction = cmd.Connection.BeginTransaction())
+                    SqliteCommand cmd = sqlLiteConnection.CreateCommand();
+                    try
                     {
-                        try
-                        {
-                            cmd.Transaction = transaction;
-                            cmd.Parameters.AddWithValue("@Name", workBook.Name);
-                            cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
-                            cmd.ExecuteNonQuery();
+                        cmd.CommandText = sql;
+                        cmd.Parameters.AddWithValue("@Name", workBook.Name);
+                        cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
+                        cmd.ExecuteNonQuery();
 
-                            sql = "SELECT last_insert_rowid();";
-                            using (SqliteCommand getId = new SqliteCommand(sql, sqlLiteConnection))
-                            {
-                                getId.Transaction = transaction;
-                                workBook.Id = (long)getId.ExecuteScalar();
-                            }
-                            transaction.Commit();
-                        } catch (Exception ex)
+                        sql = "SELECT last_insert_rowid();";
+                        using (SqliteCommand getId = new SqliteCommand(sql, sqlLiteConnection))
                         {
-                            transaction.Rollback();
-                            throw;
+                            getId.Transaction = transaction;
+                            workBook.Id = (long)getId.ExecuteScalar();
                         }
+                        transaction.Commit();
+                    } catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw;
                     }
                 }
+               
             }
             
             return true;
@@ -88,19 +88,32 @@ namespace SignalsAndTransforms.DAL
                 string sql = $@"UPDATE WorkBook SET [Name] = @Name,
                                                     [Notes] = @Notes,
                                                     [UpdateDT] = datetime('now') WHERE Id=@Id";
-                using (SqliteCommand cmd = new SqliteCommand(sql, sqlLiteConnection))
+
+                using (var transaction = sqlLiteConnection.BeginTransaction())
                 {
-                    using (var transaction = cmd.Connection.BeginTransaction())
+                    try
                     {
-                        cmd.Transaction = transaction;
+                        SqliteCommand cmd = sqlLiteConnection.CreateCommand();
+                        cmd.CommandText = sql;
+
                         cmd.Parameters.AddWithValue("@Name", workBook.Name);
                         cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
                         cmd.Parameters.AddWithValue("@Id", workBook.Id);
                         cmd.ExecuteNonQuery();
 
+                        foreach (Signal signal in workBook.Signals.Values)
+                        {
+                            SignalDAL.Create(workBook, signal, sqlLiteConnection);
+                        }
+
                         transaction.Commit();
+                    } catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw;
                     }
                 }
+                
             }
             return true;
         }

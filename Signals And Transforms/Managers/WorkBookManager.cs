@@ -48,5 +48,11 @@ namespace SignalsAndTransforms.Managers
             WorkBookDAL.Update(newWorkBook);
             return newWorkBook;
         }
+
+        public bool Update(WorkBook workBook)
+        {
+            WorkBookDAL.Update(workBook);
+            return true;
+        }
     }
 }

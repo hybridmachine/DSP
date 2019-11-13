@@ -41,6 +41,7 @@ namespace SignalsAndTransforms.View_Models
             }
 
             Signal workbookSourceSignal = new Signal();
+            workbookSourceSignal.Name = "Source";
             workbookSourceSignal.SamplingHZ = Signals[0].SamplingHZ;
             workbookSourceSignal.SampleSeconds = Signals[0].SampleSeconds;
             workbookSourceSignal.TypeOfSignal = SignalType.Sinusoid;
@@ -71,6 +72,7 @@ namespace SignalsAndTransforms.View_Models
 
             workbookSourceSignal.Samples.AddRange(signal);
             workBookManager.ActiveWorkBook().SourceSignal = workbookSourceSignal;
+            workBookManager.Update(workBookManager.ActiveWorkBook());
 
             // Test data for now
             for (int idx=0; idx<workbookSourceSignal.Samples.Count;idx++)

@@ -61,7 +61,8 @@ namespace SignalsAndTransforms.DAL
             string sql = $@"
                 CREATE TABLE 'Signal' (
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    'Name'  TEXT,
+                    'WorkBookId' INTEGER,
+                    'Name'  TEXT NOT NULL UNIQUE,
 	                'SamplingHZ' REAL,
 	                'SignalHZ'  REAL,
                     'SampleSeconds'  REAL,

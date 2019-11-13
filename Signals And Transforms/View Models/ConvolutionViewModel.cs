@@ -28,6 +28,7 @@ namespace SignalsAndTransforms.View_Models
         {
             // For now load test convolution data, todo load from disk
             Signal convolutionKernel = new Signal();
+            convolutionKernel.Name = "ConvolutonKernel";
             convolutionKernel.SampleSeconds = 1;
             convolutionKernel.SamplingHZ = 32;
             convolutionKernel.TypeOfSignal = SignalType.Sinusoid;
@@ -98,6 +99,11 @@ namespace SignalsAndTransforms.View_Models
 
         public void PlotData()
         {
+            if (null == manager.ActiveWorkBook().SourceSignal)
+            {
+                return;
+            }
+
             Signal workbookSourceSignal = manager.ActiveWorkBook().SourceSignal;
             SignalPlotPoints = new List<DataPoint>(workbookSourceSignal.Samples.Count);
 
