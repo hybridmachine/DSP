@@ -12,11 +12,11 @@ namespace SignalsAndTransforms.Managers
     public sealed class WorkBookManager
     {
         private WorkBook activeWorkbook;
-        private WorkBookDAL workBookDAL;
+        
         // Only one instance in the app
         private WorkBookManager()
         {
-            workBookDAL = new WorkBookDAL();
+        
         }
 
         private static WorkBookManager Instance;
@@ -43,9 +43,9 @@ namespace SignalsAndTransforms.Managers
                 activeWorkbook = newWorkBook;
             }
 
-            workBookDAL.Create(newWorkBook);
+            WorkBookDAL.Create(newWorkBook);
             newWorkBook.Notes = "It's safe to add notes with single quotes and \"\" quotes";
-            workBookDAL.Update(newWorkBook);
+            WorkBookDAL.Update(newWorkBook);
             return newWorkBook;
         }
     }

@@ -39,6 +39,8 @@ namespace SignalsAndTransforms.DAL
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     'Name'  TEXT,
 	                'Notes' TEXT,
+                    'CreateDT' TEXT,
+                    'UpdateDT' TEXT,
 	                'SourceSignalId'  INTEGER,
                     'OutputSignalId'  INTEGER,
 	                'ConvolutionKernelId' INTEGER

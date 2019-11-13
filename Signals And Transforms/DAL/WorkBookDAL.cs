@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SignalsAndTransforms.DAL
 {
-    public class WorkBookDAL
+    public static class WorkBookDAL
     {
-        private void SetWorkBookFilePath(WorkBook workBook)
+        private static void SetWorkBookFilePath(WorkBook workBook)
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             workBook.FilePath = Path.Combine(desktopPath, $"{workBook.Name}.db");
@@ -21,7 +21,7 @@ namespace SignalsAndTransforms.DAL
         /// </summary>
         /// <param name="workBook"></param>
         /// <returns>true on success</returns>
-        public bool Create(WorkBook workBook)
+        public static bool Create(WorkBook workBook)
         {
 
             SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
@@ -39,23 +39,30 @@ namespace SignalsAndTransforms.DAL
                 sqlLiteConnection.Open();
                 DatabaseInitializer.Initialize(sqlLiteConnection);
 
-                string sql = $@"INSERT INTO WorkBook ([Name],[Notes]) VALUES (@Name, @Notes)";
+                string sql = $@"INSERT INTO WorkBook ([Name],[Notes],[CreateDT]) VALUES (@Name, @Notes, datetime('now'))";
                 using (SqliteCommand cmd = new SqliteCommand(sql, sqlLiteConnection))
                 {
                     using (var transaction = cmd.Connection.BeginTransaction())
                     {
-                        cmd.Transaction = transaction;
-                        cmd.Parameters.AddWithValue("@Name", workBook.Name);
-                        cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
-                        cmd.ExecuteNonQuery();
-
-                        sql = "SELECT last_insert_rowid();";
-                        using (SqliteCommand getId = new SqliteCommand(sql, sqlLiteConnection))
+                        try
                         {
-                            getId.Transaction = transaction;
-                            workBook.Id =  (long)getId.ExecuteScalar();
+                            cmd.Transaction = transaction;
+                            cmd.Parameters.AddWithValue("@Name", workBook.Name);
+                            cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
+                            cmd.ExecuteNonQuery();
+
+                            sql = "SELECT last_insert_rowid();";
+                            using (SqliteCommand getId = new SqliteCommand(sql, sqlLiteConnection))
+                            {
+                                getId.Transaction = transaction;
+                                workBook.Id = (long)getId.ExecuteScalar();
+                            }
+                            transaction.Commit();
+                        } catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw;
                         }
-                        transaction.Commit();
                     }
                 }
             }
@@ -67,7 +74,7 @@ namespace SignalsAndTransforms.DAL
         /// Persist properties to database
         /// </summary>
         /// <param name="workBook"></param>
-        public bool Update(WorkBook workBook)
+        public static bool Update(WorkBook workBook)
         {
             SetWorkBookFilePath(workBook); // Set it every time, wont hurt anything, ensures we have the right path
             SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
@@ -79,7 +86,8 @@ namespace SignalsAndTransforms.DAL
                 sqlLiteConnection.Open();
 
                 string sql = $@"UPDATE WorkBook SET [Name] = @Name,
-                                                    [Notes] = @Notes WHERE Id=@Id";
+                                                    [Notes] = @Notes,
+                                                    [UpdateDT] = datetime('now') WHERE Id=@Id";
                 using (SqliteCommand cmd = new SqliteCommand(sql, sqlLiteConnection))
                 {
                     using (var transaction = cmd.Connection.BeginTransaction())
