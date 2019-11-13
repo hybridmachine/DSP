@@ -44,6 +44,8 @@ namespace SignalsAndTransforms.Managers
             }
 
             workBookDAL.Create(newWorkBook);
+            newWorkBook.Notes = "It's safe to add notes with single quotes and \"\" quotes";
+            workBookDAL.Update(newWorkBook);
             return newWorkBook;
         }
     }

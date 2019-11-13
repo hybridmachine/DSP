@@ -11,6 +11,11 @@ namespace SignalsAndTransforms.DAL
 {
     public class WorkBookDAL
     {
+        private void SetWorkBookFilePath(WorkBook workBook)
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            workBook.FilePath = Path.Combine(desktopPath, $"{workBook.Name}.db");
+        }
         /// <summary>
         /// Create the Workbook file, note this will delete any previously existing file if it exists
         /// </summary>
@@ -18,11 +23,9 @@ namespace SignalsAndTransforms.DAL
         /// <returns>true on success</returns>
         public bool Create(WorkBook workBook)
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            SqliteConnection sqlLiteConnection;
 
             SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
-            workBook.FilePath = Path.Combine(desktopPath, $"{workBook.Name}.db");
+            SetWorkBookFilePath(workBook);
 
             // Create overwrites any existing file
             if (File.Exists(workBook.FilePath))
@@ -31,21 +34,27 @@ namespace SignalsAndTransforms.DAL
             }
             connectionString.DataSource = workBook.FilePath;
 
-            using (sqlLiteConnection = new SqliteConnection(connectionString.ConnectionString))
+            using (SqliteConnection sqlLiteConnection = new SqliteConnection(connectionString.ConnectionString))
             {
                 sqlLiteConnection.Open();
-                InitializeWorkBookTable(sqlLiteConnection);
+                DatabaseInitializer.Initialize(sqlLiteConnection);
 
                 string sql = $@"INSERT INTO WorkBook ([Name],[Notes]) VALUES (@Name, @Notes)";
                 using (SqliteCommand cmd = new SqliteCommand(sql, sqlLiteConnection))
                 {
-                    int result = 0;
                     using (var transaction = cmd.Connection.BeginTransaction())
                     {
                         cmd.Transaction = transaction;
                         cmd.Parameters.AddWithValue("@Name", workBook.Name);
                         cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
                         cmd.ExecuteNonQuery();
+
+                        sql = "SELECT last_insert_rowid();";
+                        using (SqliteCommand getId = new SqliteCommand(sql, sqlLiteConnection))
+                        {
+                            getId.Transaction = transaction;
+                            workBook.Id =  (long)getId.ExecuteScalar();
+                        }
                         transaction.Commit();
                     }
                 }
@@ -54,26 +63,37 @@ namespace SignalsAndTransforms.DAL
             return true;
         }
 
-
         /// <summary>
-        /// Create the WorkBook table in the database
+        /// Persist properties to database
         /// </summary>
-        /// <returns></returns>
-        private bool InitializeWorkBookTable(SqliteConnection con)
+        /// <param name="workBook"></param>
+        public bool Update(WorkBook workBook)
         {
-            string sql = $@"
-                CREATE TABLE 'WorkBook' (
-                    'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    'Name'  TEXT,
-	                'Notes' TEXT,
-	                'SourceSignalId'  INTEGER,
-                    'OutputSignalId'  INTEGER,
-	                'ConvolutionKernelId' INTEGER
-                )";
+            SetWorkBookFilePath(workBook); // Set it every time, wont hurt anything, ensures we have the right path
+            SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
 
-            SqliteCommand cmd = con.CreateCommand();
-            cmd.CommandText = sql;
-            cmd.ExecuteNonQuery();
+            connectionString.DataSource = workBook.FilePath;
+
+            using (SqliteConnection sqlLiteConnection = new SqliteConnection(connectionString.ConnectionString))
+            {
+                sqlLiteConnection.Open();
+
+                string sql = $@"UPDATE WorkBook SET [Name] = @Name,
+                                                    [Notes] = @Notes WHERE Id=@Id";
+                using (SqliteCommand cmd = new SqliteCommand(sql, sqlLiteConnection))
+                {
+                    using (var transaction = cmd.Connection.BeginTransaction())
+                    {
+                        cmd.Transaction = transaction;
+                        cmd.Parameters.AddWithValue("@Name", workBook.Name);
+                        cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
+                        cmd.Parameters.AddWithValue("@Id", workBook.Id);
+                        cmd.ExecuteNonQuery();
+
+                        transaction.Commit();
+                    }
+                }
+            }
             return true;
         }
     }

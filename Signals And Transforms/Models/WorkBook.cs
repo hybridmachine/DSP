@@ -16,7 +16,7 @@ namespace SignalsAndTransforms.Models
             Name = name;
             Notes = String.Empty; // Needed by the DAL
         }
-
+        public long Id { get; set; }
         public String Name { get; set; }
         public String FilePath { get; set; }
         public String Notes { get; set; }

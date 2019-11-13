@@ -133,6 +133,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command Classes\RelayCommand.cs" />
+    <Compile Include="DAL\DatabaseInitializer.cs" />
     <Compile Include="DAL\SignalDAL.cs" />
     <Compile Include="DAL\WorkBookDAL.cs" />
     <Compile Include="Managers\WorkBookManager.cs" />
