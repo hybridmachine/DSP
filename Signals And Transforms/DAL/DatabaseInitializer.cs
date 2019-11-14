@@ -85,7 +85,11 @@ namespace SignalsAndTransforms.DAL
                 CREATE TABLE 'SignalValues' (
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     'SignalID' INTEGER,
-                    'Value'  REAL
+                    'Value'  REAL,
+                    CONSTRAINT fk_signalid
+                        FOREIGN KEY (SignalID)
+                        REFERENCES Signal (Id)
+                        ON DELETE CASCADE
                 )";
 
             SqliteCommand cmd = con.CreateCommand();

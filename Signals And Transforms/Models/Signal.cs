@@ -17,12 +17,13 @@ namespace SignalsAndTransforms.Models
 
     public class Signal
     {
+        public long Id { get; set; }
         public SignalType TypeOfSignal;    
-        public string Name;
-        public double SamplingHZ;
-        public double SignalHZ;
-        public double SampleSeconds; // How long the signal is sampled for
-        public double Amplitude; 
+        public string Name { get; set; }
+        public double SamplingHZ { get; set; }
+        public double SignalHZ { get; set; }
+        public double SampleSeconds { get; set; } // How long the signal is sampled for
+        public double Amplitude { get; set; } 
         private List<Double> m_samples;
         public List<double> Samples
         {
