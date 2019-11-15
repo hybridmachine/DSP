@@ -14,6 +14,12 @@ namespace SignalsAndTransforms.Models
     {
         private Dictionary<string, Signal> m_signals;
 
+        public WorkBook()
+        {
+            // Default constructor used by Dapper, which loads the name property by mapping.
+            m_signals = new Dictionary<string, Signal>();
+        }
+
         public WorkBook(String name)
         {
             Name = name;

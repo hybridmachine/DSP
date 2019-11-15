@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SignalsAndTransforms.Models;
 
 namespace SignalsAndTransforms
 {
@@ -74,6 +75,14 @@ namespace SignalsAndTransforms
 
             ConvolutionView.Visibility = Visibility.Collapsed;
             ConvolutionView.IsEnabled = false;
+        }
+
+        private void MenuItemSave_Click(object sender, RoutedEventArgs e)
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = System.IO.Path.Combine(desktopPath, "test.db");
+
+            WorkBook test = WorkBookManager.Manager().Load(filePath);
         }
     }
 }

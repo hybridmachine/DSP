@@ -34,6 +34,12 @@ namespace SignalsAndTransforms.Managers
             return activeWorkbook;
         }
 
+        // Load a workbook from the specified path
+        public WorkBook Load(string filePath)
+        {
+            return WorkBookDAL.Load(filePath);
+        }
+
         public WorkBook CreateWorkBook(String name)
         {
             WorkBook newWorkBook = new WorkBook(name);

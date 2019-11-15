@@ -70,6 +70,9 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper.StrongName, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e3e8412083d25dd3, processorArchitecture=MSIL">
+      <HintPath>packages\Dapper.StrongName.2.0.30\lib\net461\Dapper.StrongName.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Data.Sqlite, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Data.Sqlite.Core.3.0.0\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
     </Reference>
@@ -137,18 +140,12 @@
     <Compile Include="DAL\SignalDAL.cs" />
     <Compile Include="DAL\WorkBookDAL.cs" />
     <Compile Include="Managers\WorkBookManager.cs" />
-    <Compile Include="Models\SampleData.cs" />
     <Compile Include="Models\Signal.cs" />
     <Compile Include="Models\WorkBook.cs" />
     <Compile Include="View Models\ConvolutionViewModel.cs" />
-    <Compile Include="View Models\GraphViewModel.cs" />
-    <Compile Include="View Models\HistogramViewModel.cs" />
     <Compile Include="View Models\SignalGeneratorViewModel.cs" />
     <Compile Include="Views\ConvolutionView.xaml.cs">
       <DependentUpon>ConvolutionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HistogramView.xaml.cs">
-      <DependentUpon>HistogramView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignalGeneratorView.xaml.cs">
       <DependentUpon>SignalGeneratorView.xaml</DependentUpon>
@@ -166,10 +163,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ConvolutionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\HistogramView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,16 +213,6 @@
     <Analyzer Include="packages\Microsoft.NetCore.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
     <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SampleGenerator\SampleGenerator.csproj">
-      <Project>{a90d34c6-4df1-4dda-b365-0d2a79ec0f41}</Project>
-      <Name>SampleGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SignalGenerator\SignalGenerator.csproj">
-      <Project>{29c2ce4a-a041-482a-aa0d-77bc55e0b9bc}</Project>
-      <Name>SignalGenerator</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="dspicon_HzG_icon.ico" />

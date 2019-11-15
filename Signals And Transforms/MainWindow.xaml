@@ -33,6 +33,7 @@
                 <ribbon:RibbonApplicationMenu SmallImageSource="Resources/Images/save.png">
                     <ribbon:RibbonApplicationMenuItem Header="Save"
                                                       x:Name="MenuItemSave"
+                                                      Click="MenuItemSave_Click"
                                                       ImageSource="Resources/Images/save.png"/>
                 </ribbon:RibbonApplicationMenu>
             </ribbon:Ribbon.ApplicationMenu>

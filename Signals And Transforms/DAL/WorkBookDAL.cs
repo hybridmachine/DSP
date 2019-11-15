@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using Dapper;
+using Microsoft.Data.Sqlite;
 using SignalsAndTransforms.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,12 @@ using System.Threading.Tasks;
 
 namespace SignalsAndTransforms.DAL
 {
+    class SignalValue
+    {
+        public long Id { get; set; }
+        public long SignalId { get; set; }
+        public double Value { get; set; }
+    }
     public static class WorkBookDAL
     {
         private static void SetWorkBookFilePath(WorkBook workBook)
@@ -116,6 +123,41 @@ namespace SignalsAndTransforms.DAL
                 
             }
             return true;
+        }
+
+        public static WorkBook Load(string fromPath)
+        {
+            WorkBook newWorkBook = new WorkBook("");
+
+            SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
+            connectionString.DataSource = fromPath;
+
+            using (var connection = new SqliteConnection(connectionString.ToString()))
+            {
+                connection.Open();
+                // for now only one exists in each file, if we change that approach, we'll need to update this query
+                newWorkBook = connection.Query<WorkBook>($@"SELECT [Id], [Name], [Notes] FROM WorkBook").FirstOrDefault();
+
+                var signals = connection.Query<Signal>($"SELECT * from Signal WHERE WorkBookId = '{newWorkBook.Id}'");
+
+                foreach (Signal signal in signals)
+                {
+                    var signalValues = connection.Query<SignalValue>($"SELECT * from SignalValues WHERE SignalId = {signal.Id} ORDER BY Id ASC");
+                    signal.Samples = new List<double>(signalValues.Count());
+
+                    foreach (SignalValue value in signalValues)
+                    {
+                        signal.Samples.Add(value.Value);
+                    }
+
+                    newWorkBook.Signals.Add(signal.Name, signal);
+                }
+
+            }
+
+
+                
+            return newWorkBook;
         }
     }
 }

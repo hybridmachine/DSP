@@ -36,6 +36,11 @@ namespace SignalsAndTransforms.Models
 
                 return m_samples;
             }
+
+            set
+            {
+                m_samples = value; // Used by dapper when reading from DB
+            }
         }
 
         public override string ToString()
