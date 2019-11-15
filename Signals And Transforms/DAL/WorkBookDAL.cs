@@ -18,11 +18,6 @@ namespace SignalsAndTransforms.DAL
     }
     public static class WorkBookDAL
     {
-        private static void SetWorkBookFilePath(WorkBook workBook)
-        {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            workBook.FilePath = Path.Combine(desktopPath, $"{workBook.Name}.db");
-        }
         /// <summary>
         /// Create the Workbook file, note this will delete any previously existing file if it exists
         /// </summary>
@@ -32,7 +27,10 @@ namespace SignalsAndTransforms.DAL
         {
 
             SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
-            SetWorkBookFilePath(workBook);
+            if (workBook.FilePath == null)
+            {
+                throw new Exception("Filepath not set");
+            }
 
             // Create overwrites any existing file
             if (File.Exists(workBook.FilePath))
@@ -55,7 +53,7 @@ namespace SignalsAndTransforms.DAL
                     {
                         cmd.CommandText = sql;
                         cmd.Parameters.AddWithValue("@Name", workBook.Name);
-                        cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
+                        cmd.Parameters.AddWithValue("@Notes", workBook.Notes ?? String.Empty);
                         cmd.ExecuteNonQuery();
 
                         sql = "SELECT last_insert_rowid();";
@@ -83,7 +81,11 @@ namespace SignalsAndTransforms.DAL
         /// <param name="workBook"></param>
         public static bool Update(WorkBook workBook)
         {
-            SetWorkBookFilePath(workBook); // Set it every time, wont hurt anything, ensures we have the right path
+            if (workBook.FilePath == null)
+            {
+                throw new Exception("Filepath not set");
+            }
+
             SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
 
             connectionString.DataSource = workBook.FilePath;
@@ -104,7 +106,7 @@ namespace SignalsAndTransforms.DAL
                         cmd.CommandText = sql;
 
                         cmd.Parameters.AddWithValue("@Name", workBook.Name);
-                        cmd.Parameters.AddWithValue("@Notes", workBook.Notes);
+                        cmd.Parameters.AddWithValue("@Notes", workBook.Notes ?? String.Empty);
                         cmd.Parameters.AddWithValue("@Id", workBook.Id);
                         cmd.ExecuteNonQuery();
 
@@ -155,8 +157,6 @@ namespace SignalsAndTransforms.DAL
 
             }
 
-
-                
             return newWorkBook;
         }
     }

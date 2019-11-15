@@ -61,6 +61,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Files.
+        /// </summary>
+        public static string ALL_FILES {
+            get {
+                return ResourceManager.GetString("ALL_FILES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Convolve.
         /// </summary>
         public static string BTC_CONVOLUTION {
@@ -102,6 +111,24 @@ namespace SignalsAndTransforms.Properties {
         public static string CONVOLUTION_PLOT_TITLE {
             get {
                 return ResourceManager.GetString("CONVOLUTION_PLOT_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database Files.
+        /// </summary>
+        public static string DATABASE_FILES {
+            get {
+                return ResourceManager.GetString("DATABASE_FILES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string OPEN {
+            get {
+                return ResourceManager.GetString("OPEN", resourceCulture);
             }
         }
         
@@ -165,6 +192,15 @@ namespace SignalsAndTransforms.Properties {
         public static string SAMPLING_HZ {
             get {
                 return ResourceManager.GetString("SAMPLING_HZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string SAVE {
+            get {
+                return ResourceManager.GetString("SAVE", resourceCulture);
             }
         }
         

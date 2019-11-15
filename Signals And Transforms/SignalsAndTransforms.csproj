@@ -236,6 +236,9 @@
   <ItemGroup>
     <Resource Include="Resources\Images\save.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\open-file-button.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

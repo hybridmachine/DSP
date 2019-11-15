@@ -72,8 +72,7 @@ namespace SignalsAndTransforms.View_Models
 
             workbookSourceSignal.Samples.AddRange(signal);
             workBookManager.ActiveWorkBook().SourceSignal = workbookSourceSignal;
-            workBookManager.Update(workBookManager.ActiveWorkBook());
-
+            
             // Test data for now
             for (int idx=0; idx<workbookSourceSignal.Samples.Count;idx++)
             {

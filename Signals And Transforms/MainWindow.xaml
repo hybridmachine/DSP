@@ -31,11 +31,16 @@
             -->
             <ribbon:Ribbon.ApplicationMenu>
                 <ribbon:RibbonApplicationMenu SmallImageSource="Resources/Images/save.png">
-                    <ribbon:RibbonApplicationMenuItem Header="Save"
+                    <ribbon:RibbonApplicationMenuItem Header="{x:Static res:Resources.SAVE}"
                                                       x:Name="MenuItemSave"
                                                       Click="MenuItemSave_Click"
                                                       ImageSource="Resources/Images/save.png"/>
+                    <ribbon:RibbonApplicationMenuItem Header="{x:Static res:Resources.OPEN}"
+                                                      x:Name="MenuItemLoad"
+                                                      Click="MenuItemLoad_Click"
+                                                      ImageSource="Resources/Images/open-file-button.png"/>
                 </ribbon:RibbonApplicationMenu>
+                
             </ribbon:Ribbon.ApplicationMenu>
             <ribbon:RibbonTab x:Name="HomeTab" 
                               Header="Home">

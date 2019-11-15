@@ -31,6 +31,11 @@ namespace SignalsAndTransforms.Managers
 
         public WorkBook ActiveWorkBook()
         {
+            if (activeWorkbook == null)
+            {
+                activeWorkbook = new WorkBook();
+            }
+
             return activeWorkbook;
         }
 
@@ -40,19 +45,11 @@ namespace SignalsAndTransforms.Managers
             return WorkBookDAL.Load(filePath);
         }
 
-        public WorkBook CreateWorkBook(String name)
+        public bool SaveWorkBook(WorkBook workBook)
         {
-            WorkBook newWorkBook = new WorkBook(name);
-
-            if (null == activeWorkbook)
-            {
-                activeWorkbook = newWorkBook;
-            }
-
-            WorkBookDAL.Create(newWorkBook);
-            newWorkBook.Notes = "It's safe to add notes with single quotes and \"\" quotes";
-            WorkBookDAL.Update(newWorkBook);
-            return newWorkBook;
+            WorkBookDAL.Create(workBook);
+            WorkBookDAL.Update(workBook);
+            return true;
         }
 
         public bool Update(WorkBook workBook)

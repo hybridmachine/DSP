@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SignalsAndTransforms.Models;
+using Microsoft.Win32;
 
 namespace SignalsAndTransforms
 {
@@ -26,7 +27,6 @@ namespace SignalsAndTransforms
         public MainWindow()
         {
             InitializeComponent();
-            WorkBookManager.Manager().CreateWorkBook("Test"); // For now create the test workbook, soon we'll add load/save/create to the UI
 
             SignalSetup.DataContext = new SignalGeneratorViewModel();
             ConvolutionView.DataContext = new ConvolutionViewModel();
@@ -79,10 +79,33 @@ namespace SignalsAndTransforms
 
         private void MenuItemSave_Click(object sender, RoutedEventArgs e)
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filePath = System.IO.Path.Combine(desktopPath, "test.db");
+            WorkBook activeWorkBook = WorkBookManager.Manager().ActiveWorkBook();
 
-            WorkBook test = WorkBookManager.Manager().Load(filePath);
+            if (activeWorkBook.FilePath != null)
+            {
+                WorkBookManager.Manager().Update(WorkBookManager.Manager().ActiveWorkBook());
+            }
+            else
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*.db)|*.db|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    activeWorkBook.Name = saveFileDialog.SafeFileName;
+                    activeWorkBook.FilePath = saveFileDialog.FileName;
+                    WorkBookManager.Manager().SaveWorkBook(activeWorkBook);
+                }
+            }
+        }
+
+        private void MenuItemLoad_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*.db)|*.db|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                WorkBook test = WorkBookManager.Manager().Load(openFileDialog.FileName);
+            }            
         }
     }
 }
