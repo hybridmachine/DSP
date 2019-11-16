@@ -31,7 +31,7 @@ namespace SignalsAndTransforms.View_Models
             convolutionKernel.Name = "ConvolutonKernel";
             convolutionKernel.SampleSeconds = 1;
             convolutionKernel.SamplingHZ = 32;
-            convolutionKernel.TypeOfSignal = SignalType.Sinusoid;
+            convolutionKernel.Type = SignalType.ConvolutionKernel;
             // Low pass filter kernel
             convolutionKernel.Samples.AddRange(new double[] { 0,
 0,

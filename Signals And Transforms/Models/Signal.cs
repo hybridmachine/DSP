@@ -9,16 +9,15 @@ namespace SignalsAndTransforms.Models
 {
     public enum SignalType
     {
-        Sinusoid,
-        SquareWave,
-        TriangleWave,
-        Random
+        Source,
+        ConvolutionKernel,
+        Output
     };
 
     public class Signal
     {
         public long Id { get; set; }
-        public SignalType TypeOfSignal;    
+        public SignalType Type { get; set; }    
         public string Name { get; set; }
         public double SamplingHZ { get; set; }
         public double SignalHZ { get; set; }
@@ -45,7 +44,7 @@ namespace SignalsAndTransforms.Models
 
         public override string ToString()
         {
-            return String.Format(Resources.SAMPLE_DETAILS, Name, TypeOfSignal, SignalHZ, SamplingHZ, SampleSeconds);
+            return String.Format(Resources.SAMPLE_DETAILS, Name, Type, SignalHZ, SamplingHZ, SampleSeconds);
         }
     }
 }

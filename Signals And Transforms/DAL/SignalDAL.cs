@@ -21,20 +21,21 @@ namespace SignalsAndTransforms.DAL
         {
             // For now we just clear and re-create signal entries, we may update values in place later
             // keep it simple for now
-            string deleteSQL = $@"DELETE FROM Signal WHERE [Name]=@Name"; // This will cascade to the values table
+            string deleteSQL = $@"DELETE FROM Signals WHERE [Name]=@Name"; // This will cascade to the values table
             SqliteCommand cmd = con.CreateCommand();
             cmd.CommandText = deleteSQL;
             cmd.Parameters.AddWithValue("@Name", signal.Name);
             cmd.ExecuteNonQuery();
 
-            string sql = $@"INSERT INTO Signal ([Name], [WorkBookId], [SamplingHZ], [SignalHZ], [SampleSeconds], [Amplitude]) 
-                                VALUES (@Name, @WorkBookId, @SamplingHZ, @SignalHZ, @SampleSeconds, @Amplitude)";
+            string sql = $@"INSERT INTO Signals ([Name], [Type], [WorkBookId], [SamplingHZ], [SignalHZ], [SampleSeconds], [Amplitude]) 
+                                VALUES (@Name, @Type, @WorkBookId, @SamplingHZ, @SignalHZ, @SampleSeconds, @Amplitude)";
 
 
 
             cmd = con.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Name", signal.Name);
+            cmd.Parameters.AddWithValue("@Type", signal.Type);
             cmd.Parameters.AddWithValue("@SamplingHZ", signal.SamplingHZ);
             cmd.Parameters.AddWithValue("@SignalHZ", signal.SignalHZ);
             cmd.Parameters.AddWithValue("@SampleSeconds", signal.SampleSeconds);

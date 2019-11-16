@@ -41,7 +41,7 @@ namespace SignalsAndTransforms.Views
                     newSignal.SignalHZ = double.Parse(SignalHz.Text);
                     newSignal.Amplitude = double.Parse(SignalAmplitude.Text);
                     newSignal.SampleSeconds = 2.0;
-                    newSignal.TypeOfSignal = SignalType.Sinusoid;
+                    newSignal.Type = SignalType.Source;
                     model.Signals.Add(newSignal);
                 }
                 catch (Exception ex)

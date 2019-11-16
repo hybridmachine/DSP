@@ -44,7 +44,7 @@ namespace SignalsAndTransforms.View_Models
             workbookSourceSignal.Name = "Source";
             workbookSourceSignal.SamplingHZ = Signals[0].SamplingHZ;
             workbookSourceSignal.SampleSeconds = Signals[0].SampleSeconds;
-            workbookSourceSignal.TypeOfSignal = SignalType.Sinusoid;
+            workbookSourceSignal.Type = SignalType.Output;
 
             PlotPoints = new List<DataPoint>();
             FrequencyHistogram = new List<DataPoint>();

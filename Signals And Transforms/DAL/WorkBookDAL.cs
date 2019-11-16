@@ -18,6 +18,8 @@ namespace SignalsAndTransforms.DAL
     }
     public static class WorkBookDAL
     {
+        public const string SchemaVersion = "1.0";
+
         /// <summary>
         /// Create the Workbook file, note this will delete any previously existing file if it exists
         /// </summary>
@@ -44,7 +46,7 @@ namespace SignalsAndTransforms.DAL
                 sqlLiteConnection.Open();
                 DatabaseInitializer.Initialize(sqlLiteConnection);
 
-                string sql = $@"INSERT INTO WorkBook ([Name],[Notes],[CreateDT]) VALUES (@Name, @Notes, datetime('now'))";
+                string sql = $@"INSERT INTO WorkBook ([Name],[SchemaVersion],[Notes],[CreateDT]) VALUES (@Name, @SchemaVersion, @Notes, datetime('now'))";
                
                 using (var transaction = sqlLiteConnection.BeginTransaction())
                 {
@@ -53,6 +55,7 @@ namespace SignalsAndTransforms.DAL
                     {
                         cmd.CommandText = sql;
                         cmd.Parameters.AddWithValue("@Name", workBook.Name);
+                        cmd.Parameters.AddWithValue("@SchemaVersion", SchemaVersion);
                         cmd.Parameters.AddWithValue("@Notes", workBook.Notes ?? String.Empty);
                         cmd.ExecuteNonQuery();
 
@@ -140,7 +143,7 @@ namespace SignalsAndTransforms.DAL
                 // for now only one exists in each file, if we change that approach, we'll need to update this query
                 newWorkBook = connection.Query<WorkBook>($@"SELECT [Id], [Name], [Notes] FROM WorkBook").FirstOrDefault();
 
-                var signals = connection.Query<Signal>($"SELECT * from Signal WHERE WorkBookId = '{newWorkBook.Id}'");
+                var signals = connection.Query<Signal>($"SELECT * from Signals WHERE WorkBookId = '{newWorkBook.Id}'");
 
                 foreach (Signal signal in signals)
                 {

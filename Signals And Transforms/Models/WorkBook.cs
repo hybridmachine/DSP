@@ -23,7 +23,6 @@ namespace SignalsAndTransforms.Models
         public WorkBook(String name)
         {
             Name = name;
-            Notes = String.Empty; // Needed by the DAL
             m_signals = new Dictionary<string, Signal>();
         }
         public long Id { get; set; }
