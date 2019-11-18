@@ -13,9 +13,11 @@
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ribbon:Ribbon x:Name="Ribbon" Title="{x:Static res:Resources.RIBBON_TITLE}" Grid.Row="0">
+        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding WorkBookTitle}" FontSize="15"  Grid.Row="0"/>
+        <ribbon:Ribbon x:Name="Ribbon" Title="{x:Static res:Resources.RIBBON_TITLE}" Grid.Row="1">
             <ribbon:Ribbon.HelpPaneContent>
                 <ribbon:RibbonButton SmallImageSource="Resources/Images/question.png" />
             </ribbon:Ribbon.HelpPaneContent>
@@ -69,7 +71,7 @@
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
-        <views:SignalGeneratorView Grid.Row="1" x:Name="SignalSetup"/>
-        <views:ConvolutionView Grid.Row="1" x:Name="ConvolutionView" Visibility="Collapsed" IsEnabled="False"/>
+        <views:SignalGeneratorView Grid.Row="2" x:Name="SignalSetup"/>
+        <views:ConvolutionView Grid.Row="2" x:Name="ConvolutionView" Visibility="Collapsed" IsEnabled="False"/>
     </Grid>
 </Window>

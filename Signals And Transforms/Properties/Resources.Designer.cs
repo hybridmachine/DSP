@@ -115,7 +115,7 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database Files.
+        ///   Looks up a localized string similar to Workbook Files.
         /// </summary>
         public static string DATABASE_FILES {
             get {
@@ -237,6 +237,15 @@ namespace SignalsAndTransforms.Properties {
         public static string SIGNAL_PLOT_TITLE {
             get {
                 return ResourceManager.GetString("SIGNAL_PLOT_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .stw.
+        /// </summary>
+        public static string WORKBOOK_FILE_EXTENSION {
+            get {
+                return ResourceManager.GetString("WORKBOOK_FILE_EXTENSION", resourceCulture);
             }
         }
     }

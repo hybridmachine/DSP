@@ -136,7 +136,7 @@
     <value>Convolution Kernel</value>
   </data>
   <data name="DATABASE_FILES" xml:space="preserve">
-    <value>Database Files</value>
+    <value>Workbook Files</value>
   </data>
   <data name="OPEN" xml:space="preserve">
     <value>Open</value>
@@ -177,5 +177,8 @@
   </data>
   <data name="SIGNAL_PLOT_TITLE" xml:space="preserve">
     <value>Signal</value>
+  </data>
+  <data name="WORKBOOK_FILE_EXTENSION" xml:space="preserve">
+    <value>.stw</value>
   </data>
 </root>

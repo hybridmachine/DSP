@@ -30,6 +30,7 @@ namespace SignalsAndTransforms
 
             SignalSetup.DataContext = new SignalGeneratorViewModel();
             ConvolutionView.DataContext = new ConvolutionViewModel();
+            this.DataContext = new MainWindowViewModel();
         }
 
         private void TextBox_KeyEnterUpdate(object sender, KeyEventArgs e)
@@ -88,12 +89,18 @@ namespace SignalsAndTransforms
             else
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*.db)|*.db|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+                saveFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*{Properties.Resources.WORKBOOK_FILE_EXTENSION})|*{Properties.Resources.WORKBOOK_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
                 if (saveFileDialog.ShowDialog() == true)
                 {
                     activeWorkBook.Name = saveFileDialog.SafeFileName;
                     activeWorkBook.FilePath = saveFileDialog.FileName;
                     WorkBookManager.Manager().SaveWorkBook(activeWorkBook);
+
+                    if (this.DataContext != null)
+                    {
+                        MainWindowViewModel model = this.DataContext as MainWindowViewModel;
+                        model.WorkBookTitle = activeWorkBook.Name;
+                    }
                 }
             }
         }
@@ -101,7 +108,7 @@ namespace SignalsAndTransforms
         private void MenuItemLoad_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*.db)|*.db|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            openFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*{Properties.Resources.WORKBOOK_FILE_EXTENSION})|*{Properties.Resources.WORKBOOK_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
                 WorkBook test = WorkBookManager.Manager().Load(openFileDialog.FileName);

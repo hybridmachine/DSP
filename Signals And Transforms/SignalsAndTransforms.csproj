@@ -143,6 +143,7 @@
     <Compile Include="Models\Signal.cs" />
     <Compile Include="Models\WorkBook.cs" />
     <Compile Include="View Models\ConvolutionViewModel.cs" />
+    <Compile Include="View Models\MainWindowViewModel.cs" />
     <Compile Include="View Models\SignalGeneratorViewModel.cs" />
     <Compile Include="Views\ConvolutionView.xaml.cs">
       <DependentUpon>ConvolutionView.xaml</DependentUpon>

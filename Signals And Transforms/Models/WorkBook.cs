@@ -39,7 +39,12 @@ namespace SignalsAndTransforms.Models
         {
             get
             {
-                return m_signals["Source"];
+                Signal signal = null;
+                if (m_signals.ContainsKey("Source"))
+                {
+                    signal = m_signals["Source"];
+                }
+                return signal;
             }
 
             set 
@@ -50,7 +55,12 @@ namespace SignalsAndTransforms.Models
         public Signal OutputSignal {
             get
             {
-                return m_signals["Output"];
+                Signal signal = null;
+                if (m_signals.ContainsKey("Output"))
+                {
+                    signal = m_signals["Output"];
+                }
+                return signal;
             }
 
             set
@@ -61,7 +71,12 @@ namespace SignalsAndTransforms.Models
         public Signal ConvolutionKernel {
             get
             {
-                return m_signals["ConvolutionKernel"];
+                Signal signal = null;
+                if (m_signals.ContainsKey("ConvolutionKernel"))
+                {
+                    signal = m_signals["ConvolutionKernel"];
+                }
+                return signal;
             }
 
             set
