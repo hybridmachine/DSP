@@ -53,6 +53,13 @@ namespace SignalsAndTransforms.View_Models
             Signals = new ObservableCollection<Signal>();
             Title = Properties.Resources.SIGNAL_PLOT_TITLE;
             workBookManager = WorkBookManager.Manager();
+            workBookManager.PropertyChanged += ActiveWorkBookChangedHandler;
+        }
+
+        private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            LoadSignalsFromActiveWorkBook();
+            PlotSignals();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

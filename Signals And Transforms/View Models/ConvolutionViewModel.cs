@@ -20,15 +20,21 @@ namespace SignalsAndTransforms.View_Models
         public ConvolutionViewModel()
         {
             manager = WorkBookManager.Manager();
+            manager.PropertyChanged += ActiveWorkBookChangedHandler;
             convolver = new Convolution();
             LoadTestData();
+        }
+
+        private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            PlotData();
         }
 
         private void LoadTestData()
         {
             // For now load test convolution data, todo load from disk
             Signal convolutionKernel = new Signal();
-            convolutionKernel.Name = "ConvolutonKernel";
+            convolutionKernel.Name = "ConvolutionKernel";
             convolutionKernel.SampleSeconds = 1;
             convolutionKernel.SamplingHZ = 32;
             convolutionKernel.Type = SignalType.ConvolutionKernel;

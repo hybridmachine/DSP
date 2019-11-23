@@ -95,23 +95,30 @@ namespace SignalsAndTransforms
                     activeWorkBook.Name = saveFileDialog.SafeFileName;
                     activeWorkBook.FilePath = saveFileDialog.FileName;
                     WorkBookManager.Manager().SaveWorkBook(activeWorkBook);
-
-                    if (this.DataContext != null)
-                    {
-                        MainWindowViewModel model = this.DataContext as MainWindowViewModel;
-                        model.WorkBookTitle = activeWorkBook.Name;
-                    }
+                    SetActiveWorkbookTitle();
                 }
+            }
+        }
+
+        private void SetActiveWorkbookTitle()
+        {
+            if (this.DataContext != null)
+            {
+                MainWindowViewModel model = this.DataContext as MainWindowViewModel;
+                model.WorkBookTitle = WorkBookManager.Manager().ActiveWorkBook().Name;
             }
         }
 
         private void MenuItemLoad_Click(object sender, RoutedEventArgs e)
         {
+            // TODO alert if current workbook has unsaved changes
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*{Properties.Resources.WORKBOOK_FILE_EXTENSION})|*{Properties.Resources.WORKBOOK_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                WorkBook test = WorkBookManager.Manager().Load(openFileDialog.FileName);
+                // Make active
+                WorkBookManager.Manager().Load(openFileDialog.FileName, true);
+                SetActiveWorkbookTitle();
             }            
         }
     }
