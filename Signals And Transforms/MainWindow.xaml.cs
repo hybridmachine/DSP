@@ -121,5 +121,27 @@ namespace SignalsAndTransforms
                 SetActiveWorkbookTitle();
             }            
         }
+
+        /// <summary>
+        /// Handle the user action of dropping a workbook file onto the app to open. If it 
+        /// isn't a workbook file (ending in the WORKBOOK_FILE_EXTENSION) then it is ignored
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LayoutRoot_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string file = files[0];
+                // Make active
+                if (file.EndsWith(Properties.Resources.WORKBOOK_FILE_EXTENSION))
+                {
+                    WorkBookManager.Manager().Load(file, true);
+                    SetActiveWorkbookTitle();
+                }
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@
         xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
         mc:Ignorable="d"
         Title="Signals And Transforms" Height="768" Width="1380">
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" AllowDrop="True" Drop="LayoutRoot_Drop">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
