@@ -70,7 +70,11 @@ namespace SignalsAndTransforms.View_Models
             FrequencyHistogram = new List<DataPoint>(512);
 
             Signal workbookSourceSignal = workBookManager.ActiveWorkBook().SumOfSources();
-            
+            if (workbookSourceSignal == null)
+            {
+                return;
+            }
+
             // Test data for now
             for (int idx=0; idx<workbookSourceSignal.Samples.Count;idx++)
             {

@@ -116,9 +116,7 @@ namespace SignalsAndTransforms
             openFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*{Properties.Resources.WORKBOOK_FILE_EXTENSION})|*{Properties.Resources.WORKBOOK_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                // Make active
-                WorkBookManager.Manager().Load(openFileDialog.FileName, true);
-                SetActiveWorkbookTitle();
+                SetActiveWorkbook(openFileDialog.FileName);
             }            
         }
 
@@ -138,10 +136,19 @@ namespace SignalsAndTransforms
                 // Make active
                 if (file.EndsWith(Properties.Resources.WORKBOOK_FILE_EXTENSION))
                 {
-                    WorkBookManager.Manager().Load(file, true);
-                    SetActiveWorkbookTitle();
+                    SetActiveWorkbook(file);
                 }
             }
+        }
+
+        /// <summary>
+        /// Open the workbook specified in the file pathname variable and set to active workbook
+        /// </summary>
+        /// <param name="file"></param>
+        private void SetActiveWorkbook(string file)
+        {
+            WorkBookManager.Manager().Load(file, true);
+            SetActiveWorkbookTitle();
         }
     }
 }

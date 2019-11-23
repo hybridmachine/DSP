@@ -107,6 +107,11 @@ namespace SignalsAndTransforms.View_Models
         {
             
             Signal workbookSourceSignal = manager.ActiveWorkBook().SumOfSources();
+            if (workbookSourceSignal == null)
+            {
+                return;
+            }
+
             SignalPlotPoints = new List<DataPoint>(workbookSourceSignal.Samples.Count);
 
             for (int idx = 0; idx < workbookSourceSignal.Samples.Count; idx++)

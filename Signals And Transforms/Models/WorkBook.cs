@@ -56,6 +56,11 @@ namespace SignalsAndTransforms.Models
         {
             List<Signal> signals = new List<Signal>(Signals.Values);
             Signal baseSignal = signals.Where(sig => sig.Type == SignalType.Source).FirstOrDefault();
+            if (baseSignal == null)
+            {
+                return null;
+            }
+
             Signal workbookSourceSignal = new Signal();
             workbookSourceSignal.Name = "Source";
             workbookSourceSignal.SamplingHZ = baseSignal.SamplingHZ;
