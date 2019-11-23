@@ -42,7 +42,7 @@ namespace SignalsAndTransforms.Views
                     newSignal.Amplitude = double.Parse(SignalAmplitude.Text);
                     newSignal.SampleSeconds = 2.0;
                     newSignal.Type = SignalType.Source;
-                    model.Signals.Add(newSignal);
+                    model.AddSignal(newSignal);
                 }
                 catch (Exception ex)
                 {
@@ -82,7 +82,7 @@ namespace SignalsAndTransforms.Views
 
                 foreach (Signal item in copyOfSelectedItems)
                 {
-                    model.Signals.Remove(item);
+                    model.DeleteSignal(item);
                 }
 
                 model.PlotSignals();

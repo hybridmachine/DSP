@@ -50,14 +50,17 @@ namespace SignalsAndTransforms.DAL
                 signal.Id = (long)getId.ExecuteScalar();
             }
 
-            StringBuilder sqlblder = new StringBuilder();
-            foreach (double sample in signal.Samples)
+            if (signal.Samples.Count > 0)
             {
-                sqlblder.Append($@"INSERT INTO SignalValues ([SignalID], [Value]) VALUES ('{signal.Id}', '{sample}');");
+                StringBuilder sqlblder = new StringBuilder();
+                foreach (double sample in signal.Samples)
+                {
+                    sqlblder.Append($@"INSERT INTO SignalValues ([SignalID], [Value]) VALUES ('{signal.Id}', '{sample}');");
+                }
+                cmd = con.CreateCommand();
+                cmd.CommandText = sqlblder.ToString();
+                cmd.ExecuteNonQuery();
             }
-            cmd = con.CreateCommand();
-            cmd.CommandText = sqlblder.ToString();
-            cmd.ExecuteNonQuery();
 
             return true;
         }

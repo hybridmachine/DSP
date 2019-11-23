@@ -99,12 +99,8 @@ namespace SignalsAndTransforms.View_Models
 
         public void PlotData()
         {
-            if (null == manager.ActiveWorkBook().SourceSignal)
-            {
-                return;
-            }
-
-            Signal workbookSourceSignal = manager.ActiveWorkBook().SourceSignal;
+            
+            Signal workbookSourceSignal = manager.ActiveWorkBook().SumOfSources();
             SignalPlotPoints = new List<DataPoint>(workbookSourceSignal.Samples.Count);
 
             for (int idx = 0; idx < workbookSourceSignal.Samples.Count; idx++)

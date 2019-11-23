@@ -35,39 +35,6 @@ namespace SignalsAndTransforms.Models
             get { return m_signals; }
         }
 
-        public Signal SourceSignal
-        {
-            get
-            {
-                Signal signal = null;
-                if (m_signals.ContainsKey("Source"))
-                {
-                    signal = m_signals["Source"];
-                }
-                return signal;
-            }
-
-            set 
-            {
-                m_signals["Source"] = value;
-            }
-        }
-        public Signal OutputSignal {
-            get
-            {
-                Signal signal = null;
-                if (m_signals.ContainsKey("Output"))
-                {
-                    signal = m_signals["Output"];
-                }
-                return signal;
-            }
-
-            set
-            {
-                m_signals["Output"] = value;
-            }
-        }
         public Signal ConvolutionKernel {
             get
             {
@@ -85,6 +52,41 @@ namespace SignalsAndTransforms.Models
             }
         }
 
+        public Signal SumOfSources()
+        {
+            List<Signal> signals = new List<Signal>(Signals.Values);
+            Signal baseSignal = signals.Where(sig => sig.Type == SignalType.Source).FirstOrDefault();
+            Signal workbookSourceSignal = new Signal();
+            workbookSourceSignal.Name = "Source";
+            workbookSourceSignal.SamplingHZ = baseSignal.SamplingHZ;
+            workbookSourceSignal.SampleSeconds = baseSignal.SampleSeconds;
+            workbookSourceSignal.Type = SignalType.Output;
+
+            double sampleRate = baseSignal.SamplingHZ; // hz
+            List<double> timePoints = new List<double>((int)(2 * sampleRate));
+
+            for (double timePointVal = 0; timePointVal < 2.0; timePointVal += (1.0 / sampleRate))
+            {
+                timePoints.Add(timePointVal);
+            }
+
+            List<double> sumSignal = new List<double>(timePoints.Count);
+
+            foreach (double timePointVal in timePoints)
+            {
+                double signalValue = 0.0;
+                foreach (Signal signal in signals.Where(sig => sig.Type == SignalType.Source))
+                {
+                    signalValue += signal.Amplitude * (Math.Sin(2 * Math.PI * signal.SignalHZ * timePointVal));
+                }
+                sumSignal.Add(signalValue);
+            }
+
+            workbookSourceSignal.Samples.Clear();
+            workbookSourceSignal.Samples.AddRange(sumSignal);
+
+            return workbookSourceSignal;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
