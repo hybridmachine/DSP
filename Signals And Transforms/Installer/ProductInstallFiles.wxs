@@ -4,10 +4,25 @@
         <DirectoryRef Id="INSTALLLOCATION">
             <Directory Id="dir7E220EDC847AD7F674C92451C63AED27" Name="app.publish" />
             <Directory Id="dir23A3189054C3F25860189BFFABAD824E" Name="Properties" />
+            <Directory Id="dir0355D6E983C7D0CDACC2DE3CAAF0B5AD" Name="runtimes" />
+            <Directory Id="dir7C2C83F6CC8AC47D9022A8AD6554F0C1" Name="x64" />
+            <Directory Id="dirE62C75B0DFC66B1F221D6A7BDE116F3B" Name="x86" />
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="ProductComponents">
+            <Component Id="cmpD6F4107DC8601FA4C401EC60CEB883A1" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil597A2920B009A3C56698D87E56698E40" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Dapper.StrongName.dll" />
+            </Component>
+            <Component Id="cmp47C16056E9860FDCEC11C39B979ECB01" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filE13C62B0A394AFB7893DA7D528F291DD" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Dapper.StrongName.xml" />
+            </Component>
+            <Component Id="cmp4B10E81646CCE562AF0E46E688BFC853" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filFF44294415FECC831DE25601A439D708" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Microsoft.Data.Sqlite.dll" />
+            </Component>
+            <Component Id="cmpA1EB610ECA8F83384AFEC5DBC45853C3" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filDB87960623134FD8BD5598F5862DD598" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Microsoft.Data.Sqlite.xml" />
+            </Component>
             <Component Id="cmp40E52104BC4B25BDD82A7C6D3005AD4E" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="filBEC2F41C0720FCF60134D40DE58FB42B" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.dll" />
             </Component>
@@ -19,18 +34,6 @@
             </Component>
             <Component Id="cmp5D3DC3F036CBC6842657E17C8AC2DA6B" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="fil2BBC22AD95647E7749EDC03B702A5747" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.xml" />
-            </Component>
-            <Component Id="cmp1FD4FB88A2970E1904E9228D51168923" Directory="INSTALLLOCATION" Guid="*">
-                <File Id="fil92A3185E2FB540816C1382FEAF9BBF6E" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SampleGenerator.dll" />
-            </Component>
-            <Component Id="cmpDBAD9AC7D0EA0D302445E7ADEDDBF56E" Directory="INSTALLLOCATION" Guid="*">
-                <File Id="fil5C1217E2A5C78235F5211FA1842A7C3B" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SampleGenerator.pdb" />
-            </Component>
-            <Component Id="cmp6C154B0065B99F1E44FFCEB073C2CC82" Directory="INSTALLLOCATION" Guid="*">
-                <File Id="fil0E9BC3447D0848637A261BEFE842AC16" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalGenerator.dll" />
-            </Component>
-            <Component Id="cmpA9191AC7F4D1804311C12EBA2ACD95E0" Directory="INSTALLLOCATION" Guid="*">
-                <File Id="fil031F781D26BF2787F7D12C2FA52FB32C" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalGenerator.pdb" />
             </Component>
             <Component Id="cmpFB3737E8187E098DAD797CB7EADD64F0" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="fil8967963121C1CE4B91113CD4E248BF30" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalProcessor.dll" />
@@ -50,6 +53,42 @@
             <Component Id="cmp091415C1164C0359AB613D5177286F5E" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="fil00CA866528C3A21C2D16018977998576" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalsAndTransforms.pdb" />
             </Component>
+            <Component Id="cmp42A92977F233D8BCE3AE9CB37B37462F" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil1F0E67CE324AFC9AC270620FA6683F66" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SQLitePCLRaw.batteries_v2.dll" />
+            </Component>
+            <Component Id="cmpFD200FCBB86AE3CC14BF9603336DC639" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil94D4A34BAC99255DBD9526677E1A046A" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SQLitePCLRaw.core.dll" />
+            </Component>
+            <Component Id="cmp9A1EDBA3FFB8F73A515940B6954242DC" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil1FBB14A1B9A7ED7778601BE4979A2146" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SQLitePCLRaw.nativelibrary.dll" />
+            </Component>
+            <Component Id="cmp5954FEB3879B350B945D91D2C4BF29E7" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil36CD4A5E2AD9939EBC0E02366B42A03E" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SQLitePCLRaw.provider.dynamic_cdecl.dll" />
+            </Component>
+            <Component Id="cmp2605C5FE51EF1E6A4EDC743EB8447557" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil8F10FADC38F166ACFA189CE932E2D5CC" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Buffers.dll" />
+            </Component>
+            <Component Id="cmp5F3B442F53D2C5BDA89C5B87A3B89BCD" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil2D9BD3DFE5D1494DB3A011DF0D670B22" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Buffers.xml" />
+            </Component>
+            <Component Id="cmp6FEA0CD40F07BE97A5C3AFFD38B7DEAB" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filD11BEDBED69403ACF99C84A5B540848A" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Memory.dll" />
+            </Component>
+            <Component Id="cmpBB74CDFF5E05092E2A1275022F98C2B2" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filA4F9FBA205A55EE7F2CA9C344FDCBF59" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Memory.xml" />
+            </Component>
+            <Component Id="cmp6065E1313E95A9473D0FBEAD1BA86B56" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil00BEA883B436F09BDDB07E047A0E39BC" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Numerics.Vectors.dll" />
+            </Component>
+            <Component Id="cmpEBBE902A7F605461814097581B2E32FE" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil235FD852454DA79534896BA154A7F14E" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Numerics.Vectors.xml" />
+            </Component>
+            <Component Id="cmpDF45DAEBE3E72EE69B477501E5F5420B" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filC2B6FE49024E92DB1CB539B30330A32C" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Runtime.CompilerServices.Unsafe.dll" />
+            </Component>
+            <Component Id="cmpF8D1134796C61DC018501B4724208A91" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil80A3E3F4AEEE1B5C525FE41ED37E277A" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\System.Runtime.CompilerServices.Unsafe.xml" />
+            </Component>
             <Component Id="cmp6B289FB6FD7E4B409201003A1EE25111" Directory="dir7E220EDC847AD7F674C92451C63AED27" Guid="*">
                 <File Id="filCC1B442EB56577201C25911A8DDFC55D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\app.publish\SignalsAndTransforms.exe" />
             </Component>
@@ -59,6 +98,51 @@
             <Component Id="cmp8AD91B68D9163A5C50D2223F3F1DFF11" Directory="dir23A3189054C3F25860189BFFABAD824E" Guid="*">
                 <File Id="fil0B8D1017C64D229A540B591FFD5F1428" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Properties\Resources.resx" />
             </Component>
+            <Component Id="cmp3599E3D30196EF8E2CD05B52C23E5A65" Directory="dir5BD8302CD95D3B35EEEF7AE57FD463EA" Guid="*">
+                <File Id="fil149761084A72A87A4ABA544B46B81A6D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\runtimes\win-arm\native\e_sqlite3.dll" />
+            </Component>
+            <Component Id="cmpA7E430C824B767D79B7AE7F6FB4BA897" Directory="dirBA99B04660CE2E875EC0DE582AFC3B6C" Guid="*">
+                <File Id="fil0B50C9B16FE97E1742546E0AF8E1DF58" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\runtimes\win-x64\native\e_sqlite3.dll" />
+            </Component>
+            <Component Id="cmp257FF9716BCDA16E658231F2D40AC80E" Directory="dir6348BB43D425318EF3764BDFE09686C9" Guid="*">
+                <File Id="fil5763F1AD62D4B06C7578E204DA1E15A1" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\runtimes\win-x86\native\e_sqlite3.dll" />
+            </Component>
+            <Component Id="cmp2CC53C18C5BE3BACEE486B4630FB01F0" Directory="dir7C2C83F6CC8AC47D9022A8AD6554F0C1" Guid="*">
+                <File Id="fil51445029E4EDF9C9E5349EDA9AB08211" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\x64\SQLite.Interop.dll" />
+            </Component>
+            <Component Id="cmpEAC9E519DF3BB5A407CDD85A4B128AF0" Directory="dirE62C75B0DFC66B1F221D6A7BDE116F3B" Guid="*">
+                <File Id="filC47E4271B865893B6BEA412E9318E80D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\x86\SQLite.Interop.dll" />
+            </Component>
         </ComponentGroup>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE4FEE21A269AB23817E21E56FC022E75">
+            <Directory Id="dir5BD8302CD95D3B35EEEF7AE57FD463EA" Name="native" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirF955CC020CCB158454C9A3D0F730FE77">
+            <Directory Id="dir6348BB43D425318EF3764BDFE09686C9" Name="native" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirDB69E4427BDD7AA34A9E45C2B8B4E5D2">
+            <Directory Id="dirBA99B04660CE2E875EC0DE582AFC3B6C" Name="native" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir0355D6E983C7D0CDACC2DE3CAAF0B5AD">
+            <Directory Id="dirDB69E4427BDD7AA34A9E45C2B8B4E5D2" Name="win-x64" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir0355D6E983C7D0CDACC2DE3CAAF0B5AD">
+            <Directory Id="dirE4FEE21A269AB23817E21E56FC022E75" Name="win-arm" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir0355D6E983C7D0CDACC2DE3CAAF0B5AD">
+            <Directory Id="dirF955CC020CCB158454C9A3D0F730FE77" Name="win-x86" />
+        </DirectoryRef>
     </Fragment>
 </Wix>

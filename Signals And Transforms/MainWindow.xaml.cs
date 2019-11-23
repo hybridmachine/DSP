@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SignalsAndTransforms.Models;
+using Microsoft.Win32;
 
 namespace SignalsAndTransforms
 {
@@ -25,10 +27,10 @@ namespace SignalsAndTransforms
         public MainWindow()
         {
             InitializeComponent();
-            WorkBookManager.Manager().CreateWorkBook("Test"); // For now create the test workbook, soon we'll add load/save/create to the UI
 
             SignalSetup.DataContext = new SignalGeneratorViewModel();
             ConvolutionView.DataContext = new ConvolutionViewModel();
+            this.DataContext = new MainWindowViewModel();
         }
 
         private void TextBox_KeyEnterUpdate(object sender, KeyEventArgs e)
@@ -74,6 +76,50 @@ namespace SignalsAndTransforms
 
             ConvolutionView.Visibility = Visibility.Collapsed;
             ConvolutionView.IsEnabled = false;
+        }
+
+        private void MenuItemSave_Click(object sender, RoutedEventArgs e)
+        {
+            WorkBook activeWorkBook = WorkBookManager.Manager().ActiveWorkBook();
+
+            if (activeWorkBook.FilePath != null)
+            {
+                WorkBookManager.Manager().Update(WorkBookManager.Manager().ActiveWorkBook());
+            }
+            else
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*{Properties.Resources.WORKBOOK_FILE_EXTENSION})|*{Properties.Resources.WORKBOOK_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    activeWorkBook.Name = saveFileDialog.SafeFileName;
+                    activeWorkBook.FilePath = saveFileDialog.FileName;
+                    WorkBookManager.Manager().SaveWorkBook(activeWorkBook);
+                    SetActiveWorkbookTitle();
+                }
+            }
+        }
+
+        private void SetActiveWorkbookTitle()
+        {
+            if (this.DataContext != null)
+            {
+                MainWindowViewModel model = this.DataContext as MainWindowViewModel;
+                model.WorkBookTitle = WorkBookManager.Manager().ActiveWorkBook().Name;
+            }
+        }
+
+        private void MenuItemLoad_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO alert if current workbook has unsaved changes
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*{Properties.Resources.WORKBOOK_FILE_EXTENSION})|*{Properties.Resources.WORKBOOK_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Make active
+                WorkBookManager.Manager().Load(openFileDialog.FileName, true);
+                SetActiveWorkbookTitle();
+            }            
         }
     }
 }

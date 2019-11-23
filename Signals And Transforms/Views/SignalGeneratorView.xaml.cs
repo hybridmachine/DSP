@@ -41,8 +41,8 @@ namespace SignalsAndTransforms.Views
                     newSignal.SignalHZ = double.Parse(SignalHz.Text);
                     newSignal.Amplitude = double.Parse(SignalAmplitude.Text);
                     newSignal.SampleSeconds = 2.0;
-                    newSignal.TypeOfSignal = SignalType.Sinusoid;
-                    model.Signals.Add(newSignal);
+                    newSignal.Type = SignalType.Source;
+                    model.AddSignal(newSignal);
                 }
                 catch (Exception ex)
                 {
@@ -82,7 +82,7 @@ namespace SignalsAndTransforms.Views
 
                 foreach (Signal item in copyOfSelectedItems)
                 {
-                    model.Signals.Remove(item);
+                    model.DeleteSignal(item);
                 }
 
                 model.PlotSignals();

@@ -19,6 +19,30 @@ namespace SignalsAndTransforms.View_Models
         private WorkBookManager workBookManager;
 
         public ObservableCollection<Signal> Signals { get; private set; }
+
+        public void AddSignal(Signal signal)
+        {
+            workBookManager.ActiveWorkBook().Signals.Add(signal.Name, signal);
+            LoadSignalsFromActiveWorkBook();
+        }
+
+        public void DeleteSignal(Signal signal)
+        {
+            workBookManager.ActiveWorkBook().Signals.Remove(signal.Name);
+            LoadSignalsFromActiveWorkBook();
+        }
+
+        private void LoadSignalsFromActiveWorkBook()
+        {
+            Signals.Clear();
+            List<Signal> signals = new List<Signal>(workBookManager.ActiveWorkBook().Signals.Values);
+            // No addrange for observeablecollection
+            foreach (Signal signal in signals)
+            {
+                Signals.Add(signal);
+            }
+        }
+
         public IList<DataPoint> PlotPoints { get; private set; }
         public IList<DataPoint> FrequencyHistogram { get; private set; }
 
@@ -29,49 +53,24 @@ namespace SignalsAndTransforms.View_Models
             Signals = new ObservableCollection<Signal>();
             Title = Properties.Resources.SIGNAL_PLOT_TITLE;
             workBookManager = WorkBookManager.Manager();
+            workBookManager.PropertyChanged += ActiveWorkBookChangedHandler;
+        }
+
+        private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            LoadSignalsFromActiveWorkBook();
+            PlotSignals();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void PlotSignals()
         {
-            if (Signals.Count == 0)
-            {
-                return;
-            }
+            PlotPoints = new List<DataPoint>(512);
+            FrequencyHistogram = new List<DataPoint>(512);
 
-            Signal workbookSourceSignal = new Signal();
-            workbookSourceSignal.SamplingHZ = Signals[0].SamplingHZ;
-            workbookSourceSignal.SampleSeconds = Signals[0].SampleSeconds;
-            workbookSourceSignal.TypeOfSignal = SignalType.Sinusoid;
-
-            PlotPoints = new List<DataPoint>();
-            FrequencyHistogram = new List<DataPoint>();
-
-            double sampleRate = Signals[0].SamplingHZ; // hz
-            List<double> timePoints = new List<double>((int)(2 * sampleRate));
-
-            for (double timePointVal = 0; timePointVal < 2.0; timePointVal += (1.0 / sampleRate))
-            {
-                timePoints.Add(timePointVal);
-            }
-
-            List<double> signal = new List<double>(timePoints.Count);
-
-            foreach (double timePointVal in timePoints)
-            {
-                double signalValue = 0.0;
-
-                foreach (Signal sig in Signals)
-                {
-                    signalValue += sig.Amplitude * (Math.Sin(2 * Math.PI * sig.SignalHZ * timePointVal));
-                }
-                signal.Add(signalValue);
-            }
-
-            workbookSourceSignal.Samples.AddRange(signal);
-            workBookManager.ActiveWorkBook().SourceSignal = workbookSourceSignal;
-
+            Signal workbookSourceSignal = workBookManager.ActiveWorkBook().SumOfSources();
+            
             // Test data for now
             for (int idx=0; idx<workbookSourceSignal.Samples.Count;idx++)
             {
@@ -79,7 +78,7 @@ namespace SignalsAndTransforms.View_Models
             }
 
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
-            FrequencyDomain frequencyDomain = cmplxFFT.Transform(signal, sampleRate);
+            FrequencyDomain frequencyDomain = cmplxFFT.Transform(workbookSourceSignal.Samples, workbookSourceSignal.SamplingHZ);
 
             foreach (var freq in frequencyDomain.FrequencyAmplitudes)
             {

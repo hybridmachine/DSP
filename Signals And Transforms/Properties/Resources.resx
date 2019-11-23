@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ALL_FILES" xml:space="preserve">
+    <value>All Files</value>
+  </data>
   <data name="BTC_CONVOLUTION" xml:space="preserve">
     <value>Convolve</value>
   </data>
@@ -131,6 +134,12 @@
   </data>
   <data name="CONVOLUTION_PLOT_TITLE" xml:space="preserve">
     <value>Convolution Kernel</value>
+  </data>
+  <data name="DATABASE_FILES" xml:space="preserve">
+    <value>Workbook Files</value>
+  </data>
+  <data name="OPEN" xml:space="preserve">
+    <value>Open</value>
   </data>
   <data name="PLOT_FREQUENCY_HISTOGRAM_TITLE" xml:space="preserve">
     <value>Frequency Amplitudes</value>
@@ -154,6 +163,9 @@
   <data name="SAMPLING_HZ" xml:space="preserve">
     <value>Samples/Second</value>
   </data>
+  <data name="SAVE" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="SIGNAL_AMPLITUDE" xml:space="preserve">
     <value>Amplitude</value>
   </data>
@@ -165,5 +177,8 @@
   </data>
   <data name="SIGNAL_PLOT_TITLE" xml:space="preserve">
     <value>Signal</value>
+  </data>
+  <data name="WORKBOOK_FILE_EXTENSION" xml:space="preserve">
+    <value>.stw</value>
   </data>
 </root>

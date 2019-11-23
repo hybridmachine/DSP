@@ -20,17 +20,24 @@ namespace SignalsAndTransforms.View_Models
         public ConvolutionViewModel()
         {
             manager = WorkBookManager.Manager();
+            manager.PropertyChanged += ActiveWorkBookChangedHandler;
             convolver = new Convolution();
             LoadTestData();
+        }
+
+        private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            PlotData();
         }
 
         private void LoadTestData()
         {
             // For now load test convolution data, todo load from disk
             Signal convolutionKernel = new Signal();
+            convolutionKernel.Name = "ConvolutionKernel";
             convolutionKernel.SampleSeconds = 1;
             convolutionKernel.SamplingHZ = 32;
-            convolutionKernel.TypeOfSignal = SignalType.Sinusoid;
+            convolutionKernel.Type = SignalType.ConvolutionKernel;
             // Low pass filter kernel
             convolutionKernel.Samples.AddRange(new double[] { 0,
 0,
@@ -98,7 +105,8 @@ namespace SignalsAndTransforms.View_Models
 
         public void PlotData()
         {
-            Signal workbookSourceSignal = manager.ActiveWorkBook().SourceSignal;
+            
+            Signal workbookSourceSignal = manager.ActiveWorkBook().SumOfSources();
             SignalPlotPoints = new List<DataPoint>(workbookSourceSignal.Samples.Count);
 
             for (int idx = 0; idx < workbookSourceSignal.Samples.Count; idx++)
