@@ -116,10 +116,39 @@ namespace SignalsAndTransforms
             openFileDialog.Filter = $"{Properties.Resources.DATABASE_FILES} (*{Properties.Resources.WORKBOOK_FILE_EXTENSION})|*{Properties.Resources.WORKBOOK_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                // Make active
-                WorkBookManager.Manager().Load(openFileDialog.FileName, true);
-                SetActiveWorkbookTitle();
+                SetActiveWorkbook(openFileDialog.FileName);
             }            
+        }
+
+        /// <summary>
+        /// Handle the user action of dropping a workbook file onto the app to open. If it 
+        /// isn't a workbook file (ending in the WORKBOOK_FILE_EXTENSION) then it is ignored
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LayoutRoot_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string file = files[0];
+                // Make active
+                if (file.EndsWith(Properties.Resources.WORKBOOK_FILE_EXTENSION))
+                {
+                    SetActiveWorkbook(file);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Open the workbook specified in the file pathname variable and set to active workbook
+        /// </summary>
+        /// <param name="file"></param>
+        private void SetActiveWorkbook(string file)
+        {
+            WorkBookManager.Manager().Load(file, true);
+            SetActiveWorkbookTitle();
         }
     }
 }
