@@ -150,5 +150,10 @@ namespace SignalsAndTransforms
             WorkBookManager.Manager().Load(file, true);
             SetActiveWorkbookTitle();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetActiveWorkbookTitle();
+        }
     }
 }

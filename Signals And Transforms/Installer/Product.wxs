@@ -8,8 +8,8 @@
 
 		<Feature Id="ProductFeature" Title="Product" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="FileExtensions"/>
 		</Feature>
-    
 	</Product>
 
 	<Fragment>
@@ -17,10 +17,20 @@
 			<Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="Signals And Transforms">
           <Directory Id="INSTALLLOCATION" Name=".">
-            <Directory Id="ProductComponents"></Directory>
+            <Directory Id="ProductComponents"/>
           </Directory>
         </Directory>
 			</Directory>
 		</Directory>
 	</Fragment>
+
+  <Fragment>
+    <Component Id="FileExtensions" Directory="TARGETDIR" Guid="{39568E18-4098-44F3-9845-A52DF783A979}">
+      <ProgId Id="SignalsAndTransforms.stw" Description="Workbook">
+        <Extension Id="stw" ContentType="application/stw">
+          <Verb Id="open" Command="Open" TargetFile="fil41798E866BC736CEC72FD22DC3251767" Argument="&quot;%1&quot;" />
+        </Extension>
+      </ProgId>
+    </Component>
+  </Fragment>
 </Wix>
