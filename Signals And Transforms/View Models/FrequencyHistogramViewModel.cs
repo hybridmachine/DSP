@@ -23,9 +23,24 @@ namespace SignalsAndTransforms.View_Models
                 HistogramSeries chs = new HistogramSeries();
                 var binningOptions = new BinningOptions(BinningOutlierMode.CountOutliers, BinningIntervalType.InclusiveLowerBound, BinningExtremeValueMode.ExcludeExtremeValues);
                 var binBreaks = HistogramHelpers.CreateUniformBins(0, frequencyDomain.SampleRateHz / 2, (int)Math.Ceiling(frequencyDomain.SampleRateHz / 2));
-                chs.Items.AddRange(HistogramHelpers.Collect(frequencyDomain.FrequencyAmplitudes.Values, binBreaks, binningOptions));
+                //chs.Items.AddRange(HistogramHelpers.Collect(frequencyDomain.FrequencyAmplitudes.Values, binBreaks, binningOptions));
+                chs.Items.AddRange(GetFrequencyBins(frequencyDomain));
                 Series.Add(chs);
             }
+        }
+
+        private IList<HistogramItem> GetFrequencyBins(FrequencyDomain frequencyDomain)
+        {
+            int binCount = (int)Math.Ceiling(frequencyDomain.SampleRateHz / 2);
+            List<HistogramItem> histogramItems = new List<HistogramItem>(binCount);
+
+            foreach (var amplitude in frequencyDomain.FrequencyAmplitudes)
+            {
+                HistogramItem item = new HistogramItem(amplitude.Key - 0.25, amplitude.Key + 0.25, amplitude.Value, 1);
+                histogramItems.Add(item);
+            }
+
+            return histogramItems;
         }
     }
 }

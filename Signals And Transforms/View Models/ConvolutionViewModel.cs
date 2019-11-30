@@ -100,7 +100,7 @@ namespace SignalsAndTransforms.View_Models
 
         public IList<DataPoint> ResultPlotPoints { get; private set; }
 
-        public IList<DataPoint> ResultFrequencyHistogram { get; private set; }
+        public FrequencyHistogramViewModel ResultFrequencyHistogram { get; private set; }
 
 
         public void PlotData()
@@ -137,12 +137,8 @@ namespace SignalsAndTransforms.View_Models
 
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
             FrequencyDomain frequencyDomain = cmplxFFT.Transform(convolutionResult, workbookSourceSignal.SamplingHZ);
-            ResultFrequencyHistogram = new List<DataPoint>(frequencyDomain.FrequencyAmplitudes.Count);
-            foreach (var freq in frequencyDomain.FrequencyAmplitudes)
-            {
-                ResultFrequencyHistogram.Add(new DataPoint(freq.Key, freq.Value));
-            }
-
+            ResultFrequencyHistogram = new FrequencyHistogramViewModel(frequencyDomain);
+            
             NotifyPropertyChanged(nameof(SignalPlotPoints));
             NotifyPropertyChanged(nameof(ConvolutionPlotPoints));
             NotifyPropertyChanged(nameof(ResultPlotPoints));
