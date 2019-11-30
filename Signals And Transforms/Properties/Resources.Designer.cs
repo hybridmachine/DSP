@@ -133,6 +133,24 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequency.
+        /// </summary>
+        public static string PLOT_FREQUENCY_HISTOGRAM_BOTTOM_AXIS {
+            get {
+                return ResourceManager.GetString("PLOT_FREQUENCY_HISTOGRAM_BOTTOM_AXIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amplitude.
+        /// </summary>
+        public static string PLOT_FREQUENCY_HISTOGRAM_LEFT_AXIS {
+            get {
+                return ResourceManager.GetString("PLOT_FREQUENCY_HISTOGRAM_LEFT_AXIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Frequency Amplitudes.
         /// </summary>
         public static string PLOT_FREQUENCY_HISTOGRAM_TITLE {
