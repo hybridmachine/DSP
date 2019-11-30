@@ -44,7 +44,7 @@ namespace SignalsAndTransforms.View_Models
         }
 
         public IList<DataPoint> PlotPoints { get; private set; }
-        public IList<DataPoint> FrequencyHistogram { get; private set; }
+        public PlotModel FrequencyViewModel { get; private set; }
 
         public String Title { get; private set; }
 
@@ -67,8 +67,7 @@ namespace SignalsAndTransforms.View_Models
         public void PlotSignals()
         {
             PlotPoints = new List<DataPoint>(512);
-            FrequencyHistogram = new List<DataPoint>(512);
-
+            
             Signal workbookSourceSignal = workBookManager.ActiveWorkBook().SumOfSources();
             if (workbookSourceSignal == null)
             {
@@ -84,13 +83,11 @@ namespace SignalsAndTransforms.View_Models
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
             FrequencyDomain frequencyDomain = cmplxFFT.Transform(workbookSourceSignal.Samples, workbookSourceSignal.SamplingHZ);
 
-            foreach (var freq in frequencyDomain.FrequencyAmplitudes)
-            {
-                FrequencyHistogram.Add(new DataPoint(freq.Key, freq.Value));
-            }
+            
+            FrequencyViewModel = new FrequencyHistogramViewModel(frequencyDomain);
 
             NotifyPropertyChanged(nameof(PlotPoints));
-            NotifyPropertyChanged(nameof(FrequencyHistogram));
+            NotifyPropertyChanged(nameof(FrequencyViewModel));
         }
 
         private void NotifyPropertyChanged(string propertyName)

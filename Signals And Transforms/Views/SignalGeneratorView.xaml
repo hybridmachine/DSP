@@ -41,10 +41,6 @@
                                 MarkerType="Square"/>
             </oxy:Plot.Series>
         </oxy:Plot>
-        <oxy:Plot Grid.Column="3" Grid.Row="0"  Grid.RowSpan="4" Margin="5" Title="{x:Static res:Resources.PLOT_FREQUENCY_HISTOGRAM_TITLE}">
-            <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding FrequencyHistogram}"/>
-            </oxy:Plot.Series>
-        </oxy:Plot>
+        <oxy:PlotView Grid.Column="3" Grid.Row="0"  Grid.RowSpan="4" Margin="5" Model="{Binding FrequencyViewModel}"/>
     </Grid>
 </UserControl>

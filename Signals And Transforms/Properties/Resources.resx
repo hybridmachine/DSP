@@ -141,6 +141,12 @@
   <data name="OPEN" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="PLOT_FREQUENCY_HISTOGRAM_BOTTOM_AXIS" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
+  <data name="PLOT_FREQUENCY_HISTOGRAM_LEFT_AXIS" xml:space="preserve">
+    <value>Amplitude</value>
+  </data>
   <data name="PLOT_FREQUENCY_HISTOGRAM_TITLE" xml:space="preserve">
     <value>Frequency Amplitudes</value>
   </data>
