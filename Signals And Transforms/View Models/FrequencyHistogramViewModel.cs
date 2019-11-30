@@ -21,9 +21,6 @@ namespace SignalsAndTransforms.View_Models
             if (frequencyDomain != null)
             {
                 HistogramSeries chs = new HistogramSeries();
-                var binningOptions = new BinningOptions(BinningOutlierMode.CountOutliers, BinningIntervalType.InclusiveLowerBound, BinningExtremeValueMode.ExcludeExtremeValues);
-                var binBreaks = HistogramHelpers.CreateUniformBins(0, frequencyDomain.SampleRateHz / 2, (int)Math.Ceiling(frequencyDomain.SampleRateHz / 2));
-                //chs.Items.AddRange(HistogramHelpers.Collect(frequencyDomain.FrequencyAmplitudes.Values, binBreaks, binningOptions));
                 chs.Items.AddRange(GetFrequencyBins(frequencyDomain));
                 Series.Add(chs);
             }
