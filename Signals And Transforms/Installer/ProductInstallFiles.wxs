@@ -4,6 +4,7 @@
         <DirectoryRef Id="INSTALLLOCATION">
             <Directory Id="dir7E220EDC847AD7F674C92451C63AED27" Name="app.publish" />
             <Directory Id="dir23A3189054C3F25860189BFFABAD824E" Name="Properties" />
+            <Directory Id="dir4DC39E28E88A7F1F26918FEF6A2132A1" Name="Resources" />
             <Directory Id="dir0355D6E983C7D0CDACC2DE3CAAF0B5AD" Name="runtimes" />
             <Directory Id="dir7C2C83F6CC8AC47D9022A8AD6554F0C1" Name="x64" />
             <Directory Id="dirE62C75B0DFC66B1F221D6A7BDE116F3B" Name="x86" />
@@ -98,6 +99,9 @@
             <Component Id="cmp8AD91B68D9163A5C50D2223F3F1DFF11" Directory="dir23A3189054C3F25860189BFFABAD824E" Guid="*">
                 <File Id="fil0B8D1017C64D229A540B591FFD5F1428" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Properties\Resources.resx" />
             </Component>
+            <Component Id="cmp671A856E8F37B6FA8B9C84BFF398B0D8" Directory="dir68060037CB3A65BFFA047E0A4F5F8BDD" Guid="*">
+                <File Id="fil91B93ED535C0CF890853B389596E95C7" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Resources\Filter Kernels\Low Pass.csv" />
+            </Component>
             <Component Id="cmp3599E3D30196EF8E2CD05B52C23E5A65" Directory="dir5BD8302CD95D3B35EEEF7AE57FD463EA" Guid="*">
                 <File Id="fil149761084A72A87A4ABA544B46B81A6D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\runtimes\win-arm\native\e_sqlite3.dll" />
             </Component>
@@ -123,6 +127,11 @@
     <Fragment>
         <DirectoryRef Id="dirF955CC020CCB158454C9A3D0F730FE77">
             <Directory Id="dir6348BB43D425318EF3764BDFE09686C9" Name="native" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir4DC39E28E88A7F1F26918FEF6A2132A1">
+            <Directory Id="dir68060037CB3A65BFFA047E0A4F5F8BDD" Name="Filter Kernels" />
         </DirectoryRef>
     </Fragment>
     <Fragment>
