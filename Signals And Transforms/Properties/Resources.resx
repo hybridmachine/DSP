@@ -141,6 +141,12 @@
   <data name="DATABASE_FILES" xml:space="preserve">
     <value>Workbook Files</value>
   </data>
+  <data name="FILTER_FREQUENCY_RESPONSE_TITLE" xml:space="preserve">
+    <value>Frequency Response</value>
+  </data>
+  <data name="FILTER_IMPULSE_RESPONSE_TITLE" xml:space="preserve">
+    <value>Impulse Response</value>
+  </data>
   <data name="OPEN" xml:space="preserve">
     <value>Open</value>
   </data>

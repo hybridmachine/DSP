@@ -133,6 +133,24 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequency Response.
+        /// </summary>
+        public static string FILTER_FREQUENCY_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_FREQUENCY_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Impulse Response.
+        /// </summary>
+        public static string FILTER_IMPULSE_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_IMPULSE_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string OPEN {
