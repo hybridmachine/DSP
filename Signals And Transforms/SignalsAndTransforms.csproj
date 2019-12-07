@@ -144,11 +144,15 @@
     <Compile Include="Models\Signal.cs" />
     <Compile Include="Models\WorkBook.cs" />
     <Compile Include="View Models\ConvolutionViewModel.cs" />
+    <Compile Include="View Models\FilterViewModel.cs" />
     <Compile Include="View Models\FrequencyHistogramViewModel.cs" />
     <Compile Include="View Models\MainWindowViewModel.cs" />
     <Compile Include="View Models\SignalGeneratorViewModel.cs" />
     <Compile Include="Views\ConvolutionView.xaml.cs">
       <DependentUpon>ConvolutionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilterView.xaml.cs">
+      <DependentUpon>FilterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignalGeneratorView.xaml.cs">
       <DependentUpon>SignalGeneratorView.xaml</DependentUpon>
@@ -166,6 +170,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ConvolutionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -246,7 +254,12 @@
   <ItemGroup>
     <Resource Include="Resources\Images\open-file-button.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\filtering.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\sinusoid.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

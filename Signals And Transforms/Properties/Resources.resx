@@ -120,17 +120,20 @@
   <data name="ALL_FILES" xml:space="preserve">
     <value>All Files</value>
   </data>
-  <data name="BTC_CONVOLUTION" xml:space="preserve">
-    <value>Convolve</value>
-  </data>
   <data name="BTN_ADD_SIGNAL" xml:space="preserve">
     <value>Add</value>
+  </data>
+  <data name="BTN_CONVOLUTION" xml:space="preserve">
+    <value>Convolution</value>
   </data>
   <data name="BTN_FFT" xml:space="preserve">
     <value>FFT</value>
   </data>
+  <data name="BTN_FILTER" xml:space="preserve">
+    <value>Filters</value>
+  </data>
   <data name="BTN_SIGNAL" xml:space="preserve">
-    <value>Signal</value>
+    <value>Signals</value>
   </data>
   <data name="CONVOLUTION_PLOT_TITLE" xml:space="preserve">
     <value>Convolution Kernel</value>

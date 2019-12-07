@@ -62,20 +62,31 @@ namespace SignalsAndTransforms
 
         private void BTN_Convolve_Click(object sender, RoutedEventArgs e)
         {
-            SignalSetup.Visibility = Visibility.Collapsed;
-            SignalSetup.IsEnabled = false;
-
-            ConvolutionView.Visibility = Visibility.Visible;
-            SignalSetup.IsEnabled = true;
+            ActivateView(ConvolutionView);
         }
 
         private void BTN_FFT_Click(object sender, RoutedEventArgs e)
         {
-            SignalSetup.Visibility = Visibility.Visible;
-            SignalSetup.IsEnabled = true;
+            ActivateView(SignalSetup);
+        }
 
+        private void BTN_Filter_Click(object sender, RoutedEventArgs e)
+        {
+            ActivateView(FilterView);
+        }
+
+        private void ActivateView(UserControl view)
+        {
+            SignalSetup.Visibility = Visibility.Collapsed;
             ConvolutionView.Visibility = Visibility.Collapsed;
+            FilterView.Visibility = Visibility.Collapsed;
+
+            SignalSetup.IsEnabled = false;
             ConvolutionView.IsEnabled = false;
+            FilterView.IsEnabled = false;
+
+            view.IsEnabled = true;
+            view.Visibility = Visibility.Visible;
         }
 
         private void MenuItemSave_Click(object sender, RoutedEventArgs e)
