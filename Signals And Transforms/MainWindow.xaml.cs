@@ -30,6 +30,8 @@ namespace SignalsAndTransforms
 
             SignalSetup.DataContext = new SignalGeneratorViewModel();
             ConvolutionView.DataContext = new ConvolutionViewModel();
+            FilterView.DataContext = new FilterViewModel();
+
             this.DataContext = new MainWindowViewModel();
         }
 

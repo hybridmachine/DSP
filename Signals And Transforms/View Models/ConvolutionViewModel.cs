@@ -34,7 +34,7 @@ namespace SignalsAndTransforms.View_Models
 
         private void LoadTestData()
         {
-            string filterKernelPath = Path.Combine(Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["datadir"]), @"Filter Kernels\Low Pass.csv");
+            string filterKernelPath = Path.Combine(Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["datadir"]), @"Filter Kernels\High Pass.csv");
             // For now load test convolution data, todo load from disk
             Signal convolutionKernel = new Signal();
             convolutionKernel.Name = "ConvolutionKernel";
