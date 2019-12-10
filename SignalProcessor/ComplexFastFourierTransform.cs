@@ -10,7 +10,6 @@ namespace SignalProcessor
    
     public class ComplexFastFourierTransform : IDFT
     {
-
         /// <summary>
         /// Adapted from Udemy course "Master the Fourier transform and its applications" by Mike X Cohen
         /// </summary>
@@ -119,6 +118,20 @@ namespace SignalProcessor
             result.FourierCoefficients = fCoefs;
             result.SampleRateHz = sampleRateHz;
             return result;
+        }
+
+        private static FrequencyDomain LoadFourierCoefficients(List<double> frequencyAmplitudes)
+        {
+            FrequencyDomain frequencyDomain = new FrequencyDomain();
+
+            foreach (double amplitude in frequencyAmplitudes)
+            {
+                double absValue = amplitude / 2 * frequencyAmplitudes.Count;
+                // For now calculate at a 45 degree phase, not sure how to handle phase in this case
+                Complex coefficient = new Complex(Math.Sqrt(absValue) / Math.Sqrt(2), Math.Sqrt(absValue) / Math.Sqrt(2));
+                frequencyDomain.FourierCoefficients.Add(coefficient);
+            }
+            return frequencyDomain;
         }
 
         private static void LoadFrequencyAmplitudes(FrequencyDomain frequencyDomain)
