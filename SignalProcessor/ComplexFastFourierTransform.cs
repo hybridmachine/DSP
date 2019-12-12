@@ -120,15 +120,16 @@ namespace SignalProcessor
             return result;
         }
 
-        private static FrequencyDomain LoadFourierCoefficients(List<double> frequencyAmplitudes)
+        public static FrequencyDomain LoadFourierCoefficients(List<double> frequencyAmplitudes)
         {
             FrequencyDomain frequencyDomain = new FrequencyDomain();
 
             foreach (double amplitude in frequencyAmplitudes)
             {
-                double absValue = amplitude / 2 * frequencyAmplitudes.Count;
+                double absValue = (amplitude / 2) * frequencyAmplitudes.Count;
                 // For now calculate at a 45 degree phase, not sure how to handle phase in this case
-                Complex coefficient = new Complex(Math.Sqrt(absValue) / Math.Sqrt(2), Math.Sqrt(absValue) / Math.Sqrt(2));
+                Complex coefficient = new Complex(absValue / Math.Sqrt(2), absValue / Math.Sqrt(2));
+                //Complex coefficient = new Complex(0, absValue);
                 frequencyDomain.FourierCoefficients.Add(coefficient);
             }
             return frequencyDomain;
