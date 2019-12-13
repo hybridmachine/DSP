@@ -54,6 +54,7 @@
     <Compile Include="ComplexFourierTransformTest.cs" />
     <Compile Include="ConvolutionViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowedSyncFilterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
