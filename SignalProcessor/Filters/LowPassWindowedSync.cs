@@ -24,6 +24,7 @@ namespace SignalProcessor.Filters
             }
 
             m_impulseResponse = new List<double>(FilterLength + 1);
+            double normalizationFactor = 0.0;
             for (int idx = 0; idx <= FilterLength; idx++)
             {
                 if (idx == (FilterLength / 2))
@@ -38,6 +39,14 @@ namespace SignalProcessor.Filters
                     double value = (sincNumerator / sincDenominator) * blackmanWindow;
                     m_impulseResponse.Add(value);
                 }
+
+                normalizationFactor += m_impulseResponse[m_impulseResponse.Count - 1];
+            }
+
+            // Normalize for unity gain at DC
+            for (int idx = 0; idx < m_impulseResponse.Count; idx++)
+            {
+                m_impulseResponse[idx] = m_impulseResponse[idx] / normalizationFactor;
             }
 
             return m_impulseResponse;
