@@ -16,20 +16,19 @@ namespace UnitTests
         public void LowPassWindowedSyncTest()
         {
             IWindowedSyncFilter filter = new LowPassWindowedSync();
+            IWindowedSyncFilter highPass = new HighPassWindowedSync();
+
             filter.CutoffFrequencySamplingFrequencyPercentage = 0.2;
             filter.FilterLength = 64;
 
+            highPass.CutoffFrequencySamplingFrequencyPercentage = filter.CutoffFrequencySamplingFrequencyPercentage;
+            highPass.FilterLength = filter.FilterLength;
+
             List<double> impulseResponse = filter.ImpulseResponse();
+            List<double> highImpulseResponse = highPass.ImpulseResponse();
+
             Assert.IsNotNull(impulseResponse);
-            List<double> highFrequencyImpluseResponse = new List<double>(impulseResponse.Count);
-
-            foreach (double value in impulseResponse)
-            {
-                highFrequencyImpluseResponse.Add(-value);
-            }
-
-            highFrequencyImpluseResponse[32] += 1;
-
+            
             Assert.IsTrue(impulseResponse.Count == filter.FilterLength + 1);
         }
     }

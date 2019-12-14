@@ -9,14 +9,14 @@ namespace SignalProcessor.Filters
         public double CutoffFrequencySamplingFrequencyPercentage { get ; set ; }
         public int FilterLength { get ; set ; }
 
-        private List<double> m_impulseResponse;
+        protected List<double> m_impulseResponse;
         /// <summary>
         /// Implementation of the algorithm from P 290 Equation 16-4 of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
         /// https://www.dspguide.com/CH16.PDF#page=5&zoom=auto,-310,23
         /// Note this filter kernel assumes samples are normalized by the caller
         /// </summary>
         /// <returns></returns>
-        public List<double> ImpulseResponse()
+        public virtual List<double> ImpulseResponse()
         {
             if (m_impulseResponse != null)
             {
