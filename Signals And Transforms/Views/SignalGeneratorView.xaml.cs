@@ -42,6 +42,7 @@ namespace SignalsAndTransforms.Views
                     newSignal.Amplitude = double.Parse(SignalAmplitude.Text);
                     newSignal.SampleSeconds = 2.0;
                     newSignal.Type = SignalType.Source;
+                    newSignal.IsActive = true;
                     model.AddSignal(newSignal);
                 }
                 catch (Exception ex)
@@ -73,16 +74,16 @@ namespace SignalsAndTransforms.Views
                 }
 
                 var selectedItems = SignalsList.SelectedItems;
-                List<Signal> copyOfSelectedItems = new List<Signal>(selectedItems.Count);
+                List<SignalItemView> copyOfSelectedItems = new List<SignalItemView>(selectedItems.Count);
 
-                foreach (Signal item in selectedItems)
+                foreach (SignalItemView item in selectedItems)
                 {
                     copyOfSelectedItems.Add(item);
                 }
 
-                foreach (Signal item in copyOfSelectedItems)
+                foreach (SignalItemView item in copyOfSelectedItems)
                 {
-                    model.DeleteSignal(item);
+                    model.DeleteSignal(item.DataContext as Signal);
                 }
 
                 model.PlotSignals();

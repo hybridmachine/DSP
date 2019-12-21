@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="SignalsAndTransforms.Views.SignalItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SignalsAndTransforms.Views"
+             xmlns:res="clr-namespace:SignalsAndTransforms.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+            <CheckBox x:Name="SignalActive" IsChecked="{Binding IsActive}"/>
+        </StackPanel>
+        
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,5">
+            <TextBlock x:Name="SignalNameLabel" Text="{x:Static res:Resources.SIGNAL_NAME}" Margin="5,0,5,0"/>
+            <TextBox x:Name="SignalName" Text="{Binding Name}" MinWidth="100"/>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5">
+            <TextBlock x:Name="FrequencyLabel" Text="{x:Static res:Resources.SIGNAL_HZ}" Margin="5,0,5,0"/>
+            <TextBox x:Name="Frequency" Text="{Binding SignalHZ}" MinWidth="50"/>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,5">
+            <TextBlock x:Name="SamplingRateLabel" Text="{x:Static res:Resources.SAMPLING_HZ}" Margin="5,0,5,0"/>
+            <TextBox x:Name="SamplingRate" Text="{Binding SamplingHZ}" MinWidth="50"/>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,5">
+            <TextBlock x:Name="FrequencyAmplitudeLabel" Text="{x:Static res:Resources.SIGNAL_AMPLITUDE}" Margin="5,0,5,0"/>
+            <TextBox x:Name="FrequencyAmplitude" Text="{Binding Amplitude}" MinWidth="50"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

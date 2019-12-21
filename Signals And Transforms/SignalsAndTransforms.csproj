@@ -157,6 +157,9 @@
     <Compile Include="Views\SignalGeneratorView.xaml.cs">
       <DependentUpon>SignalGeneratorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SignalItemView.xaml.cs">
+      <DependentUpon>SignalItemView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -178,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SignalGeneratorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SignalItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

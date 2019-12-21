@@ -4,6 +4,7 @@ using OxyPlot.Series;
 using SignalProcessor;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
+using SignalsAndTransforms.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,8 @@ namespace SignalsAndTransforms.View_Models
     {
         private WorkBookManager workBookManager;
 
+        public ObservableCollection<SignalItemView> SignalViews { get; private set; }
+
         public ObservableCollection<Signal> Signals { get; private set; }
 
         public void AddSignal(Signal signal)
@@ -28,6 +31,8 @@ namespace SignalsAndTransforms.View_Models
 
         public void DeleteSignal(Signal signal)
         {
+            signal.PropertyChanged -= handleSignalUpdate;
+
             workBookManager.ActiveWorkBook().Signals.Remove(signal.Name);
             LoadSignalsFromActiveWorkBook();
         }
@@ -35,11 +40,16 @@ namespace SignalsAndTransforms.View_Models
         private void LoadSignalsFromActiveWorkBook()
         {
             Signals.Clear();
+            SignalViews.Clear();
+
             List<Signal> signals = new List<Signal>(workBookManager.ActiveWorkBook().Signals.Values);
             // No addrange for observeablecollection
-            foreach (Signal signal in signals)
+            foreach (Signal signal in signals.Where(sig => sig.Type == SignalType.Source))
             {
+                signal.PropertyChanged -= handleSignalUpdate;
                 Signals.Add(signal);
+                SignalViews.Add(new SignalItemView { DataContext = signal });
+                signal.PropertyChanged += handleSignalUpdate;
             }
         }
 
@@ -51,6 +61,8 @@ namespace SignalsAndTransforms.View_Models
         public SignalGeneratorViewModel()
         {
             Signals = new ObservableCollection<Signal>();
+            SignalViews = new ObservableCollection<SignalItemView>();
+
             Title = Properties.Resources.SIGNAL_PLOT_TITLE;
             workBookManager = WorkBookManager.Manager();
             workBookManager.PropertyChanged += ActiveWorkBookChangedHandler;
@@ -88,6 +100,11 @@ namespace SignalsAndTransforms.View_Models
 
             NotifyPropertyChanged(nameof(PlotPoints));
             NotifyPropertyChanged(nameof(FrequencyViewModel));
+        }
+
+        public void handleSignalUpdate(object sender, PropertyChangedEventArgs args)
+        {
+            PlotSignals();
         }
 
         private void NotifyPropertyChanged(string propertyName)
