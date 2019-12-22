@@ -65,6 +65,7 @@ namespace SignalsAndTransforms.DAL
                 CREATE TABLE 'Signals' (
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     'WorkBookId' INTEGER,
+                    'IsActive' INTEGER NOT NULL CHECK (IsActive IN (0,1)),
                     'Name'  TEXT NOT NULL UNIQUE,
                     'Type'  INTEGER NOT NULL,
 	                'SamplingHZ' REAL,

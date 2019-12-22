@@ -70,20 +70,20 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convolve.
-        /// </summary>
-        public static string BTC_CONVOLUTION {
-            get {
-                return ResourceManager.GetString("BTC_CONVOLUTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string BTN_ADD_SIGNAL {
             get {
                 return ResourceManager.GetString("BTN_ADD_SIGNAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convolution.
+        /// </summary>
+        public static string BTN_CONVOLUTION {
+            get {
+                return ResourceManager.GetString("BTN_CONVOLUTION", resourceCulture);
             }
         }
         
@@ -97,7 +97,16 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signal.
+        ///   Looks up a localized string similar to Filters.
+        /// </summary>
+        public static string BTN_FILTER {
+            get {
+                return ResourceManager.GetString("BTN_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signals.
         /// </summary>
         public static string BTN_SIGNAL {
             get {
@@ -120,6 +129,24 @@ namespace SignalsAndTransforms.Properties {
         public static string DATABASE_FILES {
             get {
                 return ResourceManager.GetString("DATABASE_FILES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency Response.
+        /// </summary>
+        public static string FILTER_FREQUENCY_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_FREQUENCY_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Impulse Response.
+        /// </summary>
+        public static string FILTER_IMPULSE_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_IMPULSE_RESPONSE_TITLE", resourceCulture);
             }
         }
         

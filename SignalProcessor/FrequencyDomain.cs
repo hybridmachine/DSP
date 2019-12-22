@@ -27,6 +27,7 @@ namespace SignalProcessor
             ScalingFactor = new List<double>();
             ImaginaryComponent = new List<double>();
             FrequencyAmplitudes = new Dictionary<double, double>();
+            FourierCoefficients = new List<Complex>();
         }
         public FrequencyDomain(int timeDomainLen, IDFT dft)
         {

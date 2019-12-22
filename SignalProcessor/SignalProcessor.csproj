@@ -3,12 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.7.0</AssemblyVersion>
-    <FileVersion>0.1.7.0</FileVersion>
-    <PackageReleaseNotes>Added basic convolution (non FFT convolution)</PackageReleaseNotes>
+    <AssemblyVersion>0.1.8.0</AssemblyVersion>
+    <FileVersion>0.1.8.0</FileVersion>
+    <PackageReleaseNotes>Added low and high pass windowed sync filters based on Chapter 16 of the DSP guide: https://www.dspguide.com/CH16.PDF#page=1&amp;zoom=auto,-119,708
+
+See SignalProcessor.Filters.LowPassWindowedSync and SignalProcessor.Filters.HighPassWindowedSync</PackageReleaseNotes>
     <Copyright>2019 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.7</Version>
+    <Version>0.1.8</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>

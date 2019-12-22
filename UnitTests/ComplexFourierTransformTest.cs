@@ -68,5 +68,28 @@ namespace UnitTests
                 Assert.IsTrue((Math.Abs(recreatedSignal[idx] - signal[idx]) <= MaxSignalDifference));
             }
         }
+
+        [TestMethod]
+        public void TestLoadFromFrequencyAmplitudes()
+        {
+            // low pass amplitude array
+            double[] amplitudes = { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                    0.0, 0.0};
+
+            List<double> frequencyDomain = new List<double>(amplitudes);
+            //FrequencyDomain frequencyDomain = ComplexFastFourierTransform.LoadFourierCoefficients(new List<double>(amplitudes));
+
+            ComplexFastFourierTransform synth = new ComplexFastFourierTransform();
+            FrequencyDomain timeDomain = synth.Transform(frequencyDomain, 2 * frequencyDomain.Count());
+
+            foreach (var value in timeDomain.FrequencyAmplitudes)
+            {
+                Console.WriteLine(value);
+            }
+        }
     }
 }

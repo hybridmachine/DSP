@@ -54,7 +54,7 @@ namespace SignalsAndTransforms.Models
 
         public Signal SumOfSources()
         {
-            List<Signal> signals = new List<Signal>(Signals.Values);
+            List<Signal> signals = new List<Signal>(Signals.Values.Where(sig => sig.IsActive));
             Signal baseSignal = signals.Where(sig => sig.Type == SignalType.Source).FirstOrDefault();
             if (baseSignal == null)
             {

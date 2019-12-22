@@ -27,14 +27,15 @@ namespace SignalsAndTransforms.DAL
             cmd.Parameters.AddWithValue("@Name", signal.Name);
             cmd.ExecuteNonQuery();
 
-            string sql = $@"INSERT INTO Signals ([Name], [Type], [WorkBookId], [SamplingHZ], [SignalHZ], [SampleSeconds], [Amplitude]) 
-                                VALUES (@Name, @Type, @WorkBookId, @SamplingHZ, @SignalHZ, @SampleSeconds, @Amplitude)";
+            string sql = $@"INSERT INTO Signals ([Name], [IsActive], [Type], [WorkBookId], [SamplingHZ], [SignalHZ], [SampleSeconds], [Amplitude]) 
+                                VALUES (@Name, @IsActive, @Type, @WorkBookId, @SamplingHZ, @SignalHZ, @SampleSeconds, @Amplitude)";
 
 
 
             cmd = con.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Name", signal.Name);
+            cmd.Parameters.AddWithValue("@IsActive", signal.IsActive);
             cmd.Parameters.AddWithValue("@Type", signal.Type);
             cmd.Parameters.AddWithValue("@SamplingHZ", signal.SamplingHZ);
             cmd.Parameters.AddWithValue("@SignalHZ", signal.SignalHZ);
@@ -63,6 +64,11 @@ namespace SignalsAndTransforms.DAL
             }
 
             return true;
+        }
+
+        public static bool Update(Signal signal, SqliteConnection con)
+        {
+            throw new NotImplementedException();
         }
     }
 }

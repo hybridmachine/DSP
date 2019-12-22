@@ -9,6 +9,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.IO;
 
 namespace SignalsAndTransforms.View_Models
 {
@@ -32,62 +34,36 @@ namespace SignalsAndTransforms.View_Models
 
         private void LoadTestData()
         {
+            string filterKernelPath = Path.Combine(Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["datadir"]), @"Filter Kernels\Low Pass.csv");
             // For now load test convolution data, todo load from disk
             Signal convolutionKernel = new Signal();
             convolutionKernel.Name = "ConvolutionKernel";
             convolutionKernel.SampleSeconds = 1;
-            convolutionKernel.SamplingHZ = 32;
             convolutionKernel.Type = SignalType.ConvolutionKernel;
-            // Low pass filter kernel
-            convolutionKernel.Samples.AddRange(new double[] { 0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
--0.01,
--0.03,
--0.02,
-0.02,
-0.18,
-0.28,
-0.3,
-0.28,
-0.18,
-0.02,
--0.02,
--0.03,
--0.01,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0 });
+
+            try
+            { 
+                // Low pass filter kernel
+                using (StreamReader file = new StreamReader(filterKernelPath))
+                {
+                    string line;
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        double value;
+                        if (double.TryParse(line, out value))
+                        {
+                            convolutionKernel.Samples.Add(value);
+                        }
+                    }
+                }
+
+                convolutionKernel.SamplingHZ = convolutionKernel.Samples.Count - 1;
+
+            }
+            catch (Exception ex)
+            {
+                // TODO log the exception, perhaps notify in the UI
+            }
 
             manager.ActiveWorkBook().ConvolutionKernel = convolutionKernel;
         }

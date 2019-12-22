@@ -18,7 +18,7 @@ namespace SignalsAndTransforms.DAL
     }
     public static class WorkBookDAL
     {
-        public const string SchemaVersion = "1.0";
+        public const string SchemaVersion = "1.1";
 
         /// <summary>
         /// Create the Workbook file, note this will delete any previously existing file if it exists

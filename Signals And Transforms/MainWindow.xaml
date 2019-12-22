@@ -49,7 +49,7 @@
                               Header="Home">
                 <ribbon:RibbonGroup x:Name="GroupFFT">
                     <ribbon:RibbonButton x:Name="BTN_FFT"
-                                         LargeImageSource="Resources/Images/satellite-dish.png"
+                                         LargeImageSource="Resources/Images/sinusoid.png"
                                          Label="{x:Static res:Resources.BTN_SIGNAL}" 
                                          Click="BTN_FFT_Click"/>
                     <!--
@@ -64,15 +64,22 @@
                                          Label="Button4" />
                     -->
                 </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup x:Name="GroupFilter">
+                    <ribbon:RibbonButton x:Name="BTN_Filter"
+                                         LargeImageSource="Resources/Images/filtering.png"
+                                         Label="{x:Static res:Resources.BTN_FILTER}"
+                                         Click="BTN_Filter_Click"/>
+                </ribbon:RibbonGroup>
                 <ribbon:RibbonGroup x:Name="GroupConvolve">
                     <ribbon:RibbonButton x:Name="BTN_Convolve"
                                          LargeImageSource="Resources/Images/asterisk.png"
-                                         Label="{x:Static res:Resources.BTC_CONVOLUTION}"
+                                         Label="{x:Static res:Resources.BTN_CONVOLUTION}"
                                          Click="BTN_Convolve_Click"/>
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
         <views:SignalGeneratorView Grid.Row="2" x:Name="SignalSetup"/>
+        <views:FilterView Grid.Row="2" x:Name="FilterView" Visibility="Collapsed" IsEnabled="False"/>
         <views:ConvolutionView Grid.Row="2" x:Name="ConvolutionView" Visibility="Collapsed" IsEnabled="False"/>
     </Grid>
 </Window>
