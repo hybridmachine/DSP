@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Signals And Transforms" Language="1033" Version="1.0.0.0" Manufacturer="Brian Tabone" UpgradeCode="F5905D66-299A-4F8F-ACCB-161D63F03C66">
+	<Product Id="*" Name="Signals And Transforms" Language="1033" Version="1.0.1.0" Manufacturer="Brian Tabone" UpgradeCode="F5905D66-299A-4F8F-ACCB-161D63F03C66">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -9,6 +9,7 @@
 		<Feature Id="ProductFeature" Title="Product" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
       <ComponentRef Id="FileExtensions"/>
+      <ComponentGroupRef Id="FilterComponent"/>
 		</Feature>
 	</Product>
 
@@ -21,6 +22,14 @@
           </Directory>
         </Directory>
 			</Directory>
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="CommonAppDataManufacturerFolder" Name="Brian Tabone">
+          <Directory Id="MyAppDataFolder" Name="Signals And Transforms">
+            <Directory Id="FilterKernels" Name="Filter Kernels">
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
 		</Directory>
 	</Fragment>
 
@@ -32,5 +41,16 @@
         </Extension>
       </ProgId>
     </Component>
+  </Fragment>
+  
+  <Fragment>
+    <ComponentGroup Id="FilterComponent">
+      <Component Id="cmpHighPass" Directory="FilterKernels" Guid="*">
+        <File Id="filHighPass" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Resources\Filter Kernels\High Pass.csv" />
+      </Component>
+      <Component Id="cmpLowPass" Directory="FilterKernels" Guid="*">
+        <File Id="filLowPass" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Resources\Filter Kernels\Low Pass.csv" />
+      </Component>
+    </ComponentGroup>
   </Fragment>
 </Wix>

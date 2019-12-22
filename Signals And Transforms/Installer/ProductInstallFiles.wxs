@@ -99,6 +99,9 @@
             <Component Id="cmp8AD91B68D9163A5C50D2223F3F1DFF11" Directory="dir23A3189054C3F25860189BFFABAD824E" Guid="*">
                 <File Id="fil0B8D1017C64D229A540B591FFD5F1428" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Properties\Resources.resx" />
             </Component>
+            <Component Id="cmpEE8086C3D74EA59ABD60140FA2BF98D0" Directory="dir68060037CB3A65BFFA047E0A4F5F8BDD" Guid="*">
+                <File Id="fil9C7E5A44A9F29A418F4B4A1C5F2DDB4B" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Resources\Filter Kernels\High Pass.csv" />
+            </Component>
             <Component Id="cmp671A856E8F37B6FA8B9C84BFF398B0D8" Directory="dir68060037CB3A65BFFA047E0A4F5F8BDD" Guid="*">
                 <File Id="fil91B93ED535C0CF890853B389596E95C7" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Resources\Filter Kernels\Low Pass.csv" />
             </Component>

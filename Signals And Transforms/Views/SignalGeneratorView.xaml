@@ -32,7 +32,7 @@
         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5" Text="{x:Static res:Resources.SIGNAL_AMPLITUDE}" Style="{StaticResource LabelText}"/>
         <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="180" Margin="5" x:Name="SignalAmplitude" Text="1.0"/>
         <Button x:Name="AddSignal" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="70" Content="{x:Static res:Resources.BTN_ADD_SIGNAL}" Click="AddSignal_Click"/>
-        <ListView x:Name="SignalsList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" ItemsSource="{Binding SignalViews}" KeyUp="SignalsList_KeyUp"/>
+        <ListView x:Name="SignalsList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" ItemsSource="{Binding SignalViews}" KeyUp="SignalsList_KeyUp" HorizontalAlignment="Stretch"/>
         <oxy:Plot Grid.Column="3" Grid.Row="4" Margin="5" Title="{Binding Title}">
             <oxy:Plot.Series>
                 <oxy:LineSeries ItemsSource="{Binding PlotPoints}"

@@ -6,44 +6,50 @@
              xmlns:local="clr-namespace:SignalsAndTransforms.Views"
              xmlns:res="clr-namespace:SignalsAndTransforms.Properties"
              mc:Ignorable="d" 
-             d:DesignHeight="75" d:DesignWidth="400">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+             d:DesignHeight="60" d:DesignWidth="600"
+             HorizontalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="93*"/>
         </Grid.ColumnDefinitions>
-        
-        <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
-            <CheckBox x:Name="SignalActive" IsChecked="{Binding IsActive}"/>
-        </StackPanel>
-        
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,5">
-            <TextBlock x:Name="SignalNameLabel" Text="{x:Static res:Resources.SIGNAL_NAME}" Margin="5,0,5,0"/>
-            <TextBox x:Name="SignalName" Text="{Binding Name}" MinWidth="100"/>
-        </StackPanel>
+        <Border Grid.ColumnSpan="2" Margin="0,0,0,0.2">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                    <GradientStop Color="#FFDFE9F5" Offset="0"/>
+                    <GradientStop Color="#FFFFFFFF" Offset="0.567"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <DockPanel HorizontalAlignment="Stretch">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                        <CheckBox x:Name="SignalActive" IsChecked="{Binding IsActive}"/>
+                    </StackPanel>
 
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5">
-            <TextBlock x:Name="FrequencyLabel" Text="{x:Static res:Resources.SIGNAL_HZ}" Margin="5,0,5,0"/>
-            <TextBox x:Name="Frequency" Text="{Binding SignalHZ}" MinWidth="50"/>
-        </StackPanel>
+                    <TextBlock x:Name="SignalNameLabel" VerticalAlignment="Center" Text="{x:Static res:Resources.SIGNAL_NAME}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="5,0,5,5"/>
+                    <TextBox x:Name="SignalName" VerticalAlignment="Center" Text="{Binding Name}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,5,5" MinWidth="100"/>
 
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,0,5">
-            <TextBlock x:Name="SamplingRateLabel" Text="{x:Static res:Resources.SAMPLING_HZ}" Margin="5,0,5,0"/>
-            <TextBox x:Name="SamplingRate" Text="{Binding SamplingHZ}" MinWidth="50"/>
-        </StackPanel>
+                    <TextBlock x:Name="FrequencyLabel" VerticalAlignment="Center" Text="{x:Static res:Resources.SIGNAL_HZ}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="5,0,5,5"/>
+                    <TextBox x:Name="Frequency" VerticalAlignment="Center" Text="{Binding SignalHZ}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,5,5" MinWidth="50"/>
 
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,5">
-            <TextBlock x:Name="FrequencyAmplitudeLabel" Text="{x:Static res:Resources.SIGNAL_AMPLITUDE}" Margin="5,0,5,0"/>
-            <TextBox x:Name="FrequencyAmplitude" Text="{Binding Amplitude}" MinWidth="50"/>
-        </StackPanel>
+                    <TextBlock x:Name="SamplingRateLabel" VerticalAlignment="Center" Text="{x:Static res:Resources.SAMPLING_HZ}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" Margin="5,0,5,5" />
+                    <TextBox x:Name="SamplingRate" VerticalAlignment="Center" Text="{Binding SamplingHZ}" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Margin="5,0,5,5" MinWidth="50" />
 
+                    <TextBlock x:Name="FrequencyAmplitudeLabel" VerticalAlignment="Center" Text="{x:Static res:Resources.SIGNAL_AMPLITUDE}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Margin="5,0,5,5"/>
+                    <TextBox x:Name="FrequencyAmplitude" VerticalAlignment="Center" Text="{Binding Amplitude}" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" Margin="5,0,5,5" MinWidth="50"/>
+                </Grid>
+            </DockPanel>
+        </Border>
     </Grid>
 </UserControl>
