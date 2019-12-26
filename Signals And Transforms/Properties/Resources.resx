@@ -120,6 +120,9 @@
   <data name="ALL_FILES" xml:space="preserve">
     <value>All Files</value>
   </data>
+  <data name="BTN_ADD_FILTER" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="BTN_ADD_SIGNAL" xml:space="preserve">
     <value>Add</value>
   </data>

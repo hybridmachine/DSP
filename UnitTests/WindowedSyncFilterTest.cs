@@ -15,9 +15,9 @@ namespace UnitTests
         [TestMethod]
         public void LowPassWindowedSyncTest()
         {
-            IWindowedSyncFilter filter = new LowPassWindowedSync();
-            IWindowedSyncFilter highPass = new HighPassWindowedSync();
-
+            IWindowedSyncFilter filter = new WindowedSync();
+            IWindowedSyncFilter highPass = new WindowedSync() { FilterType = FilterType.HIGHPASS };
+            
             filter.CutoffFrequencySamplingFrequencyPercentage = 0.2;
             filter.FilterLength = 64;
 
@@ -28,7 +28,8 @@ namespace UnitTests
             List<double> highImpulseResponse = highPass.ImpulseResponse();
 
             Assert.IsNotNull(impulseResponse);
-            
+            Assert.IsNotNull(highImpulseResponse);
+
             Assert.IsTrue(impulseResponse.Count == filter.FilterLength + 1);
         }
     }

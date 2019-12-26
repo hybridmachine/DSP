@@ -72,6 +72,15 @@ namespace SignalsAndTransforms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
+        public static string BTN_ADD_FILTER {
+            get {
+                return ResourceManager.GetString("BTN_ADD_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
         public static string BTN_ADD_SIGNAL {
             get {
                 return ResourceManager.GetString("BTN_ADD_SIGNAL", resourceCulture);

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SignalProcessor.Filters;
 
 namespace SignalsAndTransforms.Views
 {
@@ -23,6 +24,12 @@ namespace SignalsAndTransforms.Views
         public FilterView()
         {
             InitializeComponent();
+            FilterType.ItemsSource = Enum.GetValues(typeof(FilterType)).Cast<FilterType>();
+        }
+
+        private void AddFilter_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

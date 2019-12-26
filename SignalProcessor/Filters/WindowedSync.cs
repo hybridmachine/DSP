@@ -4,10 +4,22 @@ using System.Text;
 
 namespace SignalProcessor.Filters
 {
-    public class LowPassWindowedSync : IWindowedSyncFilter
+    public enum FilterType
+    {
+        LOWPASS,
+        HIGHPASS
+    }
+
+    public class WindowedSync : IWindowedSyncFilter
     {
         public double CutoffFrequencySamplingFrequencyPercentage { get ; set ; }
         public int FilterLength { get ; set ; }
+        public FilterType FilterType { get; set; }
+
+        public WindowedSync()
+        {
+            FilterType = FilterType.LOWPASS; // Lowpass by default
+        }
 
         protected List<double> m_impulseResponse;
         /// <summary>
@@ -47,6 +59,18 @@ namespace SignalProcessor.Filters
             for (int idx = 0; idx < m_impulseResponse.Count; idx++)
             {
                 m_impulseResponse[idx] = m_impulseResponse[idx] / normalizationFactor;
+            }
+
+            // Spectral inversion
+            if (FilterType == FilterType.HIGHPASS)
+            {
+                // Spectral Inversion of the low pass filter
+                for (int idx = 0; idx < m_impulseResponse.Count; idx++)
+                {
+                    m_impulseResponse[idx] = m_impulseResponse[idx] * -1;
+                }
+
+                m_impulseResponse[(m_impulseResponse.Count - 1) / 2] += 1;
             }
 
             return m_impulseResponse;
