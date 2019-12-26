@@ -141,11 +141,29 @@
   <data name="DATABASE_FILES" xml:space="preserve">
     <value>Workbook Files</value>
   </data>
+  <data name="FILTER_CUTOFF_PERCENTAGE" xml:space="preserve">
+    <value>Sampling Frequency Cutoff %</value>
+  </data>
   <data name="FILTER_FREQUENCY_RESPONSE_TITLE" xml:space="preserve">
     <value>Frequency Response</value>
   </data>
   <data name="FILTER_IMPULSE_RESPONSE_TITLE" xml:space="preserve">
     <value>Impulse Response</value>
+  </data>
+  <data name="FILTER_LENGTH" xml:space="preserve">
+    <value>Filter Length</value>
+  </data>
+  <data name="FILTER_NAME" xml:space="preserve">
+    <value>Filter Name</value>
+  </data>
+  <data name="FILTER_TYPE_HIGH" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="FILTER_TYPE_LABEL" xml:space="preserve">
+    <value>Pass Type</value>
+  </data>
+  <data name="FILTER_TYPE_LOW" xml:space="preserve">
+    <value>Low</value>
   </data>
   <data name="OPEN" xml:space="preserve">
     <value>Open</value>
