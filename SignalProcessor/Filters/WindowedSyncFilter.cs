@@ -10,13 +10,17 @@ namespace SignalProcessor.Filters
         HIGHPASS
     }
 
-    public class WindowedSync : IWindowedSyncFilter
+    public class WindowedSyncFilter : IWindowedSyncFilter
     {
+        /// <summary>
+        /// Convenience parameter so users can name their filters for sorting, searching, etc
+        /// </summary>
+        public string Name { get; set; }
         public double CutoffFrequencySamplingFrequencyPercentage { get ; set ; }
         public int FilterLength { get ; set ; }
         public FilterType FilterType { get; set; }
 
-        public WindowedSync()
+        public WindowedSyncFilter()
         {
             FilterType = FilterType.LOWPASS; // Lowpass by default
         }

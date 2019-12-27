@@ -15,8 +15,8 @@ namespace UnitTests
         [TestMethod]
         public void LowPassWindowedSyncTest()
         {
-            IWindowedSyncFilter filter = new WindowedSync();
-            IWindowedSyncFilter highPass = new WindowedSync() { FilterType = FilterType.HIGHPASS };
+            IWindowedSyncFilter filter = new WindowedSyncFilter();
+            IWindowedSyncFilter highPass = new WindowedSyncFilter() { FilterType = FilterType.HIGHPASS };
             
             filter.CutoffFrequencySamplingFrequencyPercentage = 0.2;
             filter.FilterLength = 64;

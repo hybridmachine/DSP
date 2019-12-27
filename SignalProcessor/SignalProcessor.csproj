@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.9.0</AssemblyVersion>
-    <FileVersion>0.1.9.0</FileVersion>
-    <PackageReleaseNotes>Flattened filters into one WindowedSync type with an enumeration determining low/high type</PackageReleaseNotes>
+    <AssemblyVersion>0.1.10.0</AssemblyVersion>
+    <FileVersion>0.1.10.0</FileVersion>
+    <PackageReleaseNotes>Renamed WindowedSync to WIndowedSyncFilter for clarity in the name (know its a filter at a glance without any other context). Added Name property (will be used by SIgnals and Transforms and can be used by others for convenience).</PackageReleaseNotes>
     <Copyright>2020 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.9</Version>
+    <Version>0.1.10</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>
