@@ -30,7 +30,7 @@ namespace SignalsAndTransforms.DAL
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Name", filter.Name);
             cmd.Parameters.AddWithValue("@IsActive", true);
-            cmd.Parameters.AddWithValue("@FilterType", filter.FilterType);
+            cmd.Parameters.AddWithValue("@FilterType", filter.FilterType.ToString());
             cmd.Parameters.AddWithValue("@FilterLength", filter.FilterLength);
             cmd.Parameters.AddWithValue("@CutoffFrequencySamplingFrequencyPercentage", filter.CutoffFrequencySamplingFrequencyPercentage);
             cmd.Parameters.AddWithValue("@WorkBookId", workBook.Id);

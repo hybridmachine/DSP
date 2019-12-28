@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.Sqlite;
+using SignalProcessor.Filters;
 using SignalsAndTransforms.Models;
 using System;
 using System.Collections.Generic;
@@ -113,9 +114,16 @@ namespace SignalsAndTransforms.DAL
                         cmd.Parameters.AddWithValue("@Id", workBook.Id);
                         cmd.ExecuteNonQuery();
 
+                        // Save signals
                         foreach (Signal signal in workBook.Signals.Values)
                         {
                             SignalDAL.Create(workBook, signal, sqlLiteConnection);
+                        }
+
+                        // Save filters
+                        foreach (WindowedSyncFilter filter in workBook.Filters.Values)
+                        {
+                            FilterDAL.Create(workBook, filter, sqlLiteConnection);
                         }
 
                         transaction.Commit();

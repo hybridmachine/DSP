@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
+using SignalProcessor.Filters;
 
 namespace SignalsAndTransforms.Models
 {
@@ -13,17 +14,20 @@ namespace SignalsAndTransforms.Models
     public class WorkBook : INotifyPropertyChanged
     {
         private Dictionary<string, Signal> m_signals;
+        private Dictionary<string, WindowedSyncFilter> m_filters;
 
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
             m_signals = new Dictionary<string, Signal>();
+            m_filters = new Dictionary<string, WindowedSyncFilter>();
         }
 
         public WorkBook(String name)
         {
             Name = name;
             m_signals = new Dictionary<string, Signal>();
+            m_filters = new Dictionary<string, WindowedSyncFilter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }
@@ -33,6 +37,11 @@ namespace SignalsAndTransforms.Models
         public Dictionary<string, Signal> Signals
         {
             get { return m_signals; }
+        }
+
+        public Dictionary<string, WindowedSyncFilter> Filters
+        {
+            get { return m_filters; }
         }
 
         public Signal ConvolutionKernel {
