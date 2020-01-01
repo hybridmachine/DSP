@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,38 @@ namespace SignalsAndTransforms.Views
             InitializeComponent();
 
             FilterType.ItemsSource = Enum.GetValues(typeof(FilterType)).Cast<FilterType>(); 
+        }
+    }
+
+    public class FilterTypeToSelectedIndexConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            try
+            {
+                FilterType filterType = (FilterType)value;
+                return (int)filterType;
+            }
+            catch (Exception ex)
+            {
+                // TODO log
+                return 0;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            try
+            {
+                return (FilterType)value;
+            }
+            catch (Exception ex)
+            {
+                // TODO log
+                return FilterType.LOWPASS;
+            }
         }
     }
 }

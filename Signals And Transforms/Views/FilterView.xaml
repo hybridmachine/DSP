@@ -49,6 +49,9 @@
                         Content="{x:Static res:Resources.BTN_ADD_FILTER}" 
                         Margin="5,5,5,5"></Button>
             </Grid>
+            <Grid x:Name="WorkbookFiltersGrid">
+                <ListBox x:Name="WorkbookFilters" ItemsSource="{Binding Filters}"/>
+            </Grid>
         </StackPanel>
         <Grid x:Name="FilterInfoLayout" Grid.Column="1">
             <Grid.ColumnDefinitions>
