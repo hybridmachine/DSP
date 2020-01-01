@@ -45,11 +45,11 @@ namespace SignalProcessor.Filters
             {
                 if (idx == (FilterLength / 2))
                 {
-                    m_impulseResponse.Add(2 * Math.PI * CutoffFrequencySamplingFrequencyPercentage);
+                    m_impulseResponse.Add(2 * Math.PI * (CutoffFrequencySamplingFrequencyPercentage / 100.0));
                 }
                 else
                 {
-                    double sincNumerator = (Math.Sin(2 * Math.PI * CutoffFrequencySamplingFrequencyPercentage * (idx - (FilterLength / 2))));
+                    double sincNumerator = (Math.Sin(2 * Math.PI * (CutoffFrequencySamplingFrequencyPercentage / 100.0) * (idx - (FilterLength / 2))));
                     double sincDenominator = (idx - (FilterLength / 2));
                     double blackmanWindow = (0.42 - (0.5 * Math.Cos((2 * Math.PI * idx)/FilterLength)) + (0.08 * Math.Cos((4 * Math.PI * idx)/FilterLength)));
                     double value = (sincNumerator / sincDenominator) * blackmanWindow;

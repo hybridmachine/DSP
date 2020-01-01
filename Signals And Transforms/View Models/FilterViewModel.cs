@@ -40,6 +40,11 @@ namespace SignalsAndTransforms.View_Models
         private void LoadConvolutionFilterData()
         {
             Signal convolutionKernel = manager.ActiveWorkBook().ConvolutionKernel;
+            if (convolutionKernel == null || convolutionKernel.Samples == null)
+            {
+                return;
+            }
+
             ImpulseResponsePoints = new List<DataPoint>(convolutionKernel.Samples.Count);
             Filters = new ObservableCollection<FilterItemView>();
 
