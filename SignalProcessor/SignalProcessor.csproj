@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.11.0</AssemblyVersion>
-    <FileVersion>0.1.11.0</FileVersion>
-    <PackageReleaseNotes>Changed CutoffFrequencySamplingFrequencyPercentage to expect whole percentages (specifed for example as 10.5 for 10.5%) and then internally normalized to decimal notation (for example .105).</PackageReleaseNotes>
+    <AssemblyVersion>0.1.12.0</AssemblyVersion>
+    <FileVersion>0.1.12.0</FileVersion>
+    <PackageReleaseNotes>Stop cacheing impulse response, calculate every time ImpulseResponse is called, to avoid issues with changed parameters and stale impulse response. Callers should call and cache the value when performance is an issue</PackageReleaseNotes>
     <Copyright>2020 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.11</Version>
+    <Version>0.1.12</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>

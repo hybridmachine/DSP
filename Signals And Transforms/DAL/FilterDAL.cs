@@ -11,7 +11,7 @@ namespace SignalsAndTransforms.DAL
 {
     public static class FilterDAL
     {
-        public static bool Create(WorkBook workBook, WindowedSyncFilter filter, SqliteConnection con)
+        public static bool Create(WorkBook workBook, Filter filter, SqliteConnection con)
         {
             // For now we just clear and re-create signal entries, we may update values in place later
             // keep it simple for now
@@ -29,7 +29,7 @@ namespace SignalsAndTransforms.DAL
             cmd = con.CreateCommand();
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Name", filter.Name);
-            cmd.Parameters.AddWithValue("@IsActive", true);
+            cmd.Parameters.AddWithValue("@IsActive", filter.IsActive);
             cmd.Parameters.AddWithValue("@FilterType", filter.FilterType.ToString());
             cmd.Parameters.AddWithValue("@FilterLength", filter.FilterLength);
             cmd.Parameters.AddWithValue("@CutoffFrequencySamplingFrequencyPercentage", filter.CutoffFrequencySamplingFrequencyPercentage);

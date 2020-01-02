@@ -25,7 +25,6 @@ namespace SignalProcessor.Filters
             FilterType = FilterType.LOWPASS; // Lowpass by default
         }
 
-        protected List<double> m_impulseResponse;
         /// <summary>
         /// Implementation of the algorithm from P 290 Equation 16-4 of ISBN 0-9660176-3-3 "The Scientist and Engineer's Guide to Digital Signal Processing"
         /// https://www.dspguide.com/CH16.PDF#page=5&zoom=auto,-310,23
@@ -34,18 +33,14 @@ namespace SignalProcessor.Filters
         /// <returns></returns>
         public virtual List<double> ImpulseResponse()
         {
-            if (m_impulseResponse != null)
-            {
-                return m_impulseResponse;
-            }
-
-            m_impulseResponse = new List<double>(FilterLength + 1);
+            List<double> impulseResponse;
+            impulseResponse = new List<double>(FilterLength + 1);
             double normalizationFactor = 0.0;
             for (int idx = 0; idx <= FilterLength; idx++)
             {
                 if (idx == (FilterLength / 2))
                 {
-                    m_impulseResponse.Add(2 * Math.PI * (CutoffFrequencySamplingFrequencyPercentage / 100.0));
+                    impulseResponse.Add(2 * Math.PI * (CutoffFrequencySamplingFrequencyPercentage / 100.0));
                 }
                 else
                 {
@@ -53,31 +48,31 @@ namespace SignalProcessor.Filters
                     double sincDenominator = (idx - (FilterLength / 2));
                     double blackmanWindow = (0.42 - (0.5 * Math.Cos((2 * Math.PI * idx)/FilterLength)) + (0.08 * Math.Cos((4 * Math.PI * idx)/FilterLength)));
                     double value = (sincNumerator / sincDenominator) * blackmanWindow;
-                    m_impulseResponse.Add(value);
+                    impulseResponse.Add(value);
                 }
 
-                normalizationFactor += m_impulseResponse[m_impulseResponse.Count - 1];
+                normalizationFactor += impulseResponse[impulseResponse.Count - 1];
             }
 
             // Normalize for unity gain at DC
-            for (int idx = 0; idx < m_impulseResponse.Count; idx++)
+            for (int idx = 0; idx < impulseResponse.Count; idx++)
             {
-                m_impulseResponse[idx] = m_impulseResponse[idx] / normalizationFactor;
+                impulseResponse[idx] = impulseResponse[idx] / normalizationFactor;
             }
 
             // Spectral inversion
             if (FilterType == FilterType.HIGHPASS)
             {
                 // Spectral Inversion of the low pass filter
-                for (int idx = 0; idx < m_impulseResponse.Count; idx++)
+                for (int idx = 0; idx < impulseResponse.Count; idx++)
                 {
-                    m_impulseResponse[idx] = m_impulseResponse[idx] * -1;
+                    impulseResponse[idx] = impulseResponse[idx] * -1;
                 }
 
-                m_impulseResponse[(m_impulseResponse.Count - 1) / 2] += 1;
+                impulseResponse[(impulseResponse.Count - 1) / 2] += 1;
             }
 
-            return m_impulseResponse;
+            return impulseResponse;
         }
     }
 }

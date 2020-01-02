@@ -25,6 +25,14 @@ namespace UnitTests
             highPass.FilterLength = filter.FilterLength;
 
             List<double> impulseResponse = filter.ImpulseResponse();
+            List<double> secondImpulseResponseTest = filter.ImpulseResponse();
+
+            // Make sure back to back calls return the same data for the same parameters
+            for (int idx = 0; idx < impulseResponse.Count; idx++)
+            {
+                Assert.IsTrue(impulseResponse[idx] == secondImpulseResponseTest[idx]);
+            }
+
             List<double> highImpulseResponse = highPass.ImpulseResponse();
 
             Assert.IsNotNull(impulseResponse);

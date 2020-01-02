@@ -121,7 +121,7 @@ namespace SignalsAndTransforms.DAL
                         }
 
                         // Save filters
-                        foreach (WindowedSyncFilter filter in workBook.Filters.Values)
+                        foreach (Filter filter in workBook.Filters.Values)
                         {
                             FilterDAL.Create(workBook, filter, sqlLiteConnection);
                         }
@@ -152,7 +152,7 @@ namespace SignalsAndTransforms.DAL
                 newWorkBook = connection.Query<WorkBook>($@"SELECT [Id], [Name], [Notes] FROM WorkBook").FirstOrDefault();
 
                 var signals = connection.Query<Signal>($"SELECT * from Signals WHERE WorkBookId = '{newWorkBook.Id}'");
-                var filters = connection.Query<WindowedSyncFilter>($"SELECT * from Filters WHERE WorkBookId = '{newWorkBook.Id}'");
+                var filters = connection.Query<Filter>($"SELECT * from Filters WHERE WorkBookId = '{newWorkBook.Id}'");
 
                 foreach (Signal signal in signals)
                 {
@@ -167,7 +167,7 @@ namespace SignalsAndTransforms.DAL
                     newWorkBook.Signals.Add(signal.Name, signal);
                 }
 
-                foreach (WindowedSyncFilter filter in filters)
+                foreach (Filter filter in filters)
                 {
                     newWorkBook.Filters.Add(filter.Name, filter);
                 }

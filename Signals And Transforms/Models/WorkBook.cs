@@ -14,20 +14,20 @@ namespace SignalsAndTransforms.Models
     public class WorkBook : INotifyPropertyChanged
     {
         private Dictionary<string, Signal> m_signals;
-        private Dictionary<string, WindowedSyncFilter> m_filters;
+        private Dictionary<string, Filter> m_filters;
 
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, WindowedSyncFilter>();
+            m_filters = new Dictionary<string, Filter>();
         }
 
         public WorkBook(String name)
         {
             Name = name;
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, WindowedSyncFilter>();
+            m_filters = new Dictionary<string, Filter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }
@@ -39,7 +39,7 @@ namespace SignalsAndTransforms.Models
             get { return m_signals; }
         }
 
-        public Dictionary<string, WindowedSyncFilter> Filters
+        public Dictionary<string, Filter> Filters
         {
             get { return m_filters; }
         }
@@ -59,6 +59,51 @@ namespace SignalsAndTransforms.Models
             {
                 m_signals["ConvolutionKernel"] = value;
             }
+        }
+
+        /// <summary>
+        /// Band pass
+        /// </summary>
+        /// <returns></returns>
+        public List<double> ConvolvedFilterImpulseResponse()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Band reject
+        /// </summary>
+        /// <returns></returns>
+        public List<double> SummedFilterImpulseResponse()
+        {
+            List<double> summedImpulseResponse = null;
+            foreach (var filter in Filters.Values.Where(filt => filt.IsActive))
+            {
+                // For now we sum the filters
+                // TODO add convolution as an option
+                // We assume all filters have the same filter length
+                // See https://www.dspguide.com/CH14.PDF#page=14&zoom=auto,-119,688 
+                // Page 274 chapter 14 of "The Scientist and Engineer's Guide to Digital Signal Processing"
+                if (null == summedImpulseResponse)
+                {
+                    summedImpulseResponse = filter.ImpulseResponse();
+                }
+                else
+                {
+                    List<double> filterImpulseResponse = filter.ImpulseResponse();
+
+                    // Ignore any filters that don't have the same filter length
+                    if (filterImpulseResponse.Count == summedImpulseResponse.Count)
+                    {
+                        for (int idx = 0; idx < summedImpulseResponse.Count; idx++)
+                        {
+                            summedImpulseResponse[idx] += filterImpulseResponse[idx];
+                        }
+                    }
+                }
+            }
+
+            return summedImpulseResponse;
         }
 
         public Signal SumOfSources()

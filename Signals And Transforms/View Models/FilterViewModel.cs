@@ -21,7 +21,7 @@ namespace SignalsAndTransforms.View_Models
         {
             manager = WorkBookManager.Manager();
             manager.PropertyChanged += ActiveWorkBookChangedHandler;
-            LoadConvolutionFilterData();
+            LoadFilterData();
         }
 
         public ObservableCollection<FilterItemView> Filters { get; private set; }
@@ -34,26 +34,33 @@ namespace SignalsAndTransforms.View_Models
 
         private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
         {
-            LoadConvolutionFilterData();
+            LoadFilterData();
         }
 
-        private void LoadConvolutionFilterData()
+        public void AddFilter(Filter newFilter)
         {
-            Signal convolutionKernel = manager.ActiveWorkBook().ConvolutionKernel;
-            if (convolutionKernel == null || convolutionKernel.Samples == null)
+            WorkBook workBook = manager.ActiveWorkBook();
+            workBook.Filters.Add(newFilter.Name, newFilter);
+            LoadFilterData(); // Property changed event handlers will be connected in this function
+        }
+
+        private void LoadFilterData()
+        {
+            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse();
+            if (summedFilterData == null || summedFilterData.Count == 0)
             {
                 return;
             }
 
-            ImpulseResponsePoints = new List<DataPoint>(convolutionKernel.Samples.Count);
+            ImpulseResponsePoints = new List<DataPoint>(summedFilterData.Count);
             Filters = new ObservableCollection<FilterItemView>();
 
-            for (int idx = 0; idx < convolutionKernel.Samples.Count; idx++)
+            for (int idx = 0; idx < summedFilterData.Count; idx++)
             {
-                ImpulseResponsePoints.Add(new DataPoint(idx, convolutionKernel.Samples[idx]));
+                ImpulseResponsePoints.Add(new DataPoint(idx, summedFilterData[idx]));
             }
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
-            FrequencyDomain frequencyDomain = cmplxFFT.Transform(convolutionKernel.Samples, convolutionKernel.SamplingHZ);
+            FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().Filters.Values.First().FilterLength);
 
             FrequencyResponsePoints = new List<DataPoint>(frequencyDomain.FrequencyAmplitudes.Count);
 
@@ -65,9 +72,11 @@ namespace SignalsAndTransforms.View_Models
 
             foreach (var filter in manager.ActiveWorkBook().Filters.Values)
             {
+                filter.PropertyChanged -= handleFilterUpdate;
                 FilterItemView viewItem = new FilterItemView();
                 viewItem.DataContext = filter;
                 Filters.Add(viewItem);
+                filter.PropertyChanged += handleFilterUpdate; // Remove/re-add to avoid leaks in event handlers
             }
 
             NotifyPropertyChanged(nameof(ImpulseResponsePoints));
@@ -78,6 +87,11 @@ namespace SignalsAndTransforms.View_Models
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void handleFilterUpdate(object sender, PropertyChangedEventArgs args)
+        {
+            LoadFilterData();
         }
     }
 }

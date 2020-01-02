@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using SignalProcessor.Filters;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
+using SignalsAndTransforms.View_Models;
 
 namespace SignalsAndTransforms.Views
 {
@@ -34,14 +35,15 @@ namespace SignalsAndTransforms.Views
             try
             {
                 WorkBookManager manager = WorkBookManager.Manager();
-                WindowedSyncFilter newFilter = new WindowedSyncFilter();
+                Filter newFilter = new Filter();
+                newFilter.IsActive = true;
                 newFilter.Name = FilterName.Text;
                 newFilter.CutoffFrequencySamplingFrequencyPercentage = double.Parse(CutoffFrequencyPercentage.Text);
                 newFilter.FilterLength = int.Parse(FilterLength.Text);
                 newFilter.FilterType = (FilterType)Enum.Parse(typeof(FilterType), FilterType.SelectedItem.ToString());
 
-                WorkBook workBook = manager.ActiveWorkBook();
-                workBook.Filters.Add(newFilter.Name, newFilter);
+                FilterViewModel model = DataContext as FilterViewModel;
+                model?.AddFilter(newFilter);
 
                 FilterName.Text = String.Empty;
                 CutoffFrequencyPercentage.Text = String.Empty;
