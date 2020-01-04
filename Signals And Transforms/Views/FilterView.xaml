@@ -78,6 +78,14 @@
                                     MarkerType="Square"/>
                 </oxy:Plot.Series>
             </oxy:Plot>
+            <oxy:Plot x:Name="StepResponsePlot" Grid.Column="0" Grid.Row="1" Margin="5" Title="{x:Static res:Resources.STEP_RESPONSE_TITLE}">
+                <oxy:Plot.Series>
+                    <oxy:LineSeries ItemsSource="{Binding StepResponsePoints}"
+                                    Color="Cyan" 
+                                    MarkerFill="SteelBlue" 
+                                    MarkerType="Square"/>
+                </oxy:Plot.Series>
+            </oxy:Plot>
         </Grid>
     </Grid>
 </UserControl>

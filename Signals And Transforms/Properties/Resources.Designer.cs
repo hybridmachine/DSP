@@ -349,6 +349,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Step Response.
+        /// </summary>
+        public static string STEP_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("STEP_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .stw.
         /// </summary>
         public static string WORKBOOK_FILE_EXTENSION {

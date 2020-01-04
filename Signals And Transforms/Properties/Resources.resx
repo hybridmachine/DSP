@@ -214,6 +214,9 @@
   <data name="SIGNAL_PLOT_TITLE" xml:space="preserve">
     <value>Signal</value>
   </data>
+  <data name="STEP_RESPONSE_TITLE" xml:space="preserve">
+    <value>Step Response</value>
+  </data>
   <data name="WORKBOOK_FILE_EXTENSION" xml:space="preserve">
     <value>.stw</value>
   </data>

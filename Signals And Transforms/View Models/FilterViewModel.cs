@@ -1,4 +1,5 @@
-﻿using OxyPlot;
+﻿using DSP;
+using OxyPlot;
 using SignalProcessor;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
@@ -30,6 +31,8 @@ namespace SignalsAndTransforms.View_Models
 
         public IList<DataPoint> FrequencyResponsePoints { get; private set; }
 
+        public IList<DataPoint> StepResponsePoints { get; private set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -44,6 +47,18 @@ namespace SignalsAndTransforms.View_Models
             LoadFilterData(); // Property changed event handlers will be connected in this function
         }
 
+        private List<double> GetStepData(int len)
+        {
+            List<double> stepData = new List<double>();
+            int pointsOn = len / 3; // point at which signal switches from 0 to 1
+
+            for (int idx = 0; idx < len; idx++)
+            {
+                stepData.Add(idx >= (pointsOn - 1) ? 1.0 : 0.0);
+            }
+            return stepData;
+        }
+
         private void LoadFilterData()
         {
             List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse();
@@ -53,6 +68,8 @@ namespace SignalsAndTransforms.View_Models
             }
 
             ImpulseResponsePoints = new List<DataPoint>(summedFilterData.Count);
+            StepResponsePoints = new List<DataPoint>(summedFilterData.Count);
+
             Filters = new ObservableCollection<FilterItemView>();
 
             for (int idx = 0; idx < summedFilterData.Count; idx++)
@@ -62,12 +79,25 @@ namespace SignalsAndTransforms.View_Models
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
             FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().Filters.Values.First().FilterLength);
 
+            Convolution convolver = new Convolution();
+            List<double> stepResponse = convolver.Convolve(summedFilterData, GetStepData(summedFilterData.Count + 16), ConvolutionType.INPUTSIDE);
             FrequencyResponsePoints = new List<DataPoint>(frequencyDomain.FrequencyAmplitudes.Count);
 
+            // Load the frequency response graph data
             List<double> values = new List<double>(frequencyDomain.FrequencyAmplitudes.Values);
             for (int idx = 0; idx < frequencyDomain.FrequencyAmplitudes.Count; idx++)
             {
-                FrequencyResponsePoints.Add(new DataPoint(idx, values[idx]));
+                FrequencyResponsePoints.Add(new DataPoint((((double)idx + 1.0) / summedFilterData.Count), values[idx]));
+            }
+
+            int startingOffset = (summedFilterData.Count / 2);
+            int endingOffset = startingOffset + summedFilterData.Count;
+            int graphX = 0;
+            // Load the step response graph data
+            for (int idx = (startingOffset - 1); idx < endingOffset; idx++)
+            {
+                StepResponsePoints.Add(new DataPoint(graphX, stepResponse[idx]));
+                graphX++;
             }
 
             foreach (var filter in manager.ActiveWorkBook().Filters.Values)
@@ -81,6 +111,7 @@ namespace SignalsAndTransforms.View_Models
 
             NotifyPropertyChanged(nameof(ImpulseResponsePoints));
             NotifyPropertyChanged(nameof(FrequencyResponsePoints));
+            NotifyPropertyChanged(nameof(StepResponsePoints));
             NotifyPropertyChanged(nameof(Filters));
         }
 
