@@ -3,14 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.8.0</AssemblyVersion>
-    <FileVersion>0.1.8.0</FileVersion>
-    <PackageReleaseNotes>Added low and high pass windowed sync filters based on Chapter 16 of the DSP guide: https://www.dspguide.com/CH16.PDF#page=1&amp;zoom=auto,-119,708
-
-See SignalProcessor.Filters.LowPassWindowedSync and SignalProcessor.Filters.HighPassWindowedSync</PackageReleaseNotes>
-    <Copyright>2019 Brian Tabone</Copyright>
+    <AssemblyVersion>0.1.14.0</AssemblyVersion>
+    <FileVersion>0.1.14.0</FileVersion>
+    <PackageReleaseNotes>Add option to turn on / off normalization (default to on) for WindowedSyncFilter</PackageReleaseNotes>
+    <Copyright>2020 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.8</Version>
+    <Version>0.1.14</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>
@@ -19,7 +17,7 @@ See SignalProcessor.Filters.LowPassWindowedSync and SignalProcessor.Filters.High
     <RepositoryUrl>https://github.com/hybridmachine/DSP</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/hybridmachine/DSP/projects/1</PackageProjectUrl>
-    <PackageTags>signal processing fft analysis</PackageTags>
+    <PackageTags>signal processing fft analysis windowedsync</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

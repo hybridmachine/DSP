@@ -83,8 +83,8 @@
       <HintPath>..\packages\OxyPlot.Wpf.2.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
-    <Reference Include="SignalProcessor, Version=0.1.8.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
-      <HintPath>packages\SignalProcessor.0.1.8\lib\netstandard2.0\SignalProcessor.dll</HintPath>
+    <Reference Include="SignalProcessor, Version=0.1.14.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
+      <HintPath>packages\SignalProcessor.0.1.14\lib\netstandard2.0\SignalProcessor.dll</HintPath>
     </Reference>
     <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.0.2.669, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
       <HintPath>packages\SQLitePCLRaw.bundle_e_sqlite3.2.0.2\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
@@ -138,9 +138,11 @@
     </ApplicationDefinition>
     <Compile Include="Command Classes\RelayCommand.cs" />
     <Compile Include="DAL\DatabaseInitializer.cs" />
+    <Compile Include="DAL\FilterDAL.cs" />
     <Compile Include="DAL\SignalDAL.cs" />
     <Compile Include="DAL\WorkBookDAL.cs" />
     <Compile Include="Managers\WorkBookManager.cs" />
+    <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Signal.cs" />
     <Compile Include="Models\WorkBook.cs" />
     <Compile Include="View Models\ConvolutionViewModel.cs" />
@@ -150,6 +152,9 @@
     <Compile Include="View Models\SignalGeneratorViewModel.cs" />
     <Compile Include="Views\ConvolutionView.xaml.cs">
       <DependentUpon>ConvolutionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilterItemView.xaml.cs">
+      <DependentUpon>FilterItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FilterView.xaml.cs">
       <DependentUpon>FilterView.xaml</DependentUpon>
@@ -173,6 +178,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ConvolutionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FilterItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,48 +24,11 @@ namespace SignalsAndTransforms.View_Models
             manager = WorkBookManager.Manager();
             manager.PropertyChanged += ActiveWorkBookChangedHandler;
             convolver = new Convolution();
-            LoadTestData();
         }
 
         private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             PlotData();
-        }
-
-        private void LoadTestData()
-        {
-            string filterKernelPath = Path.Combine(Environment.ExpandEnvironmentVariables(ConfigurationManager.AppSettings["datadir"]), @"Filter Kernels\Low Pass.csv");
-            // For now load test convolution data, todo load from disk
-            Signal convolutionKernel = new Signal();
-            convolutionKernel.Name = "ConvolutionKernel";
-            convolutionKernel.SampleSeconds = 1;
-            convolutionKernel.Type = SignalType.ConvolutionKernel;
-
-            try
-            { 
-                // Low pass filter kernel
-                using (StreamReader file = new StreamReader(filterKernelPath))
-                {
-                    string line;
-                    while ((line = file.ReadLine()) != null)
-                    {
-                        double value;
-                        if (double.TryParse(line, out value))
-                        {
-                            convolutionKernel.Samples.Add(value);
-                        }
-                    }
-                }
-
-                convolutionKernel.SamplingHZ = convolutionKernel.Samples.Count - 1;
-
-            }
-            catch (Exception ex)
-            {
-                // TODO log the exception, perhaps notify in the UI
-            }
-
-            manager.ActiveWorkBook().ConvolutionKernel = convolutionKernel;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -77,7 +40,6 @@ namespace SignalsAndTransforms.View_Models
         public IList<DataPoint> ResultPlotPoints { get; private set; }
 
         public FrequencyHistogramViewModel ResultFrequencyHistogram { get; private set; }
-
 
         public void PlotData()
         {
@@ -95,16 +57,16 @@ namespace SignalsAndTransforms.View_Models
                 SignalPlotPoints.Add(new DataPoint(idx, workbookSourceSignal.Samples[idx]));
             }
 
+            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse();
 
-            Signal convolutionKernel = manager.ActiveWorkBook().ConvolutionKernel;
-            ConvolutionPlotPoints = new List<DataPoint>(convolutionKernel.Samples.Count);
+            ConvolutionPlotPoints = new List<DataPoint>(summedFilterData.Count);
 
-            for (int idx = 0; idx < convolutionKernel.Samples.Count; idx++)
+            for (int idx = 0; idx < summedFilterData.Count; idx++)
             {
-                ConvolutionPlotPoints.Add(new DataPoint(idx, convolutionKernel.Samples[idx]));
+                ConvolutionPlotPoints.Add(new DataPoint(idx, summedFilterData[idx]));
             }
             
-            List<double> convolutionResult = convolver.Convolve(convolutionKernel.Samples, workbookSourceSignal.Samples, ConvolutionType.INPUTSIDE);
+            List<double> convolutionResult = convolver.Convolve(summedFilterData, workbookSourceSignal.Samples, ConvolutionType.INPUTSIDE);
             ResultPlotPoints = new List<DataPoint>(convolutionResult.Count);
             for (int idx = 0; idx < convolutionResult.Count; idx++)
             {

@@ -22,6 +22,7 @@ namespace SignalsAndTransforms.DAL
                 InitializeSignalsTable(con);
                 InitializeSignaTypesTable(con);
                 InitializeSignalValuesTable(con);
+                InitializeFiltersTable(con);
                 transaction.Commit();
             } catch (Exception ex)
             {
@@ -126,9 +127,32 @@ namespace SignalsAndTransforms.DAL
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     'SignalID' INTEGER,
                     'Value'  REAL,
-                    CONSTRAINT fk_signalid
+                    CONSTRAINT fk_signalvalues_to_signal
                         FOREIGN KEY (SignalID)
                         REFERENCES Signals (Id)
+                        ON DELETE CASCADE
+                )";
+
+            SqliteCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+
+        private static bool InitializeFiltersTable(SqliteConnection con)
+        {
+            string sql = $@"
+                CREATE TABLE 'Filters' (
+                    'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    'WorkBookId' INTEGER,
+                    'Name'  TEXT,
+                    'IsActive' INTEGER NOT NULL CHECK (IsActive IN (0,1)),
+                    'CutoffFrequencySamplingFrequencyPercentage' REAL NOT NULL,
+                    'FilterLength' INTEGER NOT NULL, 
+                    'FilterType' TEXT NOT NULL,
+                    CONSTRAINT fk_filters_to_workbook
+                        FOREIGN KEY (WorkBookId)
+                        REFERENCES WorkBook (Id)
                         ON DELETE CASCADE
                 )";
 

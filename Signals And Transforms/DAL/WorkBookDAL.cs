@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.Sqlite;
+using SignalProcessor.Filters;
 using SignalsAndTransforms.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace SignalsAndTransforms.DAL
     }
     public static class WorkBookDAL
     {
-        public const string SchemaVersion = "1.1";
+        public const string SchemaVersion = "1.2";
 
         /// <summary>
         /// Create the Workbook file, note this will delete any previously existing file if it exists
@@ -113,9 +114,16 @@ namespace SignalsAndTransforms.DAL
                         cmd.Parameters.AddWithValue("@Id", workBook.Id);
                         cmd.ExecuteNonQuery();
 
+                        // Save signals
                         foreach (Signal signal in workBook.Signals.Values)
                         {
                             SignalDAL.Create(workBook, signal, sqlLiteConnection);
+                        }
+
+                        // Save filters
+                        foreach (Filter filter in workBook.Filters.Values)
+                        {
+                            FilterDAL.Create(workBook, filter, sqlLiteConnection);
                         }
 
                         transaction.Commit();
@@ -144,6 +152,7 @@ namespace SignalsAndTransforms.DAL
                 newWorkBook = connection.Query<WorkBook>($@"SELECT [Id], [Name], [Notes] FROM WorkBook").FirstOrDefault();
 
                 var signals = connection.Query<Signal>($"SELECT * from Signals WHERE WorkBookId = '{newWorkBook.Id}'");
+                var filters = connection.Query<Filter>($"SELECT * from Filters WHERE WorkBookId = '{newWorkBook.Id}'");
 
                 foreach (Signal signal in signals)
                 {
@@ -158,6 +167,10 @@ namespace SignalsAndTransforms.DAL
                     newWorkBook.Signals.Add(signal.Name, signal);
                 }
 
+                foreach (Filter filter in filters)
+                {
+                    newWorkBook.Filters.Add(filter.Name, filter);
+                }
             }
 
             return newWorkBook;

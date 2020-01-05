@@ -72,6 +72,15 @@ namespace SignalsAndTransforms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
+        public static string BTN_ADD_FILTER {
+            get {
+                return ResourceManager.GetString("BTN_ADD_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
         public static string BTN_ADD_SIGNAL {
             get {
                 return ResourceManager.GetString("BTN_ADD_SIGNAL", resourceCulture);
@@ -133,6 +142,24 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sampling Frequency Cutoff %.
+        /// </summary>
+        public static string FILTER_CUTOFF_PERCENTAGE {
+            get {
+                return ResourceManager.GetString("FILTER_CUTOFF_PERCENTAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency Response (db).
+        /// </summary>
+        public static string FILTER_DECIBEL_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_DECIBEL_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Frequency Response.
         /// </summary>
         public static string FILTER_FREQUENCY_RESPONSE_TITLE {
@@ -147,6 +174,60 @@ namespace SignalsAndTransforms.Properties {
         public static string FILTER_IMPULSE_RESPONSE_TITLE {
             get {
                 return ResourceManager.GetString("FILTER_IMPULSE_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Length.
+        /// </summary>
+        public static string FILTER_LENGTH {
+            get {
+                return ResourceManager.GetString("FILTER_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Name.
+        /// </summary>
+        public static string FILTER_NAME {
+            get {
+                return ResourceManager.GetString("FILTER_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step Response.
+        /// </summary>
+        public static string FILTER_STEP_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_STEP_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        public static string FILTER_TYPE_HIGH {
+            get {
+                return ResourceManager.GetString("FILTER_TYPE_HIGH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pass Type.
+        /// </summary>
+        public static string FILTER_TYPE_LABEL {
+            get {
+                return ResourceManager.GetString("FILTER_TYPE_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low.
+        /// </summary>
+        public static string FILTER_TYPE_LOW {
+            get {
+                return ResourceManager.GetString("FILTER_TYPE_LOW", resourceCulture);
             }
         }
         

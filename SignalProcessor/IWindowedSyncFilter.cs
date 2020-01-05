@@ -9,6 +9,6 @@ namespace SignalProcessor
         double CutoffFrequencySamplingFrequencyPercentage { get; set; }
         int FilterLength { get; set; }
 
-        List<double> ImpulseResponse();
+        List<double> ImpulseResponse(bool normalize = true);
     }
 }
