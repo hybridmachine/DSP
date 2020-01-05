@@ -74,7 +74,7 @@ namespace SignalsAndTransforms.Models
         /// Band reject
         /// </summary>
         /// <returns></returns>
-        public List<double> SummedFilterImpulseResponse()
+        public List<double> SummedFilterImpulseResponse(bool normalize = true)
         {
             List<double> summedImpulseResponse = null;
             foreach (var filter in Filters.Values.Where(filt => filt.IsActive))
@@ -86,11 +86,11 @@ namespace SignalsAndTransforms.Models
                 // Page 274 chapter 14 of "The Scientist and Engineer's Guide to Digital Signal Processing"
                 if (null == summedImpulseResponse)
                 {
-                    summedImpulseResponse = filter.ImpulseResponse();
+                    summedImpulseResponse = filter.ImpulseResponse(normalize);
                 }
                 else
                 {
-                    List<double> filterImpulseResponse = filter.ImpulseResponse();
+                    List<double> filterImpulseResponse = filter.ImpulseResponse(normalize);
 
                     // Ignore any filters that don't have the same filter length
                     if (filterImpulseResponse.Count == summedImpulseResponse.Count)

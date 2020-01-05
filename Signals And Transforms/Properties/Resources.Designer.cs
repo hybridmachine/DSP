@@ -151,6 +151,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequency Response (db).
+        /// </summary>
+        public static string FILTER_DECIBEL_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_DECIBEL_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Frequency Response.
         /// </summary>
         public static string FILTER_FREQUENCY_RESPONSE_TITLE {
@@ -183,6 +192,15 @@ namespace SignalsAndTransforms.Properties {
         public static string FILTER_NAME {
             get {
                 return ResourceManager.GetString("FILTER_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step Response.
+        /// </summary>
+        public static string FILTER_STEP_RESPONSE_TITLE {
+            get {
+                return ResourceManager.GetString("FILTER_STEP_RESPONSE_TITLE", resourceCulture);
             }
         }
         
@@ -345,15 +363,6 @@ namespace SignalsAndTransforms.Properties {
         public static string SIGNAL_PLOT_TITLE {
             get {
                 return ResourceManager.GetString("SIGNAL_PLOT_TITLE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Step Response.
-        /// </summary>
-        public static string STEP_RESPONSE_TITLE {
-            get {
-                return ResourceManager.GetString("STEP_RESPONSE_TITLE", resourceCulture);
             }
         }
         

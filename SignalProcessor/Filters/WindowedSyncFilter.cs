@@ -31,7 +31,7 @@ namespace SignalProcessor.Filters
         /// Note this filter kernel assumes samples are normalized by the caller
         /// </summary>
         /// <returns></returns>
-        public virtual List<double> ImpulseResponse()
+        public virtual List<double> ImpulseResponse(bool normalize = true)
         {
             List<double> impulseResponse;
             impulseResponse = new List<double>(FilterLength + 1);
@@ -54,10 +54,13 @@ namespace SignalProcessor.Filters
                 normalizationFactor += impulseResponse[impulseResponse.Count - 1];
             }
 
-            // Normalize for unity gain at DC
-            for (int idx = 0; idx < impulseResponse.Count; idx++)
+            if (normalize)
             {
-                impulseResponse[idx] = impulseResponse[idx] / normalizationFactor;
+                // Normalize for unity gain at DC
+                for (int idx = 0; idx < impulseResponse.Count; idx++)
+                {
+                    impulseResponse[idx] = impulseResponse[idx] / normalizationFactor;
+                }
             }
 
             // Spectral inversion

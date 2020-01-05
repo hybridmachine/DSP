@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,8 @@ namespace SignalsAndTransforms.View_Models
 
         public IList<DataPoint> FrequencyResponsePoints { get; private set; }
 
+        public IList<DataPoint> DecibelResponsePoints { get; private set; }
+
         public IList<DataPoint> StepResponsePoints { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,7 +53,7 @@ namespace SignalsAndTransforms.View_Models
         private List<double> GetStepData(int len)
         {
             List<double> stepData = new List<double>();
-            int pointsOn = len / 3; // point at which signal switches from 0 to 1
+            int pointsOn = len / 2; // point at which signal switches from 0 to 1
 
             for (int idx = 0; idx < len; idx++)
             {
@@ -61,7 +64,7 @@ namespace SignalsAndTransforms.View_Models
 
         private void LoadFilterData()
         {
-            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse();
+            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
             if (summedFilterData == null || summedFilterData.Count == 0)
             {
                 return;
@@ -82,12 +85,17 @@ namespace SignalsAndTransforms.View_Models
             Convolution convolver = new Convolution();
             List<double> stepResponse = convolver.Convolve(summedFilterData, GetStepData(summedFilterData.Count + 16), ConvolutionType.INPUTSIDE);
             FrequencyResponsePoints = new List<DataPoint>(frequencyDomain.FrequencyAmplitudes.Count);
+            DecibelResponsePoints = new List<DataPoint>(FrequencyResponsePoints.Count);
 
             // Load the frequency response graph data
-            List<double> values = new List<double>(frequencyDomain.FrequencyAmplitudes.Values);
-            for (int idx = 0; idx < frequencyDomain.FrequencyAmplitudes.Count; idx++)
+            // Only scan the first half of the coefficients (up to the Nyquist frequency)
+            int coefficientMax = (frequencyDomain.FourierCoefficients.Count / 2);
+            for (int idx = 0; idx < coefficientMax; idx++)
             {
-                FrequencyResponsePoints.Add(new DataPoint((((double)idx + 1.0) / summedFilterData.Count), values[idx]));
+                double coeffLen = Complex.Abs(frequencyDomain.FourierCoefficients[idx]);
+                double cuttoffFrequencyPercent = (((double)idx + 1.0) / summedFilterData.Count);
+                FrequencyResponsePoints.Add(new DataPoint(cuttoffFrequencyPercent, coeffLen));
+                DecibelResponsePoints.Add(new DataPoint(cuttoffFrequencyPercent, 20 * Math.Log10(coeffLen)));
             }
 
             int startingOffset = (summedFilterData.Count / 2);
@@ -111,6 +119,7 @@ namespace SignalsAndTransforms.View_Models
 
             NotifyPropertyChanged(nameof(ImpulseResponsePoints));
             NotifyPropertyChanged(nameof(FrequencyResponsePoints));
+            NotifyPropertyChanged(nameof(DecibelResponsePoints));
             NotifyPropertyChanged(nameof(StepResponsePoints));
             NotifyPropertyChanged(nameof(Filters));
         }

@@ -147,6 +147,9 @@
   <data name="FILTER_CUTOFF_PERCENTAGE" xml:space="preserve">
     <value>Sampling Frequency Cutoff %</value>
   </data>
+  <data name="FILTER_DECIBEL_RESPONSE_TITLE" xml:space="preserve">
+    <value>Frequency Response (db)</value>
+  </data>
   <data name="FILTER_FREQUENCY_RESPONSE_TITLE" xml:space="preserve">
     <value>Frequency Response</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="FILTER_NAME" xml:space="preserve">
     <value>Filter Name</value>
+  </data>
+  <data name="FILTER_STEP_RESPONSE_TITLE" xml:space="preserve">
+    <value>Step Response</value>
   </data>
   <data name="FILTER_TYPE_HIGH" xml:space="preserve">
     <value>High</value>
@@ -213,9 +219,6 @@
   </data>
   <data name="SIGNAL_PLOT_TITLE" xml:space="preserve">
     <value>Signal</value>
-  </data>
-  <data name="STEP_RESPONSE_TITLE" xml:space="preserve">
-    <value>Step Response</value>
   </data>
   <data name="WORKBOOK_FILE_EXTENSION" xml:space="preserve">
     <value>.stw</value>

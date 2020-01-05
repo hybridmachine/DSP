@@ -26,6 +26,7 @@ namespace UnitTests
 
             List<double> impulseResponse = filter.ImpulseResponse();
             List<double> secondImpulseResponseTest = filter.ImpulseResponse();
+            List<double> non_normalizedResponseTest = filter.ImpulseResponse(false);
 
             // Make sure back to back calls return the same data for the same parameters
             for (int idx = 0; idx < impulseResponse.Count; idx++)
@@ -37,6 +38,7 @@ namespace UnitTests
 
             Assert.IsNotNull(impulseResponse);
             Assert.IsNotNull(highImpulseResponse);
+            Assert.IsNotNull(non_normalizedResponseTest);
 
             Assert.IsTrue(impulseResponse.Count == filter.FilterLength + 1);
         }
