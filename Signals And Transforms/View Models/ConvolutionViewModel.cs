@@ -43,7 +43,11 @@ namespace SignalsAndTransforms.View_Models
 
         public void PlotData()
         {
-            
+            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse();
+
+            if (null == summedFilterData)
+                return;
+
             Signal workbookSourceSignal = manager.ActiveWorkBook().SumOfSources();
             if (workbookSourceSignal == null)
             {
@@ -56,8 +60,6 @@ namespace SignalsAndTransforms.View_Models
             {
                 SignalPlotPoints.Add(new DataPoint(idx, workbookSourceSignal.Samples[idx]));
             }
-
-            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse();
 
             ConvolutionPlotPoints = new List<DataPoint>(summedFilterData.Count);
 
