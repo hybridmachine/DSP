@@ -61,6 +61,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <oxy:Plot x:Name="ImpulsePlot" Grid.Column="0" Grid.Row="0" Margin="5" Title="{x:Static res:Resources.FILTER_IMPULSE_RESPONSE_TITLE}">
                 <oxy:Plot.Series>
@@ -122,6 +123,7 @@
                     </ContextMenu>
                 </oxy:Plot.ContextMenu>
             </oxy:Plot>
+            <Button x:Name="ExportButton" Width="Auto" HorizontalAlignment="Right" Margin="0,0,10,10" Padding="5" Grid.Row="2" Grid.Column="1" Content="{x:Static res:Resources.BTN_EXPORT_FILTER}" Click="ExportButton_Click"/>
         </Grid>
     </Grid>
 </UserControl>

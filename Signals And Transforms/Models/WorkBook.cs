@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
 using SignalProcessor.Filters;
+using SignalProcessor;
+using System.Numerics;
 
 namespace SignalsAndTransforms.Models
 {
@@ -147,5 +149,24 @@ namespace SignalsAndTransforms.Models
             return workbookSourceSignal;
         }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Export the supplied frequency domain to the supplied outputStream
+        /// Writes the frequency domain data as a CSV format of magnitude,phase for each entry
+        /// Note this does not stamp the header on the data, callers should do that on the stream before calling this
+        /// </summary>
+        /// <param name="frequencyDomain">Frequency Domain to serialize</param>
+        /// <param name="outputStream">Output stream to write data to</param>
+        /// <returns></returns>
+        public static async Task<bool> SerializeFrequencyDomain(FrequencyDomain frequencyDomain, StreamWriter outputStream)
+        {
+            bool success = true;
+
+            foreach (Complex coefficient in frequencyDomain.FourierCoefficients)
+            {
+                await outputStream.WriteLineAsync($"{coefficient.Magnitude},{coefficient.Phase}");
+            }
+            return success;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using OxyPlot.Wpf;
 using SignalProcessor.Filters;
 using SignalsAndTransforms.Managers;
@@ -96,6 +98,25 @@ namespace SignalsAndTransforms.Views
                     lineSeries.MarkerType = OxyPlot.MarkerType.Triangle;
                 }
 
+            }
+        }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = $"{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION} (*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION})|*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    using (StreamWriter fileWriter = File.CreateText(saveFileDialog.FileName))
+                    {
+                        
+                    }
+                } catch (Exception ex)
+                {
+                    // TODO log and warn user
+                }
             }
         }
     }
