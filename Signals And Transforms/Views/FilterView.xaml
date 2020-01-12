@@ -64,35 +64,63 @@
             </Grid.RowDefinitions>
             <oxy:Plot x:Name="ImpulsePlot" Grid.Column="0" Grid.Row="0" Margin="5" Title="{x:Static res:Resources.FILTER_IMPULSE_RESPONSE_TITLE}">
                 <oxy:Plot.Series>
-                    <oxy:LineSeries ItemsSource="{Binding ImpulseResponsePoints}"
+                    <oxy:LineSeries x:Name="ImpulsePlotLineSeries" ItemsSource="{Binding ImpulseResponsePoints}"
                                     Color="Cyan" 
                                     MarkerFill="SteelBlue" 
-                                    MarkerType="Square"/>
+                                    MarkerType="None"/>
                 </oxy:Plot.Series>
+                <oxy:Plot.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="ImpulsePlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="ImpulsePlotMenuItem_Click"/>
+                        <MenuItem x:Name="ImpulsePlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="ImpulsePlotMenuItem_Click"/>
+                        <MenuItem x:Name="ImpulsePlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="ImpulsePlotMenuItem_Click"/>
+                    </ContextMenu>
+                </oxy:Plot.ContextMenu>
             </oxy:Plot>
             <oxy:Plot x:Name="FrequencyResponsePlot" Grid.Column="1" Grid.Row="0" Margin="5" Title="{x:Static res:Resources.FILTER_FREQUENCY_RESPONSE_TITLE}">
                 <oxy:Plot.Series>
-                    <oxy:LineSeries ItemsSource="{Binding FrequencyResponsePoints}"
+                    <oxy:LineSeries x:Name="FrequencyPlotLineSeries" ItemsSource="{Binding FrequencyResponsePoints}"
                                     Color="Cyan" 
                                     MarkerFill="SteelBlue" 
-                                    MarkerType="Square"/>
+                                    MarkerType="None"/>
                 </oxy:Plot.Series>
+                <oxy:Plot.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="FrequencyPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="FrequencyPlotMenuItem_Click"/>
+                        <MenuItem x:Name="FrequencyPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="FrequencyPlotMenuItem_Click"/>
+                        <MenuItem x:Name="FrequencyPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="FrequencyPlotMenuItem_Click"/>
+                    </ContextMenu>
+                </oxy:Plot.ContextMenu>
             </oxy:Plot>
             <oxy:Plot x:Name="StepResponsePlot" Grid.Column="0" Grid.Row="1" Margin="5" Title="{x:Static res:Resources.FILTER_STEP_RESPONSE_TITLE}">
                 <oxy:Plot.Series>
-                    <oxy:LineSeries ItemsSource="{Binding StepResponsePoints}"
+                    <oxy:LineSeries x:Name="StepPlotLineSeries" ItemsSource="{Binding StepResponsePoints}"
                                     Color="Cyan" 
                                     MarkerFill="SteelBlue" 
-                                    MarkerType="Square"/>
+                                    MarkerType="None"/>
                 </oxy:Plot.Series>
+                <oxy:Plot.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="StepPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="StepPlotMenuItem_Click"/>
+                        <MenuItem x:Name="StepPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="StepPlotMenuItem_Click"/>
+                        <MenuItem x:Name="StepPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="StepPlotMenuItem_Click"/>
+                    </ContextMenu>
+                </oxy:Plot.ContextMenu>
             </oxy:Plot>
             <oxy:Plot x:Name="DecibelResponsePlot" Grid.Column="1" Grid.Row="1" Margin="5" Title="{x:Static res:Resources.FILTER_DECIBEL_RESPONSE_TITLE}">
                 <oxy:Plot.Series>
-                    <oxy:LineSeries ItemsSource="{Binding DecibelResponsePoints}"
+                    <oxy:LineSeries x:Name="DecibelPlotLineSeries" ItemsSource="{Binding DecibelResponsePoints}"
                                     Color="Cyan" 
                                     MarkerFill="SteelBlue" 
-                                    MarkerType="Square"/>
+                                    MarkerType="None"/>
                 </oxy:Plot.Series>
+                <oxy:Plot.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="DecibelPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="DecibelPlotMenuItem_Click"/>
+                        <MenuItem x:Name="DecibelPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="DecibelPlotMenuItem_Click"/>
+                        <MenuItem x:Name="DecibelPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="DecibelPlotMenuItem_Click"/>
+                    </ContextMenu>
+                </oxy:Plot.ContextMenu>
             </oxy:Plot>
         </Grid>
     </Grid>

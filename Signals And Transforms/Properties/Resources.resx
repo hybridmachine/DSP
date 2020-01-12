@@ -141,6 +141,15 @@
   <data name="CONVOLUTION_PLOT_TITLE" xml:space="preserve">
     <value>Convolution Kernel</value>
   </data>
+  <data name="CTXT_PLOT_MARKER_TYPE_NONE" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="CTXT_PLOT_MARKER_TYPE_SQUARE" xml:space="preserve">
+    <value>Square</value>
+  </data>
+  <data name="CTXT_PLOT_MARKER_TYPE_TRIANGLE" xml:space="preserve">
+    <value>Triangle</value>
+  </data>
   <data name="DATABASE_FILES" xml:space="preserve">
     <value>Workbook Files</value>
   </data>

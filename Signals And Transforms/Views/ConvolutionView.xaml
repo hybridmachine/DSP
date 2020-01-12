@@ -22,27 +22,48 @@
         </Grid.RowDefinitions>
         <oxy:Plot x:Name="SignalPlot" Grid.Column="0" Grid.Row="0" Margin="5" Title="{x:Static res:Resources.SIGNAL_PLOT_TITLE}">
             <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding SignalPlotPoints}"
+                <oxy:LineSeries x:Name="SignalPlotLineSeries" ItemsSource="{Binding SignalPlotPoints}"
                                 Color="Cyan" 
                                 MarkerFill="SteelBlue" 
-                                MarkerType="Square"/>
+                                MarkerType="None"/>
             </oxy:Plot.Series>
+            <oxy:Plot.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="SignalPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="SignalPlotMenuItem_Click"/>
+                    <MenuItem x:Name="SignalPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="SignalPlotMenuItem_Click"/>
+                    <MenuItem x:Name="SignalPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="SignalPlotMenuItem_Click"/>
+                </ContextMenu>
+            </oxy:Plot.ContextMenu>
         </oxy:Plot>
         <oxy:Plot x:Name="ConvolutionPlot" Grid.Column="1" Grid.Row="0" Margin="5" Title="{x:Static res:Resources.CONVOLUTION_PLOT_TITLE}">
             <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding ConvolutionPlotPoints}"
+                <oxy:LineSeries x:Name="ConvolutionPlotLineSeries" ItemsSource="{Binding ConvolutionPlotPoints}"
                                 Color="Cyan" 
                                 MarkerFill="Red" 
-                                MarkerType="Square"/>
+                                MarkerType="None"/>
             </oxy:Plot.Series>
+            <oxy:Plot.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="ConvolutionPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="ConvolutionPlotMenuItem_Click"/>
+                    <MenuItem x:Name="ConvolutionPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="ConvolutionPlotMenuItem_Click"/>
+                    <MenuItem x:Name="ConvolutionPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="ConvolutionPlotMenuItem_Click"/>
+                </ContextMenu>
+            </oxy:Plot.ContextMenu>
         </oxy:Plot>
         <oxy:Plot x:Name="ResultPlot" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  Margin="5" Title="{x:Static res:Resources.RESULT_PLOT_TITLE}">
             <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding ResultPlotPoints}"
+                <oxy:LineSeries x:Name="ResultPlotLineSeries" ItemsSource="{Binding ResultPlotPoints}"
                                 Color="Cyan" 
                                 MarkerFill="Purple" 
-                                MarkerType="Square"/>
+                                MarkerType="None"/>
             </oxy:Plot.Series>
+            <oxy:Plot.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="ResultPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="ResultPlotMenuItem_Click"/>
+                    <MenuItem x:Name="ResultPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="ResultPlotMenuItem_Click"/>
+                    <MenuItem x:Name="ResultPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="ResultPlotMenuItem_Click"/>
+                </ContextMenu>
+            </oxy:Plot.ContextMenu>
         </oxy:Plot>
         <oxy:PlotView Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="2" Margin="5" Model="{Binding ResultFrequencyHistogram}"/>
     </Grid>

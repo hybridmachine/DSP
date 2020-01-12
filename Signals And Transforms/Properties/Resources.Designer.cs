@@ -133,6 +133,33 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string CTXT_PLOT_MARKER_TYPE_NONE {
+            get {
+                return ResourceManager.GetString("CTXT_PLOT_MARKER_TYPE_NONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Square.
+        /// </summary>
+        public static string CTXT_PLOT_MARKER_TYPE_SQUARE {
+            get {
+                return ResourceManager.GetString("CTXT_PLOT_MARKER_TYPE_SQUARE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Triangle.
+        /// </summary>
+        public static string CTXT_PLOT_MARKER_TYPE_TRIANGLE {
+            get {
+                return ResourceManager.GetString("CTXT_PLOT_MARKER_TYPE_TRIANGLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Workbook Files.
         /// </summary>
         public static string DATABASE_FILES {

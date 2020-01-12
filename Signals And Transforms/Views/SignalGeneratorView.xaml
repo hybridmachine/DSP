@@ -35,11 +35,18 @@
         <ListView x:Name="SignalsList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" ItemsSource="{Binding SignalViews}" KeyUp="SignalsList_KeyUp" HorizontalAlignment="Stretch"/>
         <oxy:Plot Grid.Column="3" Grid.Row="4" Margin="5" Title="{Binding Title}">
             <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding PlotPoints}"
+                <oxy:LineSeries x:Name="SignalPlotLineSeries" ItemsSource="{Binding PlotPoints}"
                                 Color="Cyan" 
                                 MarkerFill="SteelBlue" 
-                                MarkerType="Square"/>
+                                MarkerType="None"/>
             </oxy:Plot.Series>
+            <oxy:Plot.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="SignalPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="SignalPlotMenuItem_Click"/>
+                    <MenuItem x:Name="SignalPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="SignalPlotMenuItem_Click"/>
+                    <MenuItem x:Name="SignalPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="SignalPlotMenuItem_Click"/>
+                </ContextMenu>
+            </oxy:Plot.ContextMenu>
         </oxy:Plot>
         <oxy:PlotView Grid.Column="3" Grid.Row="0"  Grid.RowSpan="4" Margin="5" Model="{Binding FrequencyViewModel}"/>
     </Grid>
