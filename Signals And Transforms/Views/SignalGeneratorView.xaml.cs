@@ -1,4 +1,5 @@
-﻿using SignalsAndTransforms.Models;
+﻿using OxyPlot.Wpf;
+using SignalsAndTransforms.Models;
 using SignalsAndTransforms.View_Models;
 using System;
 using System.Collections.Generic;
@@ -87,6 +88,33 @@ namespace SignalsAndTransforms.Views
                 }
 
                 model.PlotSignals();
+            }
+        }
+
+        private void SignalPlotMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem_ClickHandler(SignalPlotLineSeries, sender, e);
+        }
+
+        private void MenuItem_ClickHandler(LineSeries lineSeries, object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.MenuItem menuItem = sender as System.Windows.Controls.MenuItem;
+
+            if (menuItem != null)
+            {
+                if (menuItem.Header.ToString() == Properties.Resources.CTXT_PLOT_MARKER_TYPE_NONE)
+                {
+                    lineSeries.MarkerType = OxyPlot.MarkerType.None;
+                }
+                else if (menuItem.Header.ToString() == Properties.Resources.CTXT_PLOT_MARKER_TYPE_SQUARE)
+                {
+                    lineSeries.MarkerType = OxyPlot.MarkerType.Square;
+                }
+                else if (menuItem.Header.ToString() == Properties.Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE)
+                {
+                    lineSeries.MarkerType = OxyPlot.MarkerType.Triangle;
+                }
+
             }
         }
     }

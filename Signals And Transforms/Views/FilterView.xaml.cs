@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OxyPlot.Wpf;
 using SignalProcessor.Filters;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
@@ -53,6 +54,48 @@ namespace SignalsAndTransforms.Views
             catch (Exception ex)
             {
                 // TODO log it and warn the user
+            }
+        }
+
+        private void DecibelPlotMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem_ClickHandler(DecibelPlotLineSeries, sender, e);
+        }
+
+        private void StepPlotMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem_ClickHandler(StepPlotLineSeries, sender, e);
+        }
+
+        private void FrequencyPlotMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem_ClickHandler(FrequencyPlotLineSeries, sender, e);
+        }
+
+        private void ImpulsePlotMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem_ClickHandler(ImpulsePlotLineSeries, sender, e);
+        }
+
+        private void MenuItem_ClickHandler(LineSeries lineSeries, object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.MenuItem menuItem = sender as System.Windows.Controls.MenuItem;
+
+            if (menuItem != null)
+            {
+                if (menuItem.Header.ToString() == Properties.Resources.CTXT_PLOT_MARKER_TYPE_NONE)
+                {
+                    lineSeries.MarkerType = OxyPlot.MarkerType.None;
+                }
+                else if (menuItem.Header.ToString() == Properties.Resources.CTXT_PLOT_MARKER_TYPE_SQUARE)
+                {
+                    lineSeries.MarkerType = OxyPlot.MarkerType.Square;
+                }
+                else if (menuItem.Header.ToString() == Properties.Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE)
+                {
+                    lineSeries.MarkerType = OxyPlot.MarkerType.Triangle;
+                }
+
             }
         }
     }
