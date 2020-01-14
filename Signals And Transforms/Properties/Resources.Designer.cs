@@ -178,6 +178,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Magnitude,Phase (rad).
+        /// </summary>
+        public static string FILTER_CSV_HEADER {
+            get {
+                return ResourceManager.GetString("FILTER_CSV_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sampling Frequency Cutoff %.
         /// </summary>
         public static string FILTER_CUTOFF_PERCENTAGE {

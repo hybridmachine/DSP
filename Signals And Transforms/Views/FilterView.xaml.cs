@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using OxyPlot.Wpf;
+using SignalProcessor;
 using SignalProcessor.Filters;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
@@ -27,10 +29,14 @@ namespace SignalsAndTransforms.Views
     /// </summary>
     public partial class FilterView : UserControl
     {
+
+        private readonly WorkBookManager manager;
+
         public FilterView()
         {
             InitializeComponent();
             FilterType.ItemsSource = Enum.GetValues(typeof(FilterType)).Cast<FilterType>();
+            manager = WorkBookManager.Manager();
         }
 
         private void AddFilter_Click(object sender, RoutedEventArgs e)
@@ -111,7 +117,19 @@ namespace SignalsAndTransforms.Views
                 {
                     using (StreamWriter fileWriter = File.CreateText(saveFileDialog.FileName))
                     {
-                        
+                        fileWriter.WriteLine(Properties.Resources.FILTER_CSV_HEADER);
+                        List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
+                        ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
+                        FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().Filters.Values.First().FilterLength);
+
+                        // Load the frequency response graph data
+                        // Only scan the first half of the coefficients (up to the Nyquist frequency)
+                        int coefficientMax = frequencyDomain.FourierCoefficients.Count;
+                        for (int idx = 0; idx < coefficientMax; idx++)
+                        {
+                            Complex fourierCoefficient = frequencyDomain.FourierCoefficients[idx];
+                            fileWriter.WriteLine($"{fourierCoefficient.Magnitude},{fourierCoefficient.Phase}");
+                        }
                     }
                 } catch (Exception ex)
                 {
