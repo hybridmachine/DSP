@@ -120,19 +120,36 @@ namespace SignalProcessor
             return result;
         }
 
-        public static FrequencyDomain LoadFourierCoefficients(List<double> frequencyAmplitudes)
+        /// <summary>
+        /// Simple pass through , callers typically parse magnitude/phase CSVs and pass in a list of magnitude and phases which we
+        /// then assign to a new frequencyDomain object and return. 
+        /// </summary>
+        /// <param name="magPhaseList"></param>
+        /// <returns></returns>
+        public static FrequencyDomain FromMagnitudePhaseList(List<Tuple<double, double>> magPhaseList)
         {
+            if (null == magPhaseList)
+                return null;
+
             FrequencyDomain frequencyDomain = new FrequencyDomain();
 
-            foreach (double amplitude in frequencyAmplitudes)
+            foreach (Tuple<double, double> magPhase in magPhaseList)
             {
-                double absValue = (amplitude / 2) * frequencyAmplitudes.Count;
-                // For now calculate at a 45 degree phase, not sure how to handle phase in this case
-                Complex coefficient = new Complex(absValue / Math.Sqrt(2), absValue / Math.Sqrt(2));
-                //Complex coefficient = new Complex(0, absValue);
-                frequencyDomain.FourierCoefficients.Add(coefficient);
+                frequencyDomain.FourierCoefficients.Add(Complex.FromPolarCoordinates(magPhase.Item1, magPhase.Item2));
             }
             return frequencyDomain;
+        }
+
+        public static List<Tuple<double, double>>ToMagnitudePhaseList(FrequencyDomain frequencyDomain)
+        {
+            List<Tuple<double, double>> magPhaseList = new List<Tuple<double, double>>();
+
+            foreach (Complex coefficient in frequencyDomain.FourierCoefficients)
+            {
+                magPhaseList.Add(new Tuple<double, double>(coefficient.Magnitude, coefficient.Phase));
+            }
+
+            return magPhaseList;
         }
 
         private static void LoadFrequencyAmplitudes(FrequencyDomain frequencyDomain)
