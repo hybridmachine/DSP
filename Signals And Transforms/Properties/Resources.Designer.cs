@@ -124,6 +124,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import Filter.
+        /// </summary>
+        public static string BTN_IMPORT_FILTER {
+            get {
+                return ResourceManager.GetString("BTN_IMPORT_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Signals.
         /// </summary>
         public static string BTN_SIGNAL {

@@ -138,6 +138,9 @@
   <data name="BTN_FILTER" xml:space="preserve">
     <value>Filters</value>
   </data>
+  <data name="BTN_IMPORT_FILTER" xml:space="preserve">
+    <value>Import Filter</value>
+  </data>
   <data name="BTN_SIGNAL" xml:space="preserve">
     <value>Signals</value>
   </data>

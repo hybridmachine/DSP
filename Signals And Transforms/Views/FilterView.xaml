@@ -123,7 +123,10 @@
                     </ContextMenu>
                 </oxy:Plot.ContextMenu>
             </oxy:Plot>
-            <Button x:Name="ExportButton" Width="Auto" HorizontalAlignment="Right" Margin="0,0,10,10" Padding="5" Grid.Row="2" Grid.Column="1" Content="{x:Static res:Resources.BTN_EXPORT_FILTER}" Click="ExportButton_Click"/>
+            <StackPanel x:Name="ButtonLayout" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="ImportButton" Width="Auto" Margin="0,0,10,10" Padding="5" Content="{x:Static res:Resources.BTN_IMPORT_FILTER}" Click="ImportButton_Click"/>
+                <Button x:Name="ExportButton" Width="Auto" Margin="0,0,10,10" Padding="5" Content="{x:Static res:Resources.BTN_EXPORT_FILTER}" Click="ExportButton_Click"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

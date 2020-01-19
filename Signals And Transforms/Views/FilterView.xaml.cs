@@ -122,16 +122,48 @@ namespace SignalsAndTransforms.Views
                         ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
                         FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().Filters.Values.First().FilterLength);
 
-                        // Load the frequency response graph data
-                        // Only scan the first half of the coefficients (up to the Nyquist frequency)
-                        int coefficientMax = frequencyDomain.FourierCoefficients.Count;
-                        for (int idx = 0; idx < coefficientMax; idx++)
+                        var magPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(frequencyDomain);
+
+                        foreach (Tuple<double, double> coefficientMagPhase in magPhaseList)
                         {
-                            Complex fourierCoefficient = frequencyDomain.FourierCoefficients[idx];
-                            fileWriter.WriteLine($"{fourierCoefficient.Magnitude},{fourierCoefficient.Phase}");
+                            fileWriter.WriteLine($"{coefficientMagPhase.Item1},{coefficientMagPhase.Item2}");
                         }
                     }
                 } catch (Exception ex)
+                {
+                    // TODO log and warn user
+                }
+            }
+        }
+
+        private void ImportButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = $"{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION} (*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION})|*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    FrequencyDomain frequencyDomain = new FrequencyDomain();
+                    using (StreamReader fileReader = File.OpenText(openFileDialog.FileName))
+                    {
+                        fileReader.ReadLine(); // Skip the header row
+
+                        while (!fileReader.EndOfStream)
+                        {
+                            string[] magPhaseData = fileReader.ReadLine().Split(',');
+                            double magnitude = double.Parse(magPhaseData[0]);
+                            double phase = double.Parse(magPhaseData[1]);
+
+                            Complex coefficient = Complex.FromPolarCoordinates(magnitude, phase);
+                            frequencyDomain.FourierCoefficients.Add(coefficient);
+                        }
+
+                        ComplexFastFourierTransform transform = new ComplexFastFourierTransform();
+                        List<double> loadedImpulseResponse = transform.Synthesize(frequencyDomain);
+                    }
+                }
+                catch (Exception ex)
                 {
                     // TODO log and warn user
                 }

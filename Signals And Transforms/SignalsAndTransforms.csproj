@@ -98,8 +98,8 @@
       <HintPath>..\packages\OxyPlot.Wpf.2.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
-    <Reference Include="SignalProcessor, Version=0.1.14.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
-      <HintPath>packages\SignalProcessor.0.1.14\lib\netstandard2.0\SignalProcessor.dll</HintPath>
+    <Reference Include="SignalProcessor, Version=0.1.15.0, Culture=neutral, PublicKeyToken=9353e2f223b6035d, processorArchitecture=MSIL">
+      <HintPath>packages\SignalProcessor.0.1.15\lib\netstandard2.0\SignalProcessor.dll</HintPath>
     </Reference>
     <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.0.2.669, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
       <HintPath>packages\SQLitePCLRaw.bundle_e_sqlite3.2.0.2\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
