@@ -23,6 +23,7 @@ namespace SignalsAndTransforms.DAL
                 InitializeSignaTypesTable(con);
                 InitializeSignalValuesTable(con);
                 InitializeFiltersTable(con);
+                InitializeFrequencyResponseTable(con);
                 transaction.Commit();
             } catch (Exception ex)
             {
@@ -157,6 +158,40 @@ namespace SignalsAndTransforms.DAL
                 )";
 
             SqliteCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+
+        private static bool InitializeFrequencyResponseTable(SqliteConnection con)
+        {
+            string sql = $@"
+                CREATE TABLE 'FrequencyResponse' (
+                    'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    'FilterId' INTEGER,
+                    CONSTRAINT fk_frequencyresponse_to_filter
+                        FOREIGN KEY (FilterId)
+                        REFERENCES Filters (Id)
+                        ON DELETE CASCADE
+                )";
+
+            SqliteCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+
+            sql = $@"
+                CREATE TABLE 'MagnitudePhase' (
+                    'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    'FrequencyResponseId' INTEGER,
+                    'Magnitude' REAL,
+                    'Phase' REAL,
+                    CONSTRAINT fk_magnitudephase_to_frequencyresponse
+                        FOREIGN KEY (FrequencyResponseId)
+                        REFERENCES FrequencyResponse (Id)
+                        ON DELETE CASCADE
+                )";
+
+            cmd = con.CreateCommand();
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
             return true;

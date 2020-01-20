@@ -144,23 +144,23 @@ namespace SignalsAndTransforms.Views
             {
                 try
                 {
-                    FrequencyDomain frequencyDomain = new FrequencyDomain();
                     using (StreamReader fileReader = File.OpenText(openFileDialog.FileName))
                     {
                         fileReader.ReadLine(); // Skip the header row
 
+                        List<Tuple<double, double>> magPhaseList = new List<Tuple<double, double>>();
                         while (!fileReader.EndOfStream)
                         {
                             string[] magPhaseData = fileReader.ReadLine().Split(',');
                             double magnitude = double.Parse(magPhaseData[0]);
                             double phase = double.Parse(magPhaseData[1]);
 
-                            Complex coefficient = Complex.FromPolarCoordinates(magnitude, phase);
-                            frequencyDomain.FourierCoefficients.Add(coefficient);
+                            magPhaseList.Add(new Tuple<double, double>(magnitude, phase));
                         }
 
-                        ComplexFastFourierTransform transform = new ComplexFastFourierTransform();
-                        List<double> loadedImpulseResponse = transform.Synthesize(frequencyDomain);
+                        CustomFilter customerFilter = new CustomFilter(magPhaseList);
+
+                        List<double> impulseResponse = customerFilter.ImpulseResponse();
                     }
                 }
                 catch (Exception ex)
