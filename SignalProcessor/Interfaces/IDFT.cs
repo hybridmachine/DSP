@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SignalProcessor
+namespace SignalProcessor.Interfaces
 {
     /// <summary>
     /// Interface for DFT implementations (fast and correlation)

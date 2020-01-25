@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
+using SignalProcessor.Interfaces;
 
 namespace SignalProcessor.Filters
 {
@@ -31,7 +33,7 @@ namespace SignalProcessor.Filters
         /// Note this filter kernel assumes samples are normalized by the caller
         /// </summary>
         /// <returns></returns>
-        public virtual List<double> ImpulseResponse(bool normalize = true)
+        public virtual IList<double> ImpulseResponse(bool normalize = true)
         {
             List<double> impulseResponse;
             impulseResponse = new List<double>(FilterLength + 1);
@@ -76,6 +78,14 @@ namespace SignalProcessor.Filters
             }
 
             return impulseResponse;
+        }
+
+        public IList<Complex> FrequencyResponse()
+        {
+            ComplexFastFourierTransform transform = new ComplexFastFourierTransform();
+            List<Complex> coefficients = transform.Transform(new List<double>(ImpulseResponse()), FilterLength).FourierCoefficients;
+
+            return coefficients;
         }
     }
 }

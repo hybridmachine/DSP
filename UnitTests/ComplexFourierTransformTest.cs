@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SignalProcessor;
 using System.IO;
 using System.Numerics;
+using SignalProcessor.Interfaces;
 
 namespace UnitTests
 {

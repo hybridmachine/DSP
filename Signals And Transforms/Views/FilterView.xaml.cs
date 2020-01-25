@@ -44,7 +44,7 @@ namespace SignalsAndTransforms.Views
             try
             {
                 WorkBookManager manager = WorkBookManager.Manager();
-                Filter newFilter = new Filter();
+                Models.WindowedSyncFilter newFilter = new Models.WindowedSyncFilter();
                 newFilter.IsActive = true;
                 newFilter.Name = FilterName.Text;
                 newFilter.CutoffFrequencySamplingFrequencyPercentage = double.Parse(CutoffFrequencyPercentage.Text);
@@ -160,7 +160,7 @@ namespace SignalsAndTransforms.Views
 
                         CustomFilter customerFilter = new CustomFilter(magPhaseList);
 
-                        List<double> impulseResponse = customerFilter.ImpulseResponse();
+                        IList<double> impulseResponse = customerFilter.ImpulseResponse();
                     }
                 }
                 catch (Exception ex)

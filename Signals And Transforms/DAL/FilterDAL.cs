@@ -11,7 +11,7 @@ namespace SignalsAndTransforms.DAL
 {
     public static class FilterDAL
     {
-        public static bool Create(WorkBook workBook, Filter filter, SqliteConnection con)
+        public static bool Create(WorkBook workBook, Models.WindowedSyncFilter filter, SqliteConnection con)
         {
             // For now we just clear and re-create signal entries, we may update values in place later
             // keep it simple for now

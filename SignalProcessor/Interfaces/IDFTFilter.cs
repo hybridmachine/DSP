@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SignalProcessor
+namespace SignalProcessor.Interfaces
 {
     public enum PASSTYPE
     {
@@ -13,16 +14,19 @@ namespace SignalProcessor
         HIGH
     };
 
+    public enum FILTERTYPE
+    {
+        CUSTOM = 0,
+        WINDOWEDSYNC
+    }
+
     /// <summary>
     /// Represents frequency domain scaling vector filters
     /// </summary>
     public interface IDFTFilter
     {
-        /// <summary>
-        /// Take the scaling vector and apply the low/band/high pass filter
-        /// Assumes frequency channels are low to high 0 -> Count in vector
-        /// </summary>
-        /// <param name="scalingVector"></param>
-        void ScaleFrequencies(List<double> scalingVector);
+        IList<Complex> FrequencyResponse();
+
+        IList<double> ImpulseResponse(bool normalize);
     }
 }

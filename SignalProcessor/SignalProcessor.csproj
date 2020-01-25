@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.16.0</AssemblyVersion>
-    <FileVersion>0.1.16.0</FileVersion>
-    <PackageReleaseNotes>Added CustomFilter, this fitler is created with List&lt;Tuple&lt;double, double&gt;&gt; which is (mathematically) an array of magnitude, phase values for the frequency response values.</PackageReleaseNotes>
+    <AssemblyVersion>0.1.17.0</AssemblyVersion>
+    <FileVersion>0.1.17.0</FileVersion>
+    <PackageReleaseNotes>Refactored filter inheritance hierarchy, placed interfaces in interface namespaces. Added ImpulseResponse and FrequencyResponse methods to interfaces and filter implementations.</PackageReleaseNotes>
     <Copyright>2020 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.16</Version>
+    <Version>0.1.17</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>

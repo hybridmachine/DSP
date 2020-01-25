@@ -34,7 +34,7 @@ namespace UnitTests
 
             CustomFilter customFilter = new CustomFilter(magPhaseList);
 
-            List<double> impulseResponse = customFilter.ImpulseResponse();
+            IList<double> impulseResponse = customFilter.ImpulseResponse();
 
             Assert.IsNotNull(impulseResponse);
         }

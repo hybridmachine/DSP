@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using SignalProcessor.Interfaces;
 
 namespace SignalProcessor.Filters
 {
     /// <summary>
     /// Class for custom filters with arbitrary magnitude/phase array for frequency repsonse.
     /// </summary>
-    public class CustomFilter
+    public class CustomFilter : IDFTFilter
     {
-        public FrequencyDomain FrequencyResponse { get; set; }
+        public FrequencyDomain FreqDomain { get; set; }
 
         /// <summary>
         /// Create a CustomFilter from a list of magnitudes and phases
@@ -18,18 +19,23 @@ namespace SignalProcessor.Filters
         /// <param name="magPhaseList"></param>
         public CustomFilter(List<Tuple<double, double>> magPhaseList)
         {
-            FrequencyResponse = new FrequencyDomain();
+            FreqDomain = new FrequencyDomain();
             foreach (Tuple<double, double> magPhase in magPhaseList)
             {
                 Complex coefficient = Complex.FromPolarCoordinates(magPhase.Item1, magPhase.Item2);
-                FrequencyResponse.FourierCoefficients.Add(coefficient);
+                FreqDomain.FourierCoefficients.Add(coefficient);
             }
         }
+        
+        public IList<Complex> FrequencyResponse()
+        {
+            return FreqDomain.FourierCoefficients;
+        }
 
-        public List<double> ImpulseResponse()
+        public IList<double> ImpulseResponse(bool normalize = false)
         {
             ComplexFastFourierTransform transform = new ComplexFastFourierTransform();
-            return transform.Synthesize(FrequencyResponse);
+            return transform.Synthesize(FreqDomain);
         }
     }
 }

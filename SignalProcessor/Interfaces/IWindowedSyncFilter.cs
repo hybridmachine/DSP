@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SignalProcessor
+namespace SignalProcessor.Interfaces
 {
-    public interface IWindowedSyncFilter
+    public interface IWindowedSyncFilter : IDFTFilter
     {
         double CutoffFrequencySamplingFrequencyPercentage { get; set; }
         int FilterLength { get; set; }
-
-        List<double> ImpulseResponse(bool normalize = true);
     }
 }

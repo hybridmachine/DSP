@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using SignalProcessor.Interfaces;
 
 namespace SignalProcessor
 {
@@ -61,25 +62,6 @@ namespace SignalProcessor
             this.ScalingFactor = new List<double>(rh.ScalingFactor);
             this.ImaginaryComponent = new List<double>(rh.ImaginaryComponent);
             this.frequencyDomainLen = rh.frequencyDomainLen;
-        }
-
-        /// <summary>
-        /// Users can call this and alter the filter values (low to high, 0 -> Count)
-        /// </summary>
-        /// <returns></returns>
-        public void ApplyFilter(IDFTFilter filter)
-        {
-            if (null == filter)
-            {
-                for (int idx = 0; idx < ScalingFactor.Count; idx++)
-                {
-                    ScalingFactor[idx] = 1.0;
-                }
-            }
-            else
-            {
-                filter.ScaleFrequencies(ScalingFactor);
-            }
         }
 
         public double ScaledRealComponent(int K)

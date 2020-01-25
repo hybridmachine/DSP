@@ -43,7 +43,7 @@ namespace SignalsAndTransforms.View_Models
             LoadFilterData();
         }
 
-        public void AddFilter(Filter newFilter)
+        public void AddFilter(WindowedSyncFilter newFilter)
         {
             WorkBook workBook = manager.ActiveWorkBook();
             workBook.Filters.Add(newFilter.Name, newFilter);

@@ -23,6 +23,7 @@ namespace SignalsAndTransforms.DAL
                 InitializeSignaTypesTable(con);
                 InitializeSignalValuesTable(con);
                 InitializeFiltersTable(con);
+                InitializeWindowedSyncParametersTable(con);
                 InitializeFrequencyResponseTable(con);
                 transaction.Commit();
             } catch (Exception ex)
@@ -140,6 +141,11 @@ namespace SignalsAndTransforms.DAL
             return true;
         }
 
+        /// <summary>
+        /// Create the Filter table
+        /// </summary>
+        /// <param name="con"></param>
+        /// <returns></returns>
         private static bool InitializeFiltersTable(SqliteConnection con)
         {
             string sql = $@"
@@ -148,8 +154,6 @@ namespace SignalsAndTransforms.DAL
                     'WorkBookId' INTEGER,
                     'Name'  TEXT,
                     'IsActive' INTEGER NOT NULL CHECK (IsActive IN (0,1)),
-                    'CutoffFrequencySamplingFrequencyPercentage' REAL NOT NULL,
-                    'FilterLength' INTEGER NOT NULL, 
                     'FilterType' TEXT NOT NULL,
                     CONSTRAINT fk_filters_to_workbook
                         FOREIGN KEY (WorkBookId)
@@ -163,13 +167,21 @@ namespace SignalsAndTransforms.DAL
             return true;
         }
 
-        private static bool InitializeFrequencyResponseTable(SqliteConnection con)
+        /// <summary>
+        /// For WindowedSync filters, we store their parameters in the WindowedSyncParameters table, this creates
+        /// that table
+        /// </summary>
+        /// <param name="con"></param>
+        /// <returns></returns>
+        private static bool InitializeWindowedSyncParametersTable(SqliteConnection con)
         {
             string sql = $@"
-                CREATE TABLE 'FrequencyResponse' (
+                CREATE TABLE 'WindowedSyncFIlterParameters' (
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     'FilterId' INTEGER,
-                    CONSTRAINT fk_frequencyresponse_to_filter
+                    'CutoffFrequencySamplingFrequencyPercentage' REAL NOT NULL,
+                    'FilterLength' INTEGER NOT NULL, 
+                    CONSTRAINT fk_windowedsyncfilterparameters_to_filter
                         FOREIGN KEY (FilterId)
                         REFERENCES Filters (Id)
                         ON DELETE CASCADE
@@ -178,20 +190,32 @@ namespace SignalsAndTransforms.DAL
             SqliteCommand cmd = con.CreateCommand();
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
+            return true;
+        }
 
-            sql = $@"
+        /// <summary>
+        /// Filters are specified by their frequency response, this table holds their magnitude, phase arrays
+        /// for their frequency response. This creates that table.
+        /// </summary>
+        /// <param name="con"></param>
+        /// <returns></returns>
+        private static bool InitializeFrequencyResponseTable(SqliteConnection con)
+        {
+
+            string sql = $@"
                 CREATE TABLE 'MagnitudePhase' (
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    'FrequencyResponseId' INTEGER,
-                    'Magnitude' REAL,
-                    'Phase' REAL,
-                    CONSTRAINT fk_magnitudephase_to_frequencyresponse
-                        FOREIGN KEY (FrequencyResponseId)
-                        REFERENCES FrequencyResponse (Id)
+                    'FilterId' INTEGER NOT NULL,
+                    'Sequence' INTEGER NOT NULL,
+                    'Magnitude' REAL NOT NULL,
+                    'Phase' REAL NO NULL,
+                    CONSTRAINT fk_magnitudephase_to_filter
+                        FOREIGN KEY (FilterId)
+                        REFERENCES Filters (Id)
                         ON DELETE CASCADE
                 )";
 
-            cmd = con.CreateCommand();
+            SqliteCommand cmd = con.CreateCommand();
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
             return true;

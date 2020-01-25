@@ -16,20 +16,20 @@ namespace SignalsAndTransforms.Models
     public class WorkBook : INotifyPropertyChanged
     {
         private Dictionary<string, Signal> m_signals;
-        private Dictionary<string, Filter> m_filters;
+        private Dictionary<string, WindowedSyncFilter> m_filters;
 
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, Filter>();
+            m_filters = new Dictionary<string, WindowedSyncFilter>();
         }
 
         public WorkBook(String name)
         {
             Name = name;
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, Filter>();
+            m_filters = new Dictionary<string, WindowedSyncFilter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }
@@ -41,7 +41,7 @@ namespace SignalsAndTransforms.Models
             get { return m_signals; }
         }
 
-        public Dictionary<string, Filter> Filters
+        public Dictionary<string, WindowedSyncFilter> Filters
         {
             get { return m_filters; }
         }
@@ -78,7 +78,7 @@ namespace SignalsAndTransforms.Models
         /// <returns></returns>
         public List<double> SummedFilterImpulseResponse(bool normalize = true)
         {
-            List<double> summedImpulseResponse = null;
+            IList<double> summedImpulseResponse = null;
             foreach (var filter in Filters.Values.Where(filt => filt.IsActive))
             {
                 // For now we sum the filters
@@ -92,7 +92,7 @@ namespace SignalsAndTransforms.Models
                 }
                 else
                 {
-                    List<double> filterImpulseResponse = filter.ImpulseResponse(normalize);
+                    IList<double> filterImpulseResponse = filter.ImpulseResponse(normalize);
 
                     // Ignore any filters that don't have the same filter length
                     if (filterImpulseResponse.Count == summedImpulseResponse.Count)
@@ -105,7 +105,7 @@ namespace SignalsAndTransforms.Models
                 }
             }
 
-            return summedImpulseResponse;
+            return (List<double>)summedImpulseResponse;
         }
 
         public Signal SumOfSources()

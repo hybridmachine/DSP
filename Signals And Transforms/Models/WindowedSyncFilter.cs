@@ -11,7 +11,7 @@ namespace SignalsAndTransforms.Models
     /// <summary>
     /// Simple subclass of WindowedSyncFilter, just adds the IsActive flag used by the UI in workbooks
     /// </summary>
-    public class Filter : WindowedSyncFilter, INotifyPropertyChanged
+    public class WindowedSyncFilter : SignalProcessor.Filters.WindowedSyncFilter, INotifyPropertyChanged
     {
         private bool m_isActive;
         public bool IsActive { 

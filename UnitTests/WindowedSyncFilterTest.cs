@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SignalProcessor.Interfaces;
 
 namespace UnitTests
 {
@@ -24,9 +25,9 @@ namespace UnitTests
             highPass.CutoffFrequencySamplingFrequencyPercentage = filter.CutoffFrequencySamplingFrequencyPercentage;
             highPass.FilterLength = filter.FilterLength;
 
-            List<double> impulseResponse = filter.ImpulseResponse();
-            List<double> secondImpulseResponseTest = filter.ImpulseResponse();
-            List<double> non_normalizedResponseTest = filter.ImpulseResponse(false);
+            IList<double> impulseResponse = filter.ImpulseResponse(true);
+            IList<double> secondImpulseResponseTest = filter.ImpulseResponse(true);
+            IList<double> non_normalizedResponseTest = filter.ImpulseResponse(false);
 
             // Make sure back to back calls return the same data for the same parameters
             for (int idx = 0; idx < impulseResponse.Count; idx++)
@@ -34,7 +35,7 @@ namespace UnitTests
                 Assert.IsTrue(impulseResponse[idx] == secondImpulseResponseTest[idx]);
             }
 
-            List<double> highImpulseResponse = highPass.ImpulseResponse();
+            IList<double> highImpulseResponse = highPass.ImpulseResponse(true);
 
             Assert.IsNotNull(impulseResponse);
             Assert.IsNotNull(highImpulseResponse);
