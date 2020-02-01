@@ -157,7 +157,7 @@ namespace SignalsAndTransforms.DAL
                 newWorkBook = connection.Query<WorkBook>($@"SELECT [Id], [Name], [Notes] FROM WorkBook").FirstOrDefault();
 
                 var signals = connection.Query<Signal>($"SELECT * from Signals WHERE WorkBookId = '{newWorkBook.Id}'");
-                var filters = connection.Query<Models.WindowedSyncFilter>($"SELECT * from Filters WHERE WorkBookId = '{newWorkBook.Id}'");
+                var windowedSyncFilters = connection.Query<Models.WindowedSyncFilter>($"SELECT * from Filters INNER JOIN WindowedSyncFilterParameters ON FilterId = Filters.Id WHERE WorkBookId = '{newWorkBook.Id}' AND FilterType in ('LOWPASS', 'HIGHPASS')");
 
                 foreach (Signal signal in signals)
                 {
@@ -172,7 +172,7 @@ namespace SignalsAndTransforms.DAL
                     newWorkBook.Signals.Add(signal.Name, signal);
                 }
 
-                foreach (Models.WindowedSyncFilter filter in filters)
+                foreach (Models.WindowedSyncFilter filter in windowedSyncFilters)
                 {
                     newWorkBook.WindowedSyncFilters.Add(filter.Name, filter);
                 }
