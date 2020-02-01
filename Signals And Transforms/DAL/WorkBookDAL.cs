@@ -121,7 +121,12 @@ namespace SignalsAndTransforms.DAL
                         }
 
                         // Save filters
-                        foreach (Models.WindowedSyncFilter filter in workBook.Filters.Values)
+                        foreach (Models.WindowedSyncFilter filter in workBook.WindowedSyncFilters.Values)
+                        {
+                            FilterDAL.Create(workBook, filter, sqlLiteConnection);
+                        }
+
+                        foreach (Models.CustomFilter filter in workBook.CustomFilters.Values)
                         {
                             FilterDAL.Create(workBook, filter, sqlLiteConnection);
                         }
@@ -169,7 +174,7 @@ namespace SignalsAndTransforms.DAL
 
                 foreach (Models.WindowedSyncFilter filter in filters)
                 {
-                    newWorkBook.Filters.Add(filter.Name, filter);
+                    newWorkBook.WindowedSyncFilters.Add(filter.Name, filter);
                 }
             }
 

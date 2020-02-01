@@ -7,17 +7,11 @@ using System.Threading.Tasks;
 
 namespace SignalProcessor.Interfaces
 {
-    public enum PASSTYPE
-    {
-        NONE = 0,
-        LOW,
-        HIGH
-    };
-
     public enum FILTERTYPE
     {
-        CUSTOM = 0,
-        WINDOWEDSYNC
+        LOWPASS,
+        HIGHPASS,
+        CUSTOM
     }
 
     /// <summary>
@@ -25,6 +19,8 @@ namespace SignalProcessor.Interfaces
     /// </summary>
     public interface IDFTFilter
     {
+        FILTERTYPE FilterType { get; }
+
         IList<Complex> FrequencyResponse();
 
         IList<double> ImpulseResponse(bool normalize);

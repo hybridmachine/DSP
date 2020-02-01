@@ -13,6 +13,13 @@ namespace SignalProcessor.Filters
     {
         public FrequencyDomain FreqDomain { get; set; }
 
+        public FILTERTYPE FilterType {
+            get
+            {
+                return FILTERTYPE.CUSTOM;
+            }
+        }
+
         /// <summary>
         /// Create a CustomFilter from a list of magnitudes and phases
         /// </summary>

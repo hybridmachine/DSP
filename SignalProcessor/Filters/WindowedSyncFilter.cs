@@ -6,25 +6,16 @@ using SignalProcessor.Interfaces;
 
 namespace SignalProcessor.Filters
 {
-    public enum FilterType
-    {
-        LOWPASS,
-        HIGHPASS
-    }
 
     public class WindowedSyncFilter : IWindowedSyncFilter
     {
-        /// <summary>
-        /// Convenience parameter so users can name their filters for sorting, searching, etc
-        /// </summary>
-        public string Name { get; set; }
         public double CutoffFrequencySamplingFrequencyPercentage { get ; set ; }
         public int FilterLength { get ; set ; }
-        public FilterType FilterType { get; set; }
+        public FILTERTYPE FilterType { get; set; }
 
         public WindowedSyncFilter()
         {
-            FilterType = FilterType.LOWPASS; // Lowpass by default
+            FilterType = FILTERTYPE.LOWPASS; // Lowpass by default
         }
 
         /// <summary>
@@ -66,7 +57,7 @@ namespace SignalProcessor.Filters
             }
 
             // Spectral inversion
-            if (FilterType == FilterType.HIGHPASS)
+            if (FilterType == FILTERTYPE.HIGHPASS)
             {
                 // Spectral Inversion of the low pass filter
                 for (int idx = 0; idx < impulseResponse.Count; idx++)

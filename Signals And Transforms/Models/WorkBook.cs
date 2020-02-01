@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
-using SignalProcessor.Filters;
 using SignalProcessor;
 using System.Numerics;
 
@@ -16,20 +15,22 @@ namespace SignalsAndTransforms.Models
     public class WorkBook : INotifyPropertyChanged
     {
         private Dictionary<string, Signal> m_signals;
-        private Dictionary<string, WindowedSyncFilter> m_filters;
+        private Dictionary<string, WindowedSyncFilter> m_windowedSyncFilters;
+        private Dictionary<string, CustomFilter> m_customFilters;
 
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, WindowedSyncFilter>();
+            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
+            m_customFilters = new Dictionary<string, CustomFilter>();
         }
 
         public WorkBook(String name)
         {
             Name = name;
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, WindowedSyncFilter>();
+            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }
@@ -41,9 +42,14 @@ namespace SignalsAndTransforms.Models
             get { return m_signals; }
         }
 
-        public Dictionary<string, WindowedSyncFilter> Filters
+        public Dictionary<string, WindowedSyncFilter> WindowedSyncFilters
         {
-            get { return m_filters; }
+            get { return m_windowedSyncFilters; }
+        }
+
+        public Dictionary<string, CustomFilter> CustomFilters
+        {
+            get { return m_customFilters; }
         }
 
         public Signal ConvolutionKernel {
@@ -79,7 +85,7 @@ namespace SignalsAndTransforms.Models
         public List<double> SummedFilterImpulseResponse(bool normalize = true)
         {
             IList<double> summedImpulseResponse = null;
-            foreach (var filter in Filters.Values.Where(filt => filt.IsActive))
+            foreach (var filter in WindowedSyncFilters.Values.Where(filt => filt.IsActive))
             {
                 // For now we sum the filters
                 // TODO add convolution as an option

@@ -1,4 +1,5 @@
 ﻿using SignalProcessor.Filters;
+using SignalProcessor.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,8 @@ namespace SignalsAndTransforms.Models
     /// </summary>
     public class WindowedSyncFilter : SignalProcessor.Filters.WindowedSyncFilter, INotifyPropertyChanged
     {
+        public long Id { get; set; }
+
         private bool m_isActive;
         public bool IsActive { 
             get
@@ -26,15 +29,16 @@ namespace SignalsAndTransforms.Models
             }
         }
 
+        private string m_Name;
         public new string Name
         {
             get
             {
-                return base.Name;
+                return m_Name;
             }
             set
             {
-                base.Name = value;
+                m_Name = value;
                 NotifyPropertyChanged(nameof(Name));
             }
         }
@@ -65,7 +69,7 @@ namespace SignalsAndTransforms.Models
             }
         }
 
-        public new FilterType FilterType { 
+        public new FILTERTYPE FilterType { 
             get
             {
                 return base.FilterType;

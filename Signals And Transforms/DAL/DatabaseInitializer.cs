@@ -176,7 +176,7 @@ namespace SignalsAndTransforms.DAL
         private static bool InitializeWindowedSyncParametersTable(SqliteConnection con)
         {
             string sql = $@"
-                CREATE TABLE 'WindowedSyncFIlterParameters' (
+                CREATE TABLE 'WindowedSyncFilterParameters' (
                     'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     'FilterId' INTEGER,
                     'CutoffFrequencySamplingFrequencyPercentage' REAL NOT NULL,

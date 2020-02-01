@@ -18,6 +18,7 @@ using Microsoft.Win32;
 using OxyPlot.Wpf;
 using SignalProcessor;
 using SignalProcessor.Filters;
+using SignalProcessor.Interfaces;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using SignalsAndTransforms.View_Models;
@@ -35,7 +36,7 @@ namespace SignalsAndTransforms.Views
         public FilterView()
         {
             InitializeComponent();
-            FilterType.ItemsSource = Enum.GetValues(typeof(FilterType)).Cast<FilterType>();
+            FilterType.ItemsSource = Enum.GetValues(typeof(FILTERTYPE)).Cast<FILTERTYPE>();
             manager = WorkBookManager.Manager();
         }
 
@@ -49,7 +50,7 @@ namespace SignalsAndTransforms.Views
                 newFilter.Name = FilterName.Text;
                 newFilter.CutoffFrequencySamplingFrequencyPercentage = double.Parse(CutoffFrequencyPercentage.Text);
                 newFilter.FilterLength = int.Parse(FilterLength.Text);
-                newFilter.FilterType = (FilterType)Enum.Parse(typeof(FilterType), FilterType.SelectedItem.ToString());
+                newFilter.FilterType = (FILTERTYPE)Enum.Parse(typeof(FILTERTYPE), FilterType.SelectedItem.ToString());
 
                 FilterViewModel model = DataContext as FilterViewModel;
                 model?.AddFilter(newFilter);
@@ -120,7 +121,7 @@ namespace SignalsAndTransforms.Views
                         fileWriter.WriteLine(Properties.Resources.FILTER_CSV_HEADER);
                         List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
                         ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
-                        FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().Filters.Values.First().FilterLength);
+                        FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().WindowedSyncFilters.Values.First().FilterLength);
 
                         var magPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(frequencyDomain);
 
@@ -157,10 +158,11 @@ namespace SignalsAndTransforms.Views
 
                             magPhaseList.Add(new Tuple<double, double>(magnitude, phase));
                         }
+                        WorkBookManager manager = WorkBookManager.Manager();
 
-                        CustomFilter customerFilter = new CustomFilter(magPhaseList);
-
-                        IList<double> impulseResponse = customerFilter.ImpulseResponse();
+                        SignalsAndTransforms.Models.CustomFilter customFilter = new SignalsAndTransforms.Models.CustomFilter(magPhaseList);
+                        customFilter.Name = "Test";
+                        manager.ActiveWorkBook().CustomFilters.Add(customFilter.Name, customFilter);
                     }
                 }
                 catch (Exception ex)
