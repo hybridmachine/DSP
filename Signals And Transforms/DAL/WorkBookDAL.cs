@@ -11,12 +11,20 @@ using System.Threading.Tasks;
 
 namespace SignalsAndTransforms.DAL
 {
-    class SignalValue
+    // Used when loading custom filter from DB
+    class MagPhase
+    {
+        public double Magnitude;
+        public double Phase;
+    }
+
+    public class SignalValue
     {
         public long Id { get; set; }
         public long SignalId { get; set; }
         public double Value { get; set; }
     }
+    
     public static class WorkBookDAL
     {
         public const string SchemaVersion = "1.2";
@@ -158,7 +166,8 @@ namespace SignalsAndTransforms.DAL
 
                 var signals = connection.Query<Signal>($"SELECT * from Signals WHERE WorkBookId = '{newWorkBook.Id}'");
                 var windowedSyncFilters = connection.Query<Models.WindowedSyncFilter>($"SELECT * from Filters INNER JOIN WindowedSyncFilterParameters ON FilterId = Filters.Id WHERE WorkBookId = '{newWorkBook.Id}' AND FilterType in ('LOWPASS', 'HIGHPASS')");
-
+                var customFilters = connection.Query<Models.CustomFilter>($"SELECT * from Filters WHERE WorkBookId = '{newWorkBook.Id}' AND FilterType = 'CUSTOM'");
+  
                 foreach (Signal signal in signals)
                 {
                     var signalValues = connection.Query<SignalValue>($"SELECT * from SignalValues WHERE SignalId = {signal.Id} ORDER BY Id ASC");
@@ -172,9 +181,28 @@ namespace SignalsAndTransforms.DAL
                     newWorkBook.Signals.Add(signal.Name, signal);
                 }
 
+                foreach (Models.CustomFilter filter in customFilters)
+                {
+                    var magPhaseValues = connection.Query<MagPhase>($"SELECT Magnitude, Phase FROM MagnitudePhase WHERE FilterId='{filter.Id}' ORDER by Sequence ASC");
+
+                    List<Tuple<double, double>> valuesInList = new List<Tuple<double, double>>();
+
+                    foreach (MagPhase value in magPhaseValues)
+                    {
+                        valuesInList.Add(new Tuple<double, double>(value.Magnitude, value.Phase));
+                    }
+
+                    filter.UpdateMagnitudePhaseList(valuesInList);
+                }
+
                 foreach (Models.WindowedSyncFilter filter in windowedSyncFilters)
                 {
                     newWorkBook.WindowedSyncFilters.Add(filter.Name, filter);
+                }
+
+                foreach (Models.CustomFilter filter in customFilters)
+                {
+                    newWorkBook.CustomFilters.Add(filter.Name, filter);
                 }
             }
 

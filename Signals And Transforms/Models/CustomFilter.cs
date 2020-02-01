@@ -20,6 +20,19 @@ namespace SignalsAndTransforms.Models
 
         }
 
+        public CustomFilter() : base(new List<Tuple<double, double>>())
+        {
+
+        }
+
+        public void UpdateMagnitudePhaseList(List<Tuple<double, double>> magPhaseList)
+        {
+            // Use a new CustomFilter then assign its frequency domain to our frequency domain
+            CustomFilter updater = new CustomFilter(magPhaseList);
+
+            this.FreqDomain = updater.FreqDomain;
+        }
+
         private bool m_isActive;
         public bool IsActive
         {
