@@ -50,6 +50,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomFilterTest.cs" />
     <Compile Include="RealFourierTransformTest.cs" />
     <Compile Include="ComplexFourierTransformTest.cs" />
     <Compile Include="ConvolutionViewModelTest.cs" />
@@ -59,6 +60,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="TestFiles\filterFile.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\lowPassMagPhase.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\signalFile.csv">

@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SignalProcessor;
 using System.IO;
+using System.Numerics;
+using SignalProcessor.Interfaces;
 
 namespace UnitTests
 {
@@ -40,7 +42,16 @@ namespace UnitTests
             }
 
             result = complexFourierTransform.Transform(signal, sampleRate);
-            
+            List<Tuple<double, double>> magPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(result);
+            FrequencyDomain fromMagPhaseList = ComplexFastFourierTransform.FromMagnitudePhaseList(magPhaseList);
+
+            for (int idx = 0; idx < result.FourierCoefficients.Count; idx++)
+            {
+                double absDifference = Complex.Abs(result.FourierCoefficients[idx] - fromMagPhaseList.FourierCoefficients[idx]);
+                // Check that they are close, rounding error occurs, they wont be equal
+                Assert.IsTrue(absDifference < 1.0E-10);
+            }
+
             // This file can be viewed in Excel for plotting of hz and amplitudes
             StreamWriter amplitudeFile = new StreamWriter("frequencyAmplitudes.csv");
             if (amplitudeFile != null)

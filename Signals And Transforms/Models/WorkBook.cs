@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
-using SignalProcessor.Filters;
+using SignalProcessor;
+using System.Numerics;
 
 namespace SignalsAndTransforms.Models
 {
@@ -14,20 +15,22 @@ namespace SignalsAndTransforms.Models
     public class WorkBook : INotifyPropertyChanged
     {
         private Dictionary<string, Signal> m_signals;
-        private Dictionary<string, Filter> m_filters;
+        private Dictionary<string, WindowedSyncFilter> m_windowedSyncFilters;
+        private Dictionary<string, CustomFilter> m_customFilters;
 
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, Filter>();
+            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
+            m_customFilters = new Dictionary<string, CustomFilter>();
         }
 
         public WorkBook(String name)
         {
             Name = name;
             m_signals = new Dictionary<string, Signal>();
-            m_filters = new Dictionary<string, Filter>();
+            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }
@@ -39,9 +42,14 @@ namespace SignalsAndTransforms.Models
             get { return m_signals; }
         }
 
-        public Dictionary<string, Filter> Filters
+        public Dictionary<string, WindowedSyncFilter> WindowedSyncFilters
         {
-            get { return m_filters; }
+            get { return m_windowedSyncFilters; }
+        }
+
+        public Dictionary<string, CustomFilter> CustomFilters
+        {
+            get { return m_customFilters; }
         }
 
         public Signal ConvolutionKernel {
@@ -76,8 +84,8 @@ namespace SignalsAndTransforms.Models
         /// <returns></returns>
         public List<double> SummedFilterImpulseResponse(bool normalize = true)
         {
-            List<double> summedImpulseResponse = null;
-            foreach (var filter in Filters.Values.Where(filt => filt.IsActive))
+            IList<double> summedImpulseResponse = null;
+            foreach (var filter in WindowedSyncFilters.Values.Where(filt => filt.IsActive))
             {
                 // For now we sum the filters
                 // TODO add convolution as an option
@@ -90,7 +98,7 @@ namespace SignalsAndTransforms.Models
                 }
                 else
                 {
-                    List<double> filterImpulseResponse = filter.ImpulseResponse(normalize);
+                    IList<double> filterImpulseResponse = filter.ImpulseResponse(normalize);
 
                     // Ignore any filters that don't have the same filter length
                     if (filterImpulseResponse.Count == summedImpulseResponse.Count)
@@ -103,7 +111,7 @@ namespace SignalsAndTransforms.Models
                 }
             }
 
-            return summedImpulseResponse;
+            return (List<double>)summedImpulseResponse;
         }
 
         public Signal SumOfSources()
@@ -147,5 +155,24 @@ namespace SignalsAndTransforms.Models
             return workbookSourceSignal;
         }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Export the supplied frequency domain to the supplied outputStream
+        /// Writes the frequency domain data as a CSV format of magnitude,phase for each entry
+        /// Note this does not stamp the header on the data, callers should do that on the stream before calling this
+        /// </summary>
+        /// <param name="frequencyDomain">Frequency Domain to serialize</param>
+        /// <param name="outputStream">Output stream to write data to</param>
+        /// <returns></returns>
+        public static async Task<bool> SerializeFrequencyDomain(FrequencyDomain frequencyDomain, StreamWriter outputStream)
+        {
+            bool success = true;
+
+            foreach (Complex coefficient in frequencyDomain.FourierCoefficients)
+            {
+                await outputStream.WriteLineAsync($"{coefficient.Magnitude},{coefficient.Phase}");
+            }
+            return success;
+        }
     }
 }

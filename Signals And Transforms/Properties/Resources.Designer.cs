@@ -97,6 +97,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export Filter.
+        /// </summary>
+        public static string BTN_EXPORT_FILTER {
+            get {
+                return ResourceManager.GetString("BTN_EXPORT_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FFT.
         /// </summary>
         public static string BTN_FFT {
@@ -111,6 +120,15 @@ namespace SignalsAndTransforms.Properties {
         public static string BTN_FILTER {
             get {
                 return ResourceManager.GetString("BTN_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Filter.
+        /// </summary>
+        public static string BTN_IMPORT_FILTER {
+            get {
+                return ResourceManager.GetString("BTN_IMPORT_FILTER", resourceCulture);
             }
         }
         
@@ -169,6 +187,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Magnitude,Phase (rad).
+        /// </summary>
+        public static string FILTER_CSV_HEADER {
+            get {
+                return ResourceManager.GetString("FILTER_CSV_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sampling Frequency Cutoff %.
         /// </summary>
         public static string FILTER_CUTOFF_PERCENTAGE {
@@ -192,6 +219,15 @@ namespace SignalsAndTransforms.Properties {
         public static string FILTER_FREQUENCY_RESPONSE_TITLE {
             get {
                 return ResourceManager.GetString("FILTER_FREQUENCY_RESPONSE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .csv.
+        /// </summary>
+        public static string FILTER_IMPORT_EXPORT_FILE_EXTENSION {
+            get {
+                return ResourceManager.GetString("FILTER_IMPORT_EXPORT_FILE_EXTENSION", resourceCulture);
             }
         }
         

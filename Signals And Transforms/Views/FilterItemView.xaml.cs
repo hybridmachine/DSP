@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SignalProcessor.Filters;
+using SignalProcessor.Interfaces;
 
 namespace SignalsAndTransforms.Views
 {
@@ -26,7 +27,7 @@ namespace SignalsAndTransforms.Views
         {
             InitializeComponent();
 
-            FilterType.ItemsSource = Enum.GetValues(typeof(FilterType)).Cast<FilterType>(); 
+            FilterType.ItemsSource = Enum.GetValues(typeof(FILTERTYPE)).Cast<FILTERTYPE>(); 
         }
     }
 
@@ -37,7 +38,7 @@ namespace SignalsAndTransforms.Views
         {
             try
             {
-                FilterType filterType = (FilterType)value;
+                FILTERTYPE filterType = (FILTERTYPE)value;
                 return (int)filterType;
             }
             catch (Exception ex)
@@ -52,12 +53,12 @@ namespace SignalsAndTransforms.Views
         {
             try
             {
-                return (FilterType)value;
+                return (FILTERTYPE)value;
             }
             catch (Exception ex)
             {
                 // TODO log
-                return FilterType.LOWPASS;
+                return FILTERTYPE.LOWPASS;
             }
         }
     }

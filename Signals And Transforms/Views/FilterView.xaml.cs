@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,8 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using OxyPlot.Wpf;
+using SignalProcessor;
 using SignalProcessor.Filters;
+using SignalProcessor.Interfaces;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using SignalsAndTransforms.View_Models;
@@ -25,10 +30,14 @@ namespace SignalsAndTransforms.Views
     /// </summary>
     public partial class FilterView : UserControl
     {
+
+        private readonly WorkBookManager manager;
+
         public FilterView()
         {
             InitializeComponent();
-            FilterType.ItemsSource = Enum.GetValues(typeof(FilterType)).Cast<FilterType>();
+            FilterType.ItemsSource = Enum.GetValues(typeof(FILTERTYPE)).Cast<FILTERTYPE>();
+            manager = WorkBookManager.Manager();
         }
 
         private void AddFilter_Click(object sender, RoutedEventArgs e)
@@ -36,12 +45,12 @@ namespace SignalsAndTransforms.Views
             try
             {
                 WorkBookManager manager = WorkBookManager.Manager();
-                Filter newFilter = new Filter();
+                Models.WindowedSyncFilter newFilter = new Models.WindowedSyncFilter();
                 newFilter.IsActive = true;
                 newFilter.Name = FilterName.Text;
                 newFilter.CutoffFrequencySamplingFrequencyPercentage = double.Parse(CutoffFrequencyPercentage.Text);
                 newFilter.FilterLength = int.Parse(FilterLength.Text);
-                newFilter.FilterType = (FilterType)Enum.Parse(typeof(FilterType), FilterType.SelectedItem.ToString());
+                newFilter.FilterType = (FILTERTYPE)Enum.Parse(typeof(FILTERTYPE), FilterType.SelectedItem.ToString());
 
                 FilterViewModel model = DataContext as FilterViewModel;
                 model?.AddFilter(newFilter);
@@ -96,6 +105,70 @@ namespace SignalsAndTransforms.Views
                     lineSeries.MarkerType = OxyPlot.MarkerType.Triangle;
                 }
 
+            }
+        }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = $"{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION} (*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION})|*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    using (StreamWriter fileWriter = File.CreateText(saveFileDialog.FileName))
+                    {
+                        fileWriter.WriteLine(Properties.Resources.FILTER_CSV_HEADER);
+                        List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
+                        ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
+                        FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().WindowedSyncFilters.Values.First().FilterLength);
+
+                        var magPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(frequencyDomain);
+
+                        foreach (Tuple<double, double> coefficientMagPhase in magPhaseList)
+                        {
+                            fileWriter.WriteLine($"{coefficientMagPhase.Item1},{coefficientMagPhase.Item2}");
+                        }
+                    }
+                } catch (Exception ex)
+                {
+                    // TODO log and warn user
+                }
+            }
+        }
+
+        private void ImportButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = $"{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION} (*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION})|*{Properties.Resources.FILTER_IMPORT_EXPORT_FILE_EXTENSION}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    using (StreamReader fileReader = File.OpenText(openFileDialog.FileName))
+                    {
+                        fileReader.ReadLine(); // Skip the header row
+
+                        List<Tuple<double, double>> magPhaseList = new List<Tuple<double, double>>();
+                        while (!fileReader.EndOfStream)
+                        {
+                            string[] magPhaseData = fileReader.ReadLine().Split(',');
+                            double magnitude = double.Parse(magPhaseData[0]);
+                            double phase = double.Parse(magPhaseData[1]);
+
+                            magPhaseList.Add(new Tuple<double, double>(magnitude, phase));
+                        }
+                        WorkBookManager manager = WorkBookManager.Manager();
+
+                        SignalsAndTransforms.Models.CustomFilter customFilter = new SignalsAndTransforms.Models.CustomFilter(magPhaseList);
+                        customFilter.Name = "Test";
+                        manager.ActiveWorkBook().CustomFilters.Add(customFilter.Name, customFilter);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO log and warn user
+                }
             }
         }
     }

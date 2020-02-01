@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
+using SignalProcessor.Interfaces;
 
 namespace SignalProcessor.Filters
 {
-    public enum FilterType
-    {
-        LOWPASS,
-        HIGHPASS
-    }
 
     public class WindowedSyncFilter : IWindowedSyncFilter
     {
-        /// <summary>
-        /// Convenience parameter so users can name their filters for sorting, searching, etc
-        /// </summary>
-        public string Name { get; set; }
         public double CutoffFrequencySamplingFrequencyPercentage { get ; set ; }
         public int FilterLength { get ; set ; }
-        public FilterType FilterType { get; set; }
+        public FILTERTYPE FilterType { get; set; }
 
         public WindowedSyncFilter()
         {
-            FilterType = FilterType.LOWPASS; // Lowpass by default
+            FilterType = FILTERTYPE.LOWPASS; // Lowpass by default
         }
 
         /// <summary>
@@ -31,7 +24,7 @@ namespace SignalProcessor.Filters
         /// Note this filter kernel assumes samples are normalized by the caller
         /// </summary>
         /// <returns></returns>
-        public virtual List<double> ImpulseResponse(bool normalize = true)
+        public virtual IList<double> ImpulseResponse(bool normalize = true)
         {
             List<double> impulseResponse;
             impulseResponse = new List<double>(FilterLength + 1);
@@ -64,7 +57,7 @@ namespace SignalProcessor.Filters
             }
 
             // Spectral inversion
-            if (FilterType == FilterType.HIGHPASS)
+            if (FilterType == FILTERTYPE.HIGHPASS)
             {
                 // Spectral Inversion of the low pass filter
                 for (int idx = 0; idx < impulseResponse.Count; idx++)
@@ -76,6 +69,14 @@ namespace SignalProcessor.Filters
             }
 
             return impulseResponse;
+        }
+
+        public IList<Complex> FrequencyResponse()
+        {
+            ComplexFastFourierTransform transform = new ComplexFastFourierTransform();
+            List<Complex> coefficients = transform.Transform(new List<double>(ImpulseResponse()), FilterLength).FourierCoefficients;
+
+            return coefficients;
         }
     }
 }

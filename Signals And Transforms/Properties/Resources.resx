@@ -129,11 +129,17 @@
   <data name="BTN_CONVOLUTION" xml:space="preserve">
     <value>Convolution</value>
   </data>
+  <data name="BTN_EXPORT_FILTER" xml:space="preserve">
+    <value>Export Filter</value>
+  </data>
   <data name="BTN_FFT" xml:space="preserve">
     <value>FFT</value>
   </data>
   <data name="BTN_FILTER" xml:space="preserve">
     <value>Filters</value>
+  </data>
+  <data name="BTN_IMPORT_FILTER" xml:space="preserve">
+    <value>Import Filter</value>
   </data>
   <data name="BTN_SIGNAL" xml:space="preserve">
     <value>Signals</value>
@@ -153,6 +159,9 @@
   <data name="DATABASE_FILES" xml:space="preserve">
     <value>Workbook Files</value>
   </data>
+  <data name="FILTER_CSV_HEADER" xml:space="preserve">
+    <value>Magnitude,Phase (rad)</value>
+  </data>
   <data name="FILTER_CUTOFF_PERCENTAGE" xml:space="preserve">
     <value>Sampling Frequency Cutoff %</value>
   </data>
@@ -161,6 +170,9 @@
   </data>
   <data name="FILTER_FREQUENCY_RESPONSE_TITLE" xml:space="preserve">
     <value>Frequency Response</value>
+  </data>
+  <data name="FILTER_IMPORT_EXPORT_FILE_EXTENSION" xml:space="preserve">
+    <value>.csv</value>
   </data>
   <data name="FILTER_IMPULSE_RESPONSE_TITLE" xml:space="preserve">
     <value>Impulse Response</value>

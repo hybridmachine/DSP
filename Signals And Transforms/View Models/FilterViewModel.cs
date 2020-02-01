@@ -43,10 +43,10 @@ namespace SignalsAndTransforms.View_Models
             LoadFilterData();
         }
 
-        public void AddFilter(Filter newFilter)
+        public void AddFilter(WindowedSyncFilter newFilter)
         {
             WorkBook workBook = manager.ActiveWorkBook();
-            workBook.Filters.Add(newFilter.Name, newFilter);
+            workBook.WindowedSyncFilters.Add(newFilter.Name, newFilter);
             LoadFilterData(); // Property changed event handlers will be connected in this function
         }
 
@@ -80,7 +80,7 @@ namespace SignalsAndTransforms.View_Models
                 ImpulseResponsePoints.Add(new DataPoint(idx, summedFilterData[idx]));
             }
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
-            FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().Filters.Values.First().FilterLength);
+            FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().WindowedSyncFilters.Values.First().FilterLength);
 
             Convolution convolver = new Convolution();
             List<double> stepResponse = convolver.Convolve(summedFilterData, GetStepData(summedFilterData.Count + 16), ConvolutionType.INPUTSIDE);
@@ -108,7 +108,7 @@ namespace SignalsAndTransforms.View_Models
                 graphX++;
             }
 
-            foreach (var filter in manager.ActiveWorkBook().Filters.Values)
+            foreach (var filter in manager.ActiveWorkBook().WindowedSyncFilters.Values)
             {
                 filter.PropertyChanged -= handleFilterUpdate;
                 FilterItemView viewItem = new FilterItemView();

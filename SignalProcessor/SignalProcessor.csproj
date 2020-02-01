@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.14.0</AssemblyVersion>
-    <FileVersion>0.1.14.0</FileVersion>
-    <PackageReleaseNotes>Add option to turn on / off normalization (default to on) for WindowedSyncFilter</PackageReleaseNotes>
+    <AssemblyVersion>0.1.20.0</AssemblyVersion>
+    <FileVersion>0.1.20.0</FileVersion>
+    <PackageReleaseNotes>Refactored filtertype to be in interface definition, removed unused pass type, the filter type has HIGHPASS, LOWPASS, and CUSTOM types (bandpass will fall under custom).</PackageReleaseNotes>
     <Copyright>2020 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.14</Version>
+    <Version>0.1.20</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>
