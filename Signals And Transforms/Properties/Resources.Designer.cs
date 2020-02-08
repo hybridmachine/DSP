@@ -61,11 +61,47 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string ABOUT_WINDOW_TITLE {
+            get {
+                return ResourceManager.GetString("ABOUT_WINDOW_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Files.
         /// </summary>
         public static string ALL_FILES {
             get {
                 return ResourceManager.GetString("ALL_FILES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signals And Transforms.
+        /// </summary>
+        public static string APPLICATION_NAME {
+            get {
+                return ResourceManager.GetString("APPLICATION_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: .
+        /// </summary>
+        public static string APPLICATION_VERSION_LABEL {
+            get {
+                return ResourceManager.GetString("APPLICATION_VERSION_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brian Tabone.
+        /// </summary>
+        public static string AUTHOR {
+            get {
+                return ResourceManager.GetString("AUTHOR", resourceCulture);
             }
         }
         
@@ -147,6 +183,24 @@ namespace SignalsAndTransforms.Properties {
         public static string CONVOLUTION_PLOT_TITLE {
             get {
                 return ResourceManager.GetString("CONVOLUTION_PLOT_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2020.
+        /// </summary>
+        public static string COPYRIGHT {
+            get {
+                return ResourceManager.GetString("COPYRIGHT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright.
+        /// </summary>
+        public static string COPYRIGHT_LABEL {
+            get {
+                return ResourceManager.GetString("COPYRIGHT_LABEL", resourceCulture);
             }
         }
         
