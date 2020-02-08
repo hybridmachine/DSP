@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ABOUT_WINDOW_TITLE" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="ALL_FILES" xml:space="preserve">
     <value>All Files</value>
+  </data>
+  <data name="APPLICATION_NAME" xml:space="preserve">
+    <value>Signals And Transforms</value>
+  </data>
+  <data name="APPLICATION_VERSION_LABEL" xml:space="preserve">
+    <value>Version: </value>
+  </data>
+  <data name="AUTHOR" xml:space="preserve">
+    <value>Brian Tabone</value>
   </data>
   <data name="BTN_ADD_FILTER" xml:space="preserve">
     <value>Add</value>
@@ -146,6 +158,12 @@
   </data>
   <data name="CONVOLUTION_PLOT_TITLE" xml:space="preserve">
     <value>Convolution Kernel</value>
+  </data>
+  <data name="COPYRIGHT" xml:space="preserve">
+    <value>2020</value>
+  </data>
+  <data name="COPYRIGHT_LABEL" xml:space="preserve">
+    <value>Copyright</value>
   </data>
   <data name="CTXT_PLOT_MARKER_TYPE_NONE" xml:space="preserve">
     <value>None</value>

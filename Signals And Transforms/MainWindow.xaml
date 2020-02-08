@@ -20,7 +20,7 @@
         <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding WorkBookTitle}" FontSize="15"  Grid.Row="0"/>
         <ribbon:Ribbon x:Name="Ribbon" Title="{x:Static res:Resources.RIBBON_TITLE}" Grid.Row="1">
             <ribbon:Ribbon.HelpPaneContent>
-                <ribbon:RibbonButton SmallImageSource="Resources/Images/question.png" />
+                <ribbon:RibbonButton x:Name="AboutButton" SmallImageSource="Resources/Images/question.png" Click="AboutButton_Click" />
             </ribbon:Ribbon.HelpPaneContent>
             <!--
             <ribbon:Ribbon.QuickAccessToolBar>
