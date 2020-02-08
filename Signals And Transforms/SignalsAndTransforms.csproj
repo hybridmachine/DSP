@@ -170,8 +170,11 @@
     <Compile Include="Views\ConvolutionView.xaml.cs">
       <DependentUpon>ConvolutionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FilterItemView.xaml.cs">
-      <DependentUpon>FilterItemView.xaml</DependentUpon>
+    <Compile Include="Views\CustomFilterViewItem.xaml.cs">
+      <DependentUpon>CustomFilterViewItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowedSyncFilterItemView.xaml.cs">
+      <DependentUpon>WindowedSyncFilterItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FilterView.xaml.cs">
       <DependentUpon>FilterView.xaml</DependentUpon>
@@ -198,7 +201,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FilterItemView.xaml">
+    <Page Include="Views\CustomFilterViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowedSyncFilterItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -162,7 +162,11 @@ namespace SignalsAndTransforms.Views
 
                         SignalsAndTransforms.Models.CustomFilter customFilter = new SignalsAndTransforms.Models.CustomFilter(magPhaseList);
                         customFilter.Name = "Test";
-                        manager.ActiveWorkBook().CustomFilters.Add(customFilter.Name, customFilter);
+                        customFilter.IsActive = true;
+
+                        FilterViewModel context = DataContext as FilterViewModel;
+
+                        context?.AddFilter(customFilter);
                     }
                 }
                 catch (Exception ex)

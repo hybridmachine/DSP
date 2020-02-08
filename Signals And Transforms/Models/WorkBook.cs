@@ -111,6 +111,27 @@ namespace SignalsAndTransforms.Models
                 }
             }
 
+            foreach (var filter in CustomFilters.Values.Where(filt => filt.IsActive))
+            {
+                if (null == summedImpulseResponse)
+                {
+                    summedImpulseResponse = filter.ImpulseResponse(normalize);
+                }
+                else
+                {
+                    IList<double> filterImpulseResponse = filter.ImpulseResponse(normalize);
+
+                    // Ignore any filters that don't have the same filter length
+                    if (filterImpulseResponse.Count == summedImpulseResponse.Count)
+                    {
+                        for (int idx = 0; idx < summedImpulseResponse.Count; idx++)
+                        {
+                            summedImpulseResponse[idx] += filterImpulseResponse[idx];
+                        }
+                    }
+                }
+            }
+
             return (List<double>)summedImpulseResponse;
         }
 

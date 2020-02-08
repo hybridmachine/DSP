@@ -156,6 +156,9 @@
   <data name="CTXT_PLOT_MARKER_TYPE_TRIANGLE" xml:space="preserve">
     <value>Triangle</value>
   </data>
+  <data name="CUSTOM_FILTER" xml:space="preserve">
+    <value>Custom</value>
+  </data>
   <data name="DATABASE_FILES" xml:space="preserve">
     <value>Workbook Files</value>
   </data>
