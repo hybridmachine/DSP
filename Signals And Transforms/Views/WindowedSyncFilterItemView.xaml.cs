@@ -21,9 +21,9 @@ namespace SignalsAndTransforms.Views
     /// <summary>
     /// Interaction logic for FilterItemView.xaml
     /// </summary>
-    public partial class FilterItemView : UserControl
+    public partial class WindowedSyncFilterItemView : UserControl
     {
-        public FilterItemView()
+        public WindowedSyncFilterItemView()
         {
             InitializeComponent();
 

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace SignalsAndTransforms.View_Models
 {
@@ -26,7 +27,7 @@ namespace SignalsAndTransforms.View_Models
             LoadFilterData();
         }
 
-        public ObservableCollection<FilterItemView> Filters { get; private set; }
+        public ObservableCollection<UserControl> Filters { get; private set; }
 
         public IList<DataPoint> ImpulseResponsePoints { get; private set; }
 
@@ -47,6 +48,13 @@ namespace SignalsAndTransforms.View_Models
         {
             WorkBook workBook = manager.ActiveWorkBook();
             workBook.WindowedSyncFilters.Add(newFilter.Name, newFilter);
+            LoadFilterData(); // Property changed event handlers will be connected in this function
+        }
+
+        public void AddFilter(CustomFilter newFilter)
+        {
+            WorkBook workBook = manager.ActiveWorkBook();
+            workBook.CustomFilters.Add(newFilter.Name, newFilter);
             LoadFilterData(); // Property changed event handlers will be connected in this function
         }
 
@@ -73,14 +81,29 @@ namespace SignalsAndTransforms.View_Models
             ImpulseResponsePoints = new List<DataPoint>(summedFilterData.Count);
             StepResponsePoints = new List<DataPoint>(summedFilterData.Count);
 
-            Filters = new ObservableCollection<FilterItemView>();
+            Filters = new ObservableCollection<UserControl>();
 
             for (int idx = 0; idx < summedFilterData.Count; idx++)
             {
                 ImpulseResponsePoints.Add(new DataPoint(idx, summedFilterData[idx]));
             }
             ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
-            FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().WindowedSyncFilters.Values.First().FilterLength);
+            int filterLength = 0;
+
+            if (manager.ActiveWorkBook().WindowedSyncFilters.Count > 0)
+            {
+                filterLength = manager.ActiveWorkBook().WindowedSyncFilters.Values.First().FilterLength;
+            }
+            else if (manager.ActiveWorkBook().CustomFilters.Count > 0)
+            {
+                filterLength = manager.ActiveWorkBook().CustomFilters.Values.First().FilterLength;
+            } 
+            else
+            {
+                return; // Count not find any filters to set length with
+            }
+
+            FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, filterLength);
 
             Convolution convolver = new Convolution();
             List<double> stepResponse = convolver.Convolve(summedFilterData, GetStepData(summedFilterData.Count + 16), ConvolutionType.INPUTSIDE);
@@ -111,7 +134,16 @@ namespace SignalsAndTransforms.View_Models
             foreach (var filter in manager.ActiveWorkBook().WindowedSyncFilters.Values)
             {
                 filter.PropertyChanged -= handleFilterUpdate;
-                FilterItemView viewItem = new FilterItemView();
+                WindowedSyncFilterItemView viewItem = new WindowedSyncFilterItemView();
+                viewItem.DataContext = filter;
+                Filters.Add(viewItem);
+                filter.PropertyChanged += handleFilterUpdate; // Remove/re-add to avoid leaks in event handlers
+            }
+
+            foreach (var filter in manager.ActiveWorkBook().CustomFilters.Values)
+            {
+                filter.PropertyChanged -= handleFilterUpdate;
+                CustomFilterViewItem viewItem = new CustomFilterViewItem();
                 viewItem.DataContext = filter;
                 Filters.Add(viewItem);
                 filter.PropertyChanged += handleFilterUpdate; // Remove/re-add to avoid leaks in event handlers

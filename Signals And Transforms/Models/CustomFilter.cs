@@ -33,6 +33,14 @@ namespace SignalsAndTransforms.Models
             this.FreqDomain = updater.FreqDomain;
         }
 
+        public int FilterLength
+        {
+            get
+            {
+                return (FreqDomain.FourierCoefficients.Count - 1);
+            }
+        }
+
         private bool m_isActive;
         public bool IsActive
         {

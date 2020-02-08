@@ -178,6 +178,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        public static string CUSTOM_FILTER {
+            get {
+                return ResourceManager.GetString("CUSTOM_FILTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Workbook Files.
         /// </summary>
         public static string DATABASE_FILES {
