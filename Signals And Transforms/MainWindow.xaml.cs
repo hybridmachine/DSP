@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using SignalsAndTransforms.Models;
 using Microsoft.Win32;
 using SignalsAndTransforms.Views;
+using Serilog;
 
 namespace SignalsAndTransforms
 {
@@ -34,6 +35,8 @@ namespace SignalsAndTransforms
             FilterView.DataContext = new FilterViewModel();
 
             this.DataContext = new MainWindowViewModel();
+
+            Log.Information("Signals And Transforms startup");
         }
 
         private void TextBox_KeyEnterUpdate(object sender, KeyEventArgs e)

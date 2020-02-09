@@ -36,6 +36,33 @@
             <Component Id="cmp5D3DC3F036CBC6842657E17C8AC2DA6B" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="fil2BBC22AD95647E7749EDC03B702A5747" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\OxyPlot.xml" />
             </Component>
+            <Component Id="cmpFCC282E3156665526C1E5019F668E93E" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil9215D0EA2E6E6E45B31A546887E35207" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.dll" />
+            </Component>
+            <Component Id="cmpE727DDD13FB33AA64DCCE03DE2C2D164" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil17B73A6F0207AA5DF65D4D612D5B1D6E" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.Sinks.Console.dll" />
+            </Component>
+            <Component Id="cmpC34F7724062B1DBDA02E2FEBB3C7ADE3" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filF483C462AFD550B7C15700095E3C4153" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.Sinks.Console.xml" />
+            </Component>
+            <Component Id="cmp61CCB78E91ACB13FD72C36A4982DD652" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filBD061FF8E2C0BC7162F9280B38E0C9AB" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.Sinks.File.dll" />
+            </Component>
+            <Component Id="cmp80F4BC0FD6172EF296F96A2C3BCDA9B1" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil528CACCE7F8A90C37F79E7EFF139BA58" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.Sinks.File.pdb" />
+            </Component>
+            <Component Id="cmp0F6E111C71585CE0C090ED2C92945EEA" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil2609D0540DE1997A923D1FCC7317B1E0" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.Sinks.File.xml" />
+            </Component>
+            <Component Id="cmp1446F6F4AD1BFC4AE68B937CDF15B397" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="fil2431B1A79B52D20D6297ABC1E8EA1978" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.Sinks.RollingFile.dll" />
+            </Component>
+            <Component Id="cmp4792856F11A0EA84280AA2DFE4C6CE7D" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filFAF7EC05482DF236358B238F005613EB" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.Sinks.RollingFile.xml" />
+            </Component>
+            <Component Id="cmp52EFA86AF919F5A563B10DCFE60E0FA8" Directory="INSTALLLOCATION" Guid="*">
+                <File Id="filB2E754F4EA8F90CF77F84FB958C43B1E" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\Serilog.xml" />
+            </Component>
             <Component Id="cmpFB3737E8187E098DAD797CB7EADD64F0" Directory="INSTALLLOCATION" Guid="*">
                 <File Id="fil8967963121C1CE4B91113CD4E248BF30" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\SignalProcessor.dll" />
             </Component>

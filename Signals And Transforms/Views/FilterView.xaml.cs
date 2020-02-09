@@ -22,6 +22,7 @@ using SignalProcessor.Interfaces;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using SignalsAndTransforms.View_Models;
+using Serilog;
 
 namespace SignalsAndTransforms.Views
 {
@@ -62,7 +63,8 @@ namespace SignalsAndTransforms.Views
             }
             catch (Exception ex)
             {
-                // TODO log it and warn the user
+                Log.Warning(ex, ex.Message);
+                // TODO warn the user
             }
         }
 
@@ -132,7 +134,8 @@ namespace SignalsAndTransforms.Views
                     }
                 } catch (Exception ex)
                 {
-                    // TODO log and warn user
+                    Log.Warning(ex, ex.Message);
+                    // TODO warn user
                 }
             }
         }
@@ -171,7 +174,8 @@ namespace SignalsAndTransforms.Views
                 }
                 catch (Exception ex)
                 {
-                    // TODO log and warn user
+                    Log.Warning(ex, ex.Message);   
+                    // TODO warn user
                 }
             }
         }
