@@ -344,6 +344,10 @@
   <ItemGroup>
     <Folder Include="Logging\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\export.png" />
+    <Resource Include="Resources\Images\import.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
