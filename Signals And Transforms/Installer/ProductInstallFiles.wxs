@@ -6,8 +6,6 @@
             <Directory Id="dir23A3189054C3F25860189BFFABAD824E" Name="Properties" />
             <Directory Id="dir4DC39E28E88A7F1F26918FEF6A2132A1" Name="Resources" />
             <Directory Id="dir0355D6E983C7D0CDACC2DE3CAAF0B5AD" Name="runtimes" />
-            <Directory Id="dir7C2C83F6CC8AC47D9022A8AD6554F0C1" Name="x64" />
-            <Directory Id="dirE62C75B0DFC66B1F221D6A7BDE116F3B" Name="x86" />
         </DirectoryRef>
     </Fragment>
     <Fragment>
@@ -140,12 +138,6 @@
             </Component>
             <Component Id="cmp257FF9716BCDA16E658231F2D40AC80E" Directory="dir6348BB43D425318EF3764BDFE09686C9" Guid="*">
                 <File Id="fil5763F1AD62D4B06C7578E204DA1E15A1" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\runtimes\win-x86\native\e_sqlite3.dll" />
-            </Component>
-            <Component Id="cmp2CC53C18C5BE3BACEE486B4630FB01F0" Directory="dir7C2C83F6CC8AC47D9022A8AD6554F0C1" Guid="*">
-                <File Id="fil51445029E4EDF9C9E5349EDA9AB08211" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\x64\SQLite.Interop.dll" />
-            </Component>
-            <Component Id="cmpEAC9E519DF3BB5A407CDD85A4B128AF0" Directory="dirE62C75B0DFC66B1F221D6A7BDE116F3B" Guid="*">
-                <File Id="filC47E4271B865893B6BEA412E9318E80D" KeyPath="yes" Source="$(var.SignalsAndTransforms.TargetDir)\x86\SQLite.Interop.dll" />
             </Component>
         </ComponentGroup>
     </Fragment>
