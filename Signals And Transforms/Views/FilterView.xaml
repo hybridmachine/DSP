@@ -124,8 +124,12 @@
                                     MarkerType="None"/>
             </oxy:Plot>
             <StackPanel x:Name="ButtonLayout" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                <Button x:Name="ImportButton" Width="Auto" Margin="0,0,10,10" Padding="5" Content="{x:Static res:Resources.BTN_IMPORT_FILTER}" Click="ImportButton_Click"/>
-                <Button x:Name="ExportButton" Width="Auto" Margin="0,0,10,10" Padding="5" Content="{x:Static res:Resources.BTN_EXPORT_FILTER}" Click="ExportButton_Click"/>
+                <Button x:Name="ExportButton" Width="32" Height="45" Background="Transparent" BorderBrush="Transparent" Margin="0,0,10,10" Padding="1" Click="ExportButton_Click">
+                    <Image Source="/SignalsAndTransforms;component/Resources/Images/export.png" Stretch="Uniform"/>
+                </Button>
+                <Button x:Name="ImportButton" Width="32" Height="45" Background="Transparent" BorderBrush="Transparent" Margin="0,0,10,10" Padding="1" Click="ImportButton_Click">
+                    <Image Source="/SignalsAndTransforms;component/Resources/Images/import.png" Stretch="Uniform"/>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

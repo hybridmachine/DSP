@@ -180,6 +180,15 @@
   <data name="DATABASE_FILES" xml:space="preserve">
     <value>Workbook Files</value>
   </data>
+  <data name="FATAL_ERROR_MESSAGE" xml:space="preserve">
+    <value>An internal error has occured.
+'Signals and Transforms' must shut down.
+
+Error: </value>
+  </data>
+  <data name="FATAL_ERROR_MESSAGE_TITLE" xml:space="preserve">
+    <value>Internal Error</value>
+  </data>
   <data name="FILTER_CSV_HEADER" xml:space="preserve">
     <value>Magnitude,Phase (rad)</value>
   </data>

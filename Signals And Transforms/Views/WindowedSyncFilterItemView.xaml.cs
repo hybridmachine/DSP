@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SignalProcessor.Filters;
 using SignalProcessor.Interfaces;
+using Serilog;
 
 namespace SignalsAndTransforms.Views
 {
@@ -43,7 +44,7 @@ namespace SignalsAndTransforms.Views
             }
             catch (Exception ex)
             {
-                // TODO log
+                Log.Warning(ex, ex.Message);
                 return 0;
             }
         }
@@ -57,7 +58,7 @@ namespace SignalsAndTransforms.Views
             }
             catch (Exception ex)
             {
-                // TODO log
+                Log.Warning(ex, ex.Message);
                 return FILTERTYPE.LOWPASS;
             }
         }

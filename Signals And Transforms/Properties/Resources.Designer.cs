@@ -250,6 +250,27 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An internal error has occured.
+        ///&apos;Signals and Transforms&apos; must shut down.
+        ///
+        ///Error: .
+        /// </summary>
+        public static string FATAL_ERROR_MESSAGE {
+            get {
+                return ResourceManager.GetString("FATAL_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal Error.
+        /// </summary>
+        public static string FATAL_ERROR_MESSAGE_TITLE {
+            get {
+                return ResourceManager.GetString("FATAL_ERROR_MESSAGE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Magnitude,Phase (rad).
         /// </summary>
         public static string FILTER_CSV_HEADER {
