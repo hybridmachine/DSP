@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Signals And Transforms" Language="1033" Version="0.1.6.0" Manufacturer="Brian Tabone" UpgradeCode="F5905D66-299A-4F8F-ACCB-161D63F03C66">
+	<Product Id="*" Name="Signals And Transforms" Language="1033" Version="!(bind.fileVersion.fil41798E866BC736CEC72FD22DC3251767)" Manufacturer="Brian Tabone" UpgradeCode="F5905D66-299A-4F8F-ACCB-161D63F03C66">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
