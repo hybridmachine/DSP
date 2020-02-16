@@ -79,10 +79,15 @@ namespace SignalsAndTransforms.View_Models
         public void PlotSignals()
         {
             PlotPoints = new List<DataPoint>(512);
-            
+            FrequencyViewModel = null;
+
             Signal workbookSourceSignal = workBookManager.ActiveWorkBook().SumOfSources();
+            
+            // Return empty set, this clears the display when all signals are off
             if (workbookSourceSignal == null)
             {
+                NotifyPropertyChanged(nameof(PlotPoints));
+                NotifyPropertyChanged(nameof(FrequencyViewModel));
                 return;
             }
 
