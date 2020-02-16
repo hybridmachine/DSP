@@ -73,8 +73,19 @@ namespace SignalsAndTransforms.View_Models
         private void LoadFilterData()
         {
             List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
+
+            // Return an empty set
             if (summedFilterData == null || summedFilterData.Count == 0)
             {
+                ImpulseResponsePoints = new List<DataPoint>();
+                StepResponsePoints = new List<DataPoint>();
+                FrequencyResponsePoints = new List<DataPoint>();
+                DecibelResponsePoints = new List<DataPoint>();
+
+                NotifyPropertyChanged(nameof(ImpulseResponsePoints));
+                NotifyPropertyChanged(nameof(FrequencyResponsePoints));
+                NotifyPropertyChanged(nameof(DecibelResponsePoints));
+                NotifyPropertyChanged(nameof(StepResponsePoints));
                 return;
             }
 
