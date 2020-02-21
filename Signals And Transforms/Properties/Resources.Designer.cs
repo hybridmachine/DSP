@@ -250,6 +250,15 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Path Not Set.
+        /// </summary>
+        public static string ERROR_WORKBOOK_FILEPATHNOTSET {
+            get {
+                return ResourceManager.GetString("ERROR_WORKBOOK_FILEPATHNOTSET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An internal error has occured.
         ///&apos;Signals and Transforms&apos; must shut down.
         ///
@@ -411,6 +420,24 @@ namespace SignalsAndTransforms.Properties {
         public static string PLOT_FREQUENCY_HISTOGRAM_TITLE {
             get {
                 return ResourceManager.GetString("PLOT_FREQUENCY_HISTOGRAM_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convolve.
+        /// </summary>
+        public static string RADIO_CONVOLVE_MODE {
+            get {
+                return ResourceManager.GetString("RADIO_CONVOLVE_MODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sum.
+        /// </summary>
+        public static string RADIO_SUM_MODE {
+            get {
+                return ResourceManager.GetString("RADIO_SUM_MODE", resourceCulture);
             }
         }
         

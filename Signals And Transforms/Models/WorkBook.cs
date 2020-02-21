@@ -14,58 +14,48 @@ namespace SignalsAndTransforms.Models
     // to save/load from disk. WorkBooks are managed by the WorkBookManager
     public class WorkBook : INotifyPropertyChanged
     {
-        private Dictionary<string, Signal> m_signals;
-        private Dictionary<string, WindowedSyncFilter> m_windowedSyncFilters;
-        private Dictionary<string, CustomFilter> m_customFilters;
-
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
-            m_signals = new Dictionary<string, Signal>();
-            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
-            m_customFilters = new Dictionary<string, CustomFilter>();
+            Signals = new Dictionary<string, Signal>();
+            WindowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
+            CustomFilters = new Dictionary<string, CustomFilter>();
+            Settings = new Dictionary<string, string>();
         }
 
         public WorkBook(String name)
         {
             Name = name;
-            m_signals = new Dictionary<string, Signal>();
-            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
+            Signals = new Dictionary<string, Signal>();
+            WindowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }
         public String FilePath { get; set; }
         public String Notes { get; set; }
 
-        public Dictionary<string, Signal> Signals
-        {
-            get { return m_signals; }
-        }
+        public Dictionary<string, Signal> Signals { get; }
 
-        public Dictionary<string, WindowedSyncFilter> WindowedSyncFilters
-        {
-            get { return m_windowedSyncFilters; }
-        }
+        public Dictionary<string, WindowedSyncFilter> WindowedSyncFilters { get; }
 
-        public Dictionary<string, CustomFilter> CustomFilters
-        {
-            get { return m_customFilters; }
-        }
+        public Dictionary<string, CustomFilter> CustomFilters { get; }
+
+        public Dictionary<string, string> Settings { get; }
 
         public Signal ConvolutionKernel {
             get
             {
                 Signal signal = null;
-                if (m_signals.ContainsKey("ConvolutionKernel"))
+                if (Signals.ContainsKey("ConvolutionKernel"))
                 {
-                    signal = m_signals["ConvolutionKernel"];
+                    signal = Signals["ConvolutionKernel"];
                 }
                 return signal;
             }
 
             set
             {
-                m_signals["ConvolutionKernel"] = value;
+                Signals["ConvolutionKernel"] = value;
             }
         }
 

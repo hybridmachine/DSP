@@ -180,6 +180,9 @@
   <data name="DATABASE_FILES" xml:space="preserve">
     <value>Workbook Files</value>
   </data>
+  <data name="ERROR_WORKBOOK_FILEPATHNOTSET" xml:space="preserve">
+    <value>File Path Not Set</value>
+  </data>
   <data name="FATAL_ERROR_MESSAGE" xml:space="preserve">
     <value>An internal error has occured.
 'Signals and Transforms' must shut down.
@@ -236,6 +239,12 @@ Error: </value>
   </data>
   <data name="PLOT_FREQUENCY_HISTOGRAM_TITLE" xml:space="preserve">
     <value>Frequency Amplitudes</value>
+  </data>
+  <data name="RADIO_CONVOLVE_MODE" xml:space="preserve">
+    <value>Convolve</value>
+  </data>
+  <data name="RADIO_SUM_MODE" xml:space="preserve">
+    <value>Sum</value>
   </data>
   <data name="RESULT_PLOT_TITLE" xml:space="preserve">
     <value>Result</value>

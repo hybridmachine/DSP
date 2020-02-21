@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.Sqlite;
+using Serilog;
 using SignalProcessor.Filters;
 using SignalsAndTransforms.Models;
 using System;
@@ -27,7 +28,7 @@ namespace SignalsAndTransforms.DAL
     
     public static class WorkBookDAL
     {
-        public const string SchemaVersion = "1.2";
+        public const string SchemaVersion = "1.3";
 
         /// <summary>
         /// Create the Workbook file, note this will delete any previously existing file if it exists
@@ -84,6 +85,46 @@ namespace SignalsAndTransforms.DAL
                
             }
             
+            return true;
+        }
+
+        public static bool WriteSettingValue(WorkBook workBook, string key, string value)
+        {
+            if (workBook.FilePath == null)
+            {
+                throw new Exception(Properties.Resources.ERROR_WORKBOOK_FILEPATHNOTSET);
+            }
+
+            SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
+
+            connectionString.DataSource = workBook.FilePath;
+
+            using (SqliteConnection sqlLiteConnection = new SqliteConnection(connectionString.ConnectionString))
+            {
+                sqlLiteConnection.Open();
+
+                string sql = $@"DELETE FROM Settings WHERE Key=@Key AND WorkBookId=@WorkBookId; INSERT INTO Settings ('WorkBookId', 'Key', 'Value') VALUES(@WorkBookId, @Key,@Value);";
+
+                using (var transaction = sqlLiteConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        SqliteCommand cmd = sqlLiteConnection.CreateCommand();
+                        cmd.CommandText = sql;
+
+                        cmd.Parameters.AddWithValue("@WorkBookId", workBook.Id);
+                        cmd.Parameters.AddWithValue("@Key", key);
+                        cmd.Parameters.AddWithValue("@Value", value);
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, ex.Message);
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
             return true;
         }
 

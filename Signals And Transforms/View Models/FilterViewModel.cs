@@ -24,6 +24,9 @@ namespace SignalsAndTransforms.View_Models
         {
             manager = WorkBookManager.Manager();
             manager.PropertyChanged += ActiveWorkBookChangedHandler;
+            SumModeActive = true;
+            ConvolveModeActive = !SumModeActive;
+
             LoadFilterData();
         }
 
@@ -69,6 +72,16 @@ namespace SignalsAndTransforms.View_Models
             }
             return stepData;
         }
+
+        /// <summary>
+        /// Sum the filters
+        /// </summary>
+        public bool SumModeActive { get; set; }
+
+        /// <summary>
+        /// Convolve the filters
+        /// </summary>
+        public bool ConvolveModeActive { get; set; }
 
         private void LoadFilterData()
         {

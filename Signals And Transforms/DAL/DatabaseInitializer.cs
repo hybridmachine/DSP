@@ -19,6 +19,7 @@ namespace SignalsAndTransforms.DAL
             try
             {
                 InitializeWorkBookTable(con);
+                InitializeSettingsTable(con);
                 InitializeSignalsTable(con);
                 InitializeSignaTypesTable(con);
                 InitializeSignalValuesTable(con);
@@ -32,6 +33,7 @@ namespace SignalsAndTransforms.DAL
                 throw;
             }
         }
+
 
         /// <summary>
         /// Create the WorkBook table in the database
@@ -50,6 +52,32 @@ namespace SignalsAndTransforms.DAL
 	                'SourceSignalId'  INTEGER,
                     'OutputSignalId'  INTEGER,
 	                'ConvolutionKernelId' INTEGER
+                )";
+
+            SqliteCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql;
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+
+        /// <summary>
+        /// Initialize the workbook wide settings table
+        /// </summary>
+        /// <param name="con"></param>
+        /// <returns></returns>
+        private static bool InitializeSettingsTable(SqliteConnection con)
+        {
+            string sql = $@"
+                CREATE TABLE 'Settings' (
+                    'Id'    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    'WorkBookId' INTEGER,
+                    'Key'  TEXT,
+                    'Value' TEXT,
+	                'Description' TEXT,
+                    CONSTRAINT fk_settings_to_workbook
+                        FOREIGN KEY (WorkBookId)
+                        REFERENCES Workbook (Id)
+                        ON DELETE CASCADE
                 )";
 
             SqliteCommand cmd = con.CreateCommand();
