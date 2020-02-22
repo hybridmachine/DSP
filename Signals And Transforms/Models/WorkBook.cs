@@ -23,11 +23,9 @@ namespace SignalsAndTransforms.Models
             Settings = new Dictionary<string, string>();
         }
 
-        public WorkBook(String name)
+        public WorkBook(String name) : this()
         {
             Name = name;
-            Signals = new Dictionary<string, Signal>();
-            WindowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }

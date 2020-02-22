@@ -19,6 +19,12 @@ namespace SignalsAndTransforms.DAL
         public double Phase;
     }
 
+    class Setting
+    {
+        public string Key;
+        public string Value;
+    }
+
     public class SignalValue
     {
         public long Id { get; set; }
@@ -88,46 +94,6 @@ namespace SignalsAndTransforms.DAL
             return true;
         }
 
-        public static bool WriteSettingValue(WorkBook workBook, string key, string value)
-        {
-            if (workBook.FilePath == null)
-            {
-                throw new Exception(Properties.Resources.ERROR_WORKBOOK_FILEPATHNOTSET);
-            }
-
-            SqliteConnectionStringBuilder connectionString = new SqliteConnectionStringBuilder();
-
-            connectionString.DataSource = workBook.FilePath;
-
-            using (SqliteConnection sqlLiteConnection = new SqliteConnection(connectionString.ConnectionString))
-            {
-                sqlLiteConnection.Open();
-
-                string sql = $@"DELETE FROM Settings WHERE Key=@Key AND WorkBookId=@WorkBookId; INSERT INTO Settings ('WorkBookId', 'Key', 'Value') VALUES(@WorkBookId, @Key,@Value);";
-
-                using (var transaction = sqlLiteConnection.BeginTransaction())
-                {
-                    try
-                    {
-                        SqliteCommand cmd = sqlLiteConnection.CreateCommand();
-                        cmd.CommandText = sql;
-
-                        cmd.Parameters.AddWithValue("@WorkBookId", workBook.Id);
-                        cmd.Parameters.AddWithValue("@Key", key);
-                        cmd.Parameters.AddWithValue("@Value", value);
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, ex.Message);
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-            return true;
-        }
-
         /// <summary>
         /// Persist properties to database
         /// </summary>
@@ -180,6 +146,11 @@ namespace SignalsAndTransforms.DAL
                             FilterDAL.Create(workBook, filter, sqlLiteConnection);
                         }
 
+                        foreach(string key in workBook.Settings.Keys)
+                        {
+                            SettingDAL.Create(workBook, key, workBook.Settings[key], sqlLiteConnection);
+                        }
+
                         transaction.Commit();
                     } catch (Exception ex)
                     {
@@ -208,7 +179,8 @@ namespace SignalsAndTransforms.DAL
                 var signals = connection.Query<Signal>($"SELECT * from Signals WHERE WorkBookId = '{newWorkBook.Id}'");
                 var windowedSyncFilters = connection.Query<Models.WindowedSyncFilter>($"SELECT * from Filters INNER JOIN WindowedSyncFilterParameters ON FilterId = Filters.Id WHERE WorkBookId = '{newWorkBook.Id}' AND FilterType in ('LOWPASS', 'HIGHPASS')");
                 var customFilters = connection.Query<Models.CustomFilter>($"SELECT * from Filters WHERE WorkBookId = '{newWorkBook.Id}' AND FilterType = 'CUSTOM'");
-  
+                var settings = connection.Query<Setting>($"SELECT Key, Value from Settings WHERE WorkBookId = '{newWorkBook.Id}'");
+
                 foreach (Signal signal in signals)
                 {
                     var signalValues = connection.Query<SignalValue>($"SELECT * from SignalValues WHERE SignalId = {signal.Id} ORDER BY Id ASC");
@@ -244,6 +216,11 @@ namespace SignalsAndTransforms.DAL
                 foreach (Models.CustomFilter filter in customFilters)
                 {
                     newWorkBook.CustomFilters.Add(filter.Name, filter);
+                }
+
+                foreach (Setting setting in settings)
+                {
+                    newWorkBook.Settings.Add(setting.Key, setting.Value);
                 }
             }
 
