@@ -165,7 +165,7 @@ namespace SignalsAndTransforms.Views
                         WorkBookManager manager = WorkBookManager.Manager();
 
                         SignalsAndTransforms.Models.CustomFilter customFilter = new SignalsAndTransforms.Models.CustomFilter(magPhaseList);
-                        customFilter.Name = "Test";
+                        customFilter.Name = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
                         customFilter.IsActive = true;
 
                         FilterViewModel context = DataContext as FilterViewModel;
