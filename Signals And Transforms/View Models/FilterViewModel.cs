@@ -20,8 +20,6 @@ namespace SignalsAndTransforms.View_Models
     {
         private WorkBookManager manager;
 
-        private const string FILTERCOMBINEMODE = "FilterCombineMode";
-
         public FilterViewModel()
         {
             manager = WorkBookManager.Manager();
@@ -81,31 +79,11 @@ namespace SignalsAndTransforms.View_Models
         public bool SumModeActive { 
             get
             {
-                Dictionary<string, string> settings = WorkBookManager.Manager().ActiveWorkBook().Settings;
-                if (settings.ContainsKey(FILTERCOMBINEMODE))
-                {
-                    if (settings[FILTERCOMBINEMODE].Trim().ToUpperInvariant() == nameof(SumModeActive).ToUpperInvariant())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return true;
-                }
+                return WorkBookManager.Manager().ActiveWorkBook().SumModeActive;
             }
             set
             {
-                Dictionary<string, string> settings = WorkBookManager.Manager().ActiveWorkBook().Settings;
-                if (value == true)
-                {
-                    settings[FILTERCOMBINEMODE] = nameof(SumModeActive).ToUpperInvariant();
-                }
-                // If false, we assume that the radio button true value for ConvolveModeActive will set the setting
+                WorkBookManager.Manager().ActiveWorkBook().SumModeActive = value;
             }
         }
 
@@ -115,37 +93,17 @@ namespace SignalsAndTransforms.View_Models
         public bool ConvolveModeActive {
             get
             {
-                Dictionary<string, string> settings = WorkBookManager.Manager().ActiveWorkBook().Settings;
-                if (settings.ContainsKey(FILTERCOMBINEMODE))
-                {
-                    if (settings[FILTERCOMBINEMODE].Trim().ToUpperInvariant() == nameof(ConvolveModeActive).ToUpperInvariant())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                return WorkBookManager.Manager().ActiveWorkBook().ConvolveModeActive;
             }
             set
             {
-                Dictionary<string, string> settings = WorkBookManager.Manager().ActiveWorkBook().Settings;
-                if (value == true)
-                {
-                    settings[FILTERCOMBINEMODE] = nameof(ConvolveModeActive).ToUpperInvariant();
-                }
-                // If false, we assume that the radio button true value for SumModeActive will set the setting
+                WorkBookManager.Manager().ActiveWorkBook().ConvolveModeActive = value;
             }
         }
 
         private void LoadFilterData()
         {
-            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
+            List<double> summedFilterData = manager.ActiveWorkBook().CombinedFilterImpulseResponse(true);
 
             // Return an empty set
             if (summedFilterData == null || summedFilterData.Count == 0)

@@ -121,7 +121,7 @@ namespace SignalsAndTransforms.Views
                     using (StreamWriter fileWriter = File.CreateText(saveFileDialog.FileName))
                     {
                         fileWriter.WriteLine(Properties.Resources.FILTER_CSV_HEADER);
-                        List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
+                        List<double> summedFilterData = manager.ActiveWorkBook().CombinedFilterImpulseResponse(true);
                         ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
                         FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().WindowedSyncFilters.Values.First().FilterLength);
 

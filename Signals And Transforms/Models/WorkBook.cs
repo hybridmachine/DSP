@@ -14,6 +14,8 @@ namespace SignalsAndTransforms.Models
     // to save/load from disk. WorkBooks are managed by the WorkBookManager
     public class WorkBook : INotifyPropertyChanged
     {
+        private const string FILTERCOMBINEMODE = "FilterCombineMode";
+
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
@@ -57,11 +59,23 @@ namespace SignalsAndTransforms.Models
             }
         }
 
+        public List<double> CombinedFilterImpulseResponse(bool normalize = true)
+        {
+            if (true == SumModeActive)
+            {
+                return SummedFilterImpulseResponse(normalize);
+            }
+            else
+            {
+                return ConvolvedFilterImpulseResponse(normalize);
+            }
+        }
+
         /// <summary>
         /// Band pass
         /// </summary>
         /// <returns></returns>
-        public List<double> ConvolvedFilterImpulseResponse()
+        public List<double> ConvolvedFilterImpulseResponse(bool normalize = true)
         {
             throw new NotImplementedException();
         }
@@ -183,5 +197,72 @@ namespace SignalsAndTransforms.Models
             }
             return success;
         }
+        #region settings
+        /// <summary>
+        /// Sum the filters
+        /// </summary>
+        public bool SumModeActive
+        {
+            get
+            {
+                if (Settings.ContainsKey(FILTERCOMBINEMODE))
+                {
+                    if (Settings[FILTERCOMBINEMODE].Trim().ToUpperInvariant() == nameof(SumModeActive).ToUpperInvariant())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            set
+            {
+                if (value == true)
+                {
+                    Settings[FILTERCOMBINEMODE] = nameof(SumModeActive).ToUpperInvariant();
+                }
+                // If false, we assume that the radio button true value for ConvolveModeActive will set the setting
+            }
+        }
+
+        /// <summary>
+        /// Convolve the filters
+        /// </summary>
+        public bool ConvolveModeActive
+        {
+            get
+            {
+                if (Settings.ContainsKey(FILTERCOMBINEMODE))
+                {
+                    if (Settings[FILTERCOMBINEMODE].Trim().ToUpperInvariant() == nameof(ConvolveModeActive).ToUpperInvariant())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (value == true)
+                {
+                    Settings[FILTERCOMBINEMODE] = nameof(ConvolveModeActive).ToUpperInvariant();
+                }
+                // If false, we assume that the radio button true value for SumModeActive will set the setting
+            }
+        }
+        #endregion
     }
 }
