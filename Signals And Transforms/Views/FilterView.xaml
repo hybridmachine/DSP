@@ -58,7 +58,7 @@
                         Margin="5,5,5,5"/>
             </Grid>
             <Grid x:Name="WorkbookFiltersGrid">
-                <ListBox x:Name="WorkbookFilters" ItemsSource="{Binding Filters}"/>
+                <ListBox x:Name="WorkbookFilters" ItemsSource="{Binding Filters}" KeyUp="WorkbookFilters_KeyUp"/>
             </Grid>
         </StackPanel>
         <Grid x:Name="FilterInfoLayout" Grid.Column="1">

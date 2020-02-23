@@ -170,6 +170,7 @@
     <Compile Include="DAL\SettingDAL.cs" />
     <Compile Include="DAL\SignalDAL.cs" />
     <Compile Include="DAL\WorkBookDAL.cs" />
+    <Compile Include="Interfaces\IFilterIdentifier.cs" />
     <Compile Include="Managers\WorkBookManager.cs" />
     <Compile Include="Models\CustomFilter.cs" />
     <Compile Include="Models\WindowedSyncFilter.cs" />

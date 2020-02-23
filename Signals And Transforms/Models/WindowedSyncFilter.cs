@@ -1,5 +1,6 @@
 ﻿using SignalProcessor.Filters;
 using SignalProcessor.Interfaces;
+using SignalsAndTransforms.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ namespace SignalsAndTransforms.Models
     /// <summary>
     /// Simple subclass of WindowedSyncFilter, just adds the IsActive flag used by the UI in workbooks
     /// </summary>
-    public class WindowedSyncFilter : SignalProcessor.Filters.WindowedSyncFilter, INotifyPropertyChanged
+    public class WindowedSyncFilter : SignalProcessor.Filters.WindowedSyncFilter, INotifyPropertyChanged, IFilterIdentifier
     {
         public long Id { get; set; }
 

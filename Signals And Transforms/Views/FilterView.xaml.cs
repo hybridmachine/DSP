@@ -23,6 +23,7 @@ using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using SignalsAndTransforms.View_Models;
 using Serilog;
+using SignalsAndTransforms.Interfaces;
 
 namespace SignalsAndTransforms.Views
 {
@@ -177,6 +178,34 @@ namespace SignalsAndTransforms.Views
                     Log.Warning(ex, ex.Message);   
                     // TODO warn user
                 }
+            }
+        }
+
+        private void WorkbookFilters_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                FilterViewModel viewModel = DataContext as FilterViewModel;
+
+                if (viewModel == null)
+                {
+                    return;
+                }
+
+                var selectedItems = WorkbookFilters.SelectedItems;
+
+                List<IFilterIdentifier> deleteItems = new List<IFilterIdentifier>();
+                foreach (UserControl item in selectedItems)
+                {
+                    IFilterIdentifier filterId = item.DataContext as IFilterIdentifier;
+
+                    if (filterId != null)
+                    {
+                        deleteItems.Add(filterId);
+                    }
+                }
+
+                viewModel.DeleteFilters(deleteItems);
             }
         }
     }

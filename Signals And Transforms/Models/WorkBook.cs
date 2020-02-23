@@ -7,6 +7,7 @@ using System.IO;
 using System.ComponentModel;
 using SignalProcessor;
 using System.Numerics;
+using SignalsAndTransforms.Interfaces;
 
 namespace SignalsAndTransforms.Models
 {
@@ -68,6 +69,22 @@ namespace SignalsAndTransforms.Models
             else
             {
                 return ConvolvedFilterImpulseResponse(normalize);
+            }
+        }
+
+        /// <summary>
+        /// Remove the specified filter
+        /// </summary>
+        /// <param name="deleteMe"></param>
+        public void DeleteFilter(IFilterIdentifier deleteMe)
+        {
+            if (deleteMe is CustomFilter)
+            {
+                CustomFilters.Remove(deleteMe.Name);
+            }
+            else if (deleteMe is WindowedSyncFilter)
+            {
+                WindowedSyncFilters.Remove(deleteMe.Name);
             }
         }
 
