@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignalProcessor.Filters;
+using SignalsAndTransforms.Interfaces;
 
 namespace SignalsAndTransforms.Models
 {
     /// <summary>
     /// UI model for filter, the SignalProcessor filter types are delegates that do the actual work
     /// </summary>
-    public class CustomFilter : SignalProcessor.Filters.CustomFilter, INotifyPropertyChanged
+    public class CustomFilter : SignalProcessor.Filters.CustomFilter, INotifyPropertyChanged, IFilterIdentifier
     {
         public long Id { get; set; }
 

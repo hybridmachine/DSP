@@ -43,7 +43,7 @@ namespace SignalsAndTransforms.View_Models
 
         public void PlotData()
         {
-            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse();
+            List<double> summedFilterData = manager.ActiveWorkBook().CombinedFilterImpulseResponse();
 
             if (null == summedFilterData)
                 return;

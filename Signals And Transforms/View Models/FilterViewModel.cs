@@ -1,6 +1,7 @@
 ﻿using DSP;
 using OxyPlot;
 using SignalProcessor;
+using SignalsAndTransforms.Interfaces;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using SignalsAndTransforms.Views;
@@ -24,6 +25,9 @@ namespace SignalsAndTransforms.View_Models
         {
             manager = WorkBookManager.Manager();
             manager.PropertyChanged += ActiveWorkBookChangedHandler;
+            SumModeActive = true;
+            ConvolveModeActive = !SumModeActive;
+
             LoadFilterData();
         }
 
@@ -70,9 +74,51 @@ namespace SignalsAndTransforms.View_Models
             return stepData;
         }
 
+        /// <summary>
+        /// Sum the filters
+        /// </summary>
+        public bool SumModeActive { 
+            get
+            {
+                return WorkBookManager.Manager().ActiveWorkBook().SumModeActive;
+            }
+            set
+            {
+                WorkBookManager.Manager().ActiveWorkBook().SumModeActive = value;
+            }
+        }
+
+        /// <summary>
+        /// Convolve the filters
+        /// </summary>
+        public bool ConvolveModeActive {
+            get
+            {
+                return WorkBookManager.Manager().ActiveWorkBook().ConvolveModeActive;
+            }
+            set
+            {
+                WorkBookManager.Manager().ActiveWorkBook().ConvolveModeActive = value;
+            }
+        }
+
+        /// <summary>
+        /// Delete the specified filters from the workbook then reload filter data (refreshing the display)
+        /// </summary>
+        /// <param name="deleteItems">List of filters to delete</param>
+        public void DeleteFilters(List<IFilterIdentifier> deleteItems)
+        {
+            foreach (IFilterIdentifier deleteMe in deleteItems)
+            {
+                WorkBookManager.Manager().ActiveWorkBook().DeleteFilter(deleteMe);
+            }
+
+            LoadFilterData();
+        }
+
         private void LoadFilterData()
         {
-            List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
+            List<double> summedFilterData = manager.ActiveWorkBook().CombinedFilterImpulseResponse(true);
 
             // Return an empty set
             if (summedFilterData == null || summedFilterData.Count == 0)
@@ -81,11 +127,16 @@ namespace SignalsAndTransforms.View_Models
                 StepResponsePoints = new List<DataPoint>();
                 FrequencyResponsePoints = new List<DataPoint>();
                 DecibelResponsePoints = new List<DataPoint>();
+                Filters = new ObservableCollection<UserControl>();
 
                 NotifyPropertyChanged(nameof(ImpulseResponsePoints));
                 NotifyPropertyChanged(nameof(FrequencyResponsePoints));
                 NotifyPropertyChanged(nameof(DecibelResponsePoints));
                 NotifyPropertyChanged(nameof(StepResponsePoints));
+                NotifyPropertyChanged(nameof(SumModeActive));
+                NotifyPropertyChanged(nameof(ConvolveModeActive));
+                NotifyPropertyChanged(nameof(Filters));
+
                 return;
             }
 

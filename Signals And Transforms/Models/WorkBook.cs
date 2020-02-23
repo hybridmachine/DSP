@@ -7,6 +7,7 @@ using System.IO;
 using System.ComponentModel;
 using SignalProcessor;
 using System.Numerics;
+using SignalsAndTransforms.Interfaces;
 
 namespace SignalsAndTransforms.Models
 {
@@ -14,58 +15,76 @@ namespace SignalsAndTransforms.Models
     // to save/load from disk. WorkBooks are managed by the WorkBookManager
     public class WorkBook : INotifyPropertyChanged
     {
-        private Dictionary<string, Signal> m_signals;
-        private Dictionary<string, WindowedSyncFilter> m_windowedSyncFilters;
-        private Dictionary<string, CustomFilter> m_customFilters;
+        private const string FILTERCOMBINEMODE = "FilterCombineMode";
 
         public WorkBook()
         {
             // Default constructor used by Dapper, which loads the name property by mapping.
-            m_signals = new Dictionary<string, Signal>();
-            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
-            m_customFilters = new Dictionary<string, CustomFilter>();
+            Signals = new Dictionary<string, Signal>();
+            WindowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
+            CustomFilters = new Dictionary<string, CustomFilter>();
+            Settings = new Dictionary<string, string>();
         }
 
-        public WorkBook(String name)
+        public WorkBook(String name) : this()
         {
             Name = name;
-            m_signals = new Dictionary<string, Signal>();
-            m_windowedSyncFilters = new Dictionary<string, WindowedSyncFilter>();
         }
         public long Id { get; set; }
         public String Name { get; set; }
         public String FilePath { get; set; }
         public String Notes { get; set; }
 
-        public Dictionary<string, Signal> Signals
-        {
-            get { return m_signals; }
-        }
+        public Dictionary<string, Signal> Signals { get; }
 
-        public Dictionary<string, WindowedSyncFilter> WindowedSyncFilters
-        {
-            get { return m_windowedSyncFilters; }
-        }
+        public Dictionary<string, WindowedSyncFilter> WindowedSyncFilters { get; }
 
-        public Dictionary<string, CustomFilter> CustomFilters
-        {
-            get { return m_customFilters; }
-        }
+        public Dictionary<string, CustomFilter> CustomFilters { get; }
+
+        public Dictionary<string, string> Settings { get; }
 
         public Signal ConvolutionKernel {
             get
             {
                 Signal signal = null;
-                if (m_signals.ContainsKey("ConvolutionKernel"))
+                if (Signals.ContainsKey("ConvolutionKernel"))
                 {
-                    signal = m_signals["ConvolutionKernel"];
+                    signal = Signals["ConvolutionKernel"];
                 }
                 return signal;
             }
 
             set
             {
-                m_signals["ConvolutionKernel"] = value;
+                Signals["ConvolutionKernel"] = value;
+            }
+        }
+
+        public List<double> CombinedFilterImpulseResponse(bool normalize = true)
+        {
+            if (true == SumModeActive)
+            {
+                return SummedFilterImpulseResponse(normalize);
+            }
+            else
+            {
+                return ConvolvedFilterImpulseResponse(normalize);
+            }
+        }
+
+        /// <summary>
+        /// Remove the specified filter
+        /// </summary>
+        /// <param name="deleteMe"></param>
+        public void DeleteFilter(IFilterIdentifier deleteMe)
+        {
+            if (deleteMe is CustomFilter)
+            {
+                CustomFilters.Remove(deleteMe.Name);
+            }
+            else if (deleteMe is WindowedSyncFilter)
+            {
+                WindowedSyncFilters.Remove(deleteMe.Name);
             }
         }
 
@@ -73,7 +92,7 @@ namespace SignalsAndTransforms.Models
         /// Band pass
         /// </summary>
         /// <returns></returns>
-        public List<double> ConvolvedFilterImpulseResponse()
+        public List<double> ConvolvedFilterImpulseResponse(bool normalize = true)
         {
             throw new NotImplementedException();
         }
@@ -195,5 +214,72 @@ namespace SignalsAndTransforms.Models
             }
             return success;
         }
+        #region settings
+        /// <summary>
+        /// Sum the filters
+        /// </summary>
+        public bool SumModeActive
+        {
+            get
+            {
+                if (Settings.ContainsKey(FILTERCOMBINEMODE))
+                {
+                    if (Settings[FILTERCOMBINEMODE].Trim().ToUpperInvariant() == nameof(SumModeActive).ToUpperInvariant())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            set
+            {
+                if (value == true)
+                {
+                    Settings[FILTERCOMBINEMODE] = nameof(SumModeActive).ToUpperInvariant();
+                }
+                // If false, we assume that the radio button true value for ConvolveModeActive will set the setting
+            }
+        }
+
+        /// <summary>
+        /// Convolve the filters
+        /// </summary>
+        public bool ConvolveModeActive
+        {
+            get
+            {
+                if (Settings.ContainsKey(FILTERCOMBINEMODE))
+                {
+                    if (Settings[FILTERCOMBINEMODE].Trim().ToUpperInvariant() == nameof(ConvolveModeActive).ToUpperInvariant())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (value == true)
+                {
+                    Settings[FILTERCOMBINEMODE] = nameof(ConvolveModeActive).ToUpperInvariant();
+                }
+                // If false, we assume that the radio button true value for SumModeActive will set the setting
+            }
+        }
+        #endregion
     }
 }

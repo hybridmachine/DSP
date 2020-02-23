@@ -23,6 +23,7 @@ using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using SignalsAndTransforms.View_Models;
 using Serilog;
+using SignalsAndTransforms.Interfaces;
 
 namespace SignalsAndTransforms.Views
 {
@@ -121,7 +122,7 @@ namespace SignalsAndTransforms.Views
                     using (StreamWriter fileWriter = File.CreateText(saveFileDialog.FileName))
                     {
                         fileWriter.WriteLine(Properties.Resources.FILTER_CSV_HEADER);
-                        List<double> summedFilterData = manager.ActiveWorkBook().SummedFilterImpulseResponse(true);
+                        List<double> summedFilterData = manager.ActiveWorkBook().CombinedFilterImpulseResponse(true);
                         ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
                         FrequencyDomain frequencyDomain = cmplxFFT.Transform(summedFilterData, manager.ActiveWorkBook().WindowedSyncFilters.Values.First().FilterLength);
 
@@ -177,6 +178,34 @@ namespace SignalsAndTransforms.Views
                     Log.Warning(ex, ex.Message);   
                     // TODO warn user
                 }
+            }
+        }
+
+        private void WorkbookFilters_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                FilterViewModel viewModel = DataContext as FilterViewModel;
+
+                if (viewModel == null)
+                {
+                    return;
+                }
+
+                var selectedItems = WorkbookFilters.SelectedItems;
+
+                List<IFilterIdentifier> deleteItems = new List<IFilterIdentifier>();
+                foreach (UserControl item in selectedItems)
+                {
+                    IFilterIdentifier filterId = item.DataContext as IFilterIdentifier;
+
+                    if (filterId != null)
+                    {
+                        deleteItems.Add(filterId);
+                    }
+                }
+
+                viewModel.DeleteFilters(deleteItems);
             }
         }
     }

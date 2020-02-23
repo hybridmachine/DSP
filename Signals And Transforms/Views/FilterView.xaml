@@ -58,7 +58,7 @@
                         Margin="5,5,5,5"/>
             </Grid>
             <Grid x:Name="WorkbookFiltersGrid">
-                <ListBox x:Name="WorkbookFilters" ItemsSource="{Binding Filters}"/>
+                <ListBox x:Name="WorkbookFilters" ItemsSource="{Binding Filters}" KeyUp="WorkbookFilters_KeyUp"/>
             </Grid>
         </StackPanel>
         <Grid x:Name="FilterInfoLayout" Grid.Column="1">
@@ -123,6 +123,13 @@
                                     MarkerFill="SteelBlue" 
                                     MarkerType="None"/>
             </oxy:Plot>
+            <StackPanel Grid.Row="2" Grid.Column="0" Margin="25,0,0,0">
+                <TextBlock Text="Filter Combination Mode" Margin="0,0,0,5"/>
+                <StackPanel x:Name="CombinationModeLayout" HorizontalAlignment="Left"  Orientation="Horizontal">
+                    <RadioButton GroupName="CombinationMode" IsChecked="{Binding SumModeActive}" x:Name="Sum" Content="{x:Static res:Resources.RADIO_SUM_MODE}" Margin="0,0,5,0"/>
+                    <RadioButton GroupName="CombinationMode" IsChecked="{Binding ConvolveModeActive}" x:Name="Convolve" Content="{x:Static res:Resources.RADIO_CONVOLVE_MODE}"/>
+                </StackPanel>
+            </StackPanel>
             <StackPanel x:Name="ButtonLayout" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                 <Button x:Name="ExportButton" Width="32" Height="45" Background="Transparent" BorderBrush="Transparent" Margin="0,0,10,10" Padding="1" Click="ExportButton_Click">
                     <Image Source="/SignalsAndTransforms;component/Resources/Images/export.png" Stretch="Uniform"/>
