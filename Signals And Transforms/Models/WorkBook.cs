@@ -94,7 +94,23 @@ namespace SignalsAndTransforms.Models
         /// <returns></returns>
         public List<double> ConvolvedFilterImpulseResponse(bool normalize = true)
         {
-            throw new NotImplementedException();
+            IList<double> convolvedImpulseResponse = null;
+            foreach (var filter in WindowedSyncFilters.Values.Where(filt => filt.IsActive))
+            {
+                if (null == convolvedImpulseResponse)
+                {
+                    convolvedImpulseResponse = filter.ImpulseResponse(normalize);
+                }
+                else
+                {
+                    DSP.Convolution convolver = new DSP.Convolution();
+                    IList<double> convolvedTemp = convolver.Convolve(new List<double>(convolvedImpulseResponse), new List<double>(filter.ImpulseResponse(normalize)), DSP.ConvolutionType.INPUTSIDE);
+
+                    convolvedImpulseResponse = convolvedTemp;
+                }
+            }
+
+            return new List<double>(convolvedImpulseResponse);
         }
 
         /// <summary>
