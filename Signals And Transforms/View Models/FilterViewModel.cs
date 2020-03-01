@@ -85,6 +85,7 @@ namespace SignalsAndTransforms.View_Models
             set
             {
                 WorkBookManager.Manager().ActiveWorkBook().SumModeActive = value;
+                LoadFilterData();
             }
         }
 
@@ -99,6 +100,7 @@ namespace SignalsAndTransforms.View_Models
             set
             {
                 WorkBookManager.Manager().ActiveWorkBook().ConvolveModeActive = value;
+                LoadFilterData();
             }
         }
 

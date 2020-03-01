@@ -110,6 +110,8 @@ namespace SignalsAndTransforms.Models
                 }
             }
 
+            if (null == convolvedImpulseResponse) return null;
+
             return new List<double>(convolvedImpulseResponse);
         }
 
