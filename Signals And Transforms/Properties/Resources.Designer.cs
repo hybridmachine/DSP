@@ -541,6 +541,24 @@ namespace SignalsAndTransforms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .wav.
+        /// </summary>
+        public static string WAV_FILE_EXTENSITON {
+            get {
+                return ResourceManager.GetString("WAV_FILE_EXTENSITON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WAV files.
+        /// </summary>
+        public static string WAV_FILES {
+            get {
+                return ResourceManager.GetString("WAV_FILES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .stw.
         /// </summary>
         public static string WORKBOOK_FILE_EXTENSION {
