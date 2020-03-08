@@ -30,19 +30,19 @@ namespace SignalsAndTransforms.View_Models
         public ICommand SaveWave { get; private set; }
         public ICommand PlayWave { get; private set; }
 
-        private WaveFile currentSignalWaveFile { get; set; }
+        private WaveFile SignalWaveFile { get; set; }
 
         public bool HaveWaves
         {
             get
             {
-                return workBookManager.ActiveWorkBook().Signals.Count > 0;
+                return (SignalWaveFile != null);
             }
         }
 
         public void PlayTheWave(object unused)
         {
-            currentSignalWaveFile.Play();
+            SignalWaveFile.Play();
         }
 
         public void SaveTheWave(object unused)
@@ -51,7 +51,7 @@ namespace SignalsAndTransforms.View_Models
             saveFileDialog.Filter = $"{Properties.Resources.WAV_FILES} (*{Properties.Resources.WAV_FILE_EXTENSITON})|*{Properties.Resources.WAV_FILE_EXTENSITON}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
             if (saveFileDialog.ShowDialog() == true)
             {
-                currentSignalWaveFile.Save(saveFileDialog.FileName);
+                SignalWaveFile.Save(saveFileDialog.FileName);
             }
         }
 
@@ -113,9 +113,7 @@ namespace SignalsAndTransforms.View_Models
         {
             Signal workbookSourceSignal = workBookManager.ActiveWorkBook().SumOfSources();
 
-            currentSignalWaveFile = null;
-
-
+            SignalWaveFile = null;
             PlotPoints = new List<DataPoint>(512);
             FrequencyViewModel = null;
 
@@ -152,7 +150,7 @@ namespace SignalsAndTransforms.View_Models
         {
             int sampleRate = (int)workbookSourceSignal.SamplingHZ;
 
-            currentSignalWaveFile = new WaveFile(sampleRate, 16, 1);
+            SignalWaveFile = new WaveFile(sampleRate, 16, 1);
 
             // Convert amplitudes to 16 bit PCM values
             // First find max value, set that to be 100%
@@ -170,14 +168,13 @@ namespace SignalsAndTransforms.View_Models
                 double percentage = value / peakValue;
                 double pcmVal = (percentage * 32767) + 32767; // Bias at midpoint of 16 bit range
 
-                currentSignalWaveFile.AddSample(pcmVal);
+                SignalWaveFile.AddSample(pcmVal);
             }
         }
 
         public void handleSignalUpdate(object sender, PropertyChangedEventArgs args)
         {
             CommandManager.InvalidateRequerySuggested();
-            
 
             PlotSignals();
         }
@@ -195,29 +192,5 @@ namespace SignalsAndTransforms.View_Models
         }
 
         #endregion
-        /// <summary>
-        /// Utility method to generate wav files
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="sampleRate"></param>
-        /// <param name="bitsPerSample"></param>
-        /// <param name="samples"></param>
-        public static bool CreateWavFile(string filePath, int sampleRate, short bitsPerSample, List<double> samples)
-        {
-            try
-            {
-                WaveFile waveFile = new WaveFile(sampleRate, bitsPerSample, 1);
-                double[] sampleArray = new double[samples.Count];
-                samples.CopyTo(sampleArray);
-
-                waveFile.AddSamples(sampleArray);
-                waveFile.Save(filePath);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
     }
 }
