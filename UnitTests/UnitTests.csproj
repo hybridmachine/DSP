@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomFilterTest.cs" />
+    <Compile Include="FilterStreamTest.cs" />
     <Compile Include="RealFourierTransformTest.cs" />
     <Compile Include="ComplexFourierTransformTest.cs" />
     <Compile Include="ConvolutionViewModelTest.cs" />
