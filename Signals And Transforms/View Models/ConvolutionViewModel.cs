@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.IO;
+using SignalProcessor.Interfaces;
 
 namespace SignalsAndTransforms.View_Models
 {
@@ -75,7 +76,9 @@ namespace SignalsAndTransforms.View_Models
                 ResultPlotPoints.Add(new DataPoint(idx, convolutionResult[idx]));
             }
 
-            ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
+            //IDFT cmplxFFT = new ComplexFastFourierTransform();
+            IDFT cmplxFFT = new DSPGuideComplexDiscreteFourierTransform();
+
             FrequencyDomain frequencyDomain = cmplxFFT.Transform(convolutionResult, workbookSourceSignal.SamplingHZ);
             ResultFrequencyHistogram = new FrequencyHistogramViewModel(frequencyDomain);
             

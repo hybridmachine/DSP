@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 using SignalProcessor.Interfaces;
+using System.Collections.Concurrent;
 
 namespace SignalProcessor
 {
@@ -80,36 +81,49 @@ namespace SignalProcessor
         private static FrequencyDomain FindFourierCoeffecients(List<double> timeDomain, double sampleRateHz)
         {
             int timeDomainLen = timeDomain.Count;
-            // Prepare the Fourier Transform
-            List<double> fourTime = new List<double>(timeDomainLen);
-            List<Complex> fCoefs = new List<Complex>(timeDomainLen);
+            int numProcs = Environment.ProcessorCount;
+            int concurrencyLevel = numProcs * 2;
 
-            List<Complex> csw = new List<Complex>(timeDomainLen);
+            // Prepare the Fourier Transform
+            Dictionary<int,double> fourTime = new Dictionary<int,double>(timeDomainLen);
+            ConcurrentDictionary<int, Complex> csw = new ConcurrentDictionary<int, Complex>(concurrencyLevel, timeDomainLen);
+
+            List<Complex> fCoefs = new List<Complex>(timeDomainLen);
 
             // Setup the fourier time array
             for (int idx = 0; idx < timeDomainLen; idx++)
             {
-                fourTime.Add((double)idx / (double)timeDomainLen);
+                fourTime.Add(idx,((double)idx / (double)timeDomainLen));
             }
+
+            Complex negOneI = new Complex(0, -1);
+            Complex euler = new Complex(Math.E, 0);
+            Complex exponentMultiplier = negOneI * Math.PI * 2;
 
             for (int fi = 1; fi <= timeDomainLen; fi++)
             {
-                // Compute complex sine wave
-                foreach (double timeVal in fourTime)
+                Parallel.ForEach(fourTime, (timeVal) =>
                 {
-                    Complex negOneI = new Complex(0, -1);
-                    Complex euler = new Complex(Math.E, 0);
-
-                    Complex value = Complex.Pow(euler, (negOneI * Math.PI * 2 * (fi - 1) * timeVal));
-                    csw.Add(value);
-                }
+                    Complex value = Complex.Pow(euler, (exponentMultiplier * (fi - 1) * timeVal.Value));
+                    csw[timeVal.Key]=value;
+                });
 
                 // Compute dot product between signal and complex sine wave
                 Complex dotProduct = new Complex(0, 0);
-                for (int idx = 0; idx < timeDomainLen; idx++)
-                {
-                    dotProduct += ((csw[idx] * timeDomain[idx]));
+                object dotProductLock = new object();
+
+                Parallel.For(0, (timeDomainLen - 1), (idx) => {
+                    Complex dotProductLocal = new Complex(0, 0);
+                    
+                    dotProductLocal += ((csw[idx] * timeDomain[idx]));
+
+                    lock (dotProductLock)
+                    {
+                        dotProduct += dotProductLocal;
+                    }
                 }
+
+                );
 
                 fCoefs.Add(dotProduct);
                 csw.Clear();

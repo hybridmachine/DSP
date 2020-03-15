@@ -280,6 +280,12 @@ Error: </value>
   <data name="SIGNAL_PLOT_TITLE" xml:space="preserve">
     <value>Signal</value>
   </data>
+  <data name="WAV_FILES" xml:space="preserve">
+    <value>WAV files</value>
+  </data>
+  <data name="WAV_FILE_EXTENSITON" xml:space="preserve">
+    <value>.wav</value>
+  </data>
   <data name="WORKBOOK_FILE_EXTENSION" xml:space="preserve">
     <value>.stw</value>
   </data>

@@ -1,7 +1,11 @@
-﻿using OxyPlot;
+﻿using GSF.Media;
+using Microsoft.Win32;
+using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using SignalProcessor;
+using SignalProcessor.Interfaces;
+using SignalsAndTransforms.Commands;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
 using SignalsAndTransforms.Views;
@@ -12,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SignalsAndTransforms.View_Models
 {
@@ -22,6 +27,34 @@ namespace SignalsAndTransforms.View_Models
         public ObservableCollection<SignalItemView> SignalViews { get; private set; }
 
         public ObservableCollection<Signal> Signals { get; private set; }
+
+        public ICommand SaveWave { get; private set; }
+        public ICommand PlayWave { get; private set; }
+
+        private WaveFile SignalWaveFile { get; set; }
+
+        public bool HaveWaves
+        {
+            get
+            {
+                return (SignalWaveFile != null);
+            }
+        }
+
+        public void PlayTheWave(object unused)
+        {
+            SignalWaveFile.Play();
+        }
+
+        public void SaveTheWave(object unused)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = $"{Properties.Resources.WAV_FILES} (*{Properties.Resources.WAV_FILE_EXTENSITON})|*{Properties.Resources.WAV_FILE_EXTENSITON}|{Properties.Resources.ALL_FILES} (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                SignalWaveFile.Save(saveFileDialog.FileName);
+            }
+        }
 
         public void AddSignal(Signal signal)
         {
@@ -66,6 +99,7 @@ namespace SignalsAndTransforms.View_Models
             Title = Properties.Resources.SIGNAL_PLOT_TITLE;
             workBookManager = WorkBookManager.Manager();
             workBookManager.PropertyChanged += ActiveWorkBookChangedHandler;
+            CreateCommands();
         }
 
         private void ActiveWorkBookChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -78,11 +112,12 @@ namespace SignalsAndTransforms.View_Models
 
         public void PlotSignals()
         {
+            Signal workbookSourceSignal = workBookManager.ActiveWorkBook().SumOfSources();
+
+            SignalWaveFile = null;
             PlotPoints = new List<DataPoint>(512);
             FrequencyViewModel = null;
 
-            Signal workbookSourceSignal = workBookManager.ActiveWorkBook().SumOfSources();
-            
             // Return empty set, this clears the display when all signals are off
             if (workbookSourceSignal == null)
             {
@@ -91,23 +126,59 @@ namespace SignalsAndTransforms.View_Models
                 return;
             }
 
-            for (int idx=0; idx<workbookSourceSignal.Samples.Count;idx++)
+            CreateWavFile(workbookSourceSignal);
+
+            for (int idx = 0; idx < workbookSourceSignal.Samples.Count; idx++)
             {
                 PlotPoints.Add(new DataPoint(idx, workbookSourceSignal.Samples[idx]));
             }
 
-            ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
+            //IDFT cmplxFFT = new ComplexFastFourierTransform();
+            IDFT cmplxFFT = new DSPGuideComplexDiscreteFourierTransform();
+
             FrequencyDomain frequencyDomain = cmplxFFT.Transform(workbookSourceSignal.Samples, workbookSourceSignal.SamplingHZ);
 
-            
+
             FrequencyViewModel = new FrequencyHistogramViewModel(frequencyDomain);
 
             NotifyPropertyChanged(nameof(PlotPoints));
             NotifyPropertyChanged(nameof(FrequencyViewModel));
         }
 
+        /// <summary>
+        /// Load the summed signal into a wav file, can be saved or played
+        /// </summary>
+        /// <param name="workbookSourceSignal"></param>
+        private void CreateWavFile(Signal workbookSourceSignal)
+        {
+            int sampleRate = (int)workbookSourceSignal.SamplingHZ;
+
+            SignalWaveFile = new WaveFile(sampleRate, 16, 1);
+
+            // Convert amplitudes to 16 bit PCM values
+            // First find max value, set that to be 100%
+            // Scale all other values against that max, convert each value to 16 bit int. Biased to 32767 for Y zero point
+            List<double> signalValues = workbookSourceSignal.Samples;
+
+            double peakValue = signalValues.Max();
+            if (Math.Abs(signalValues.Min()) > peakValue)
+            {
+                peakValue = Math.Abs(signalValues.Min());
+            }
+
+            foreach (double value in signalValues)
+            {
+                double percentage = value / peakValue;
+                double pcmVal = (percentage * 32767) + 32767; // Bias at midpoint of 16 bit range
+
+                SignalWaveFile.AddSample(pcmVal);
+            }
+        }
+
         public void handleSignalUpdate(object sender, PropertyChangedEventArgs args)
         {
+            CommandManager.InvalidateRequerySuggested();
+
             PlotSignals();
         }
 
@@ -115,5 +186,14 @@ namespace SignalsAndTransforms.View_Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region commands
+        private void CreateCommands()
+        {
+            SaveWave = new RelayCommand(param => HaveWaves, SaveTheWave);
+            PlayWave = new RelayCommand(param => HaveWaves, PlayTheWave);
+        }
+
+        #endregion
     }
 }

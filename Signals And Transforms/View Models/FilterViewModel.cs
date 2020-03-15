@@ -1,6 +1,7 @@
 ﻿using DSP;
 using OxyPlot;
 using SignalProcessor;
+using SignalProcessor.Interfaces;
 using SignalsAndTransforms.Interfaces;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
@@ -14,6 +15,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SignalsAndTransforms.View_Models
 {
@@ -85,6 +87,7 @@ namespace SignalsAndTransforms.View_Models
             set
             {
                 WorkBookManager.Manager().ActiveWorkBook().SumModeActive = value;
+                LoadFilterData();
             }
         }
 
@@ -99,6 +102,7 @@ namespace SignalsAndTransforms.View_Models
             set
             {
                 WorkBookManager.Manager().ActiveWorkBook().ConvolveModeActive = value;
+                LoadFilterData();
             }
         }
 
@@ -149,7 +153,9 @@ namespace SignalsAndTransforms.View_Models
             {
                 ImpulseResponsePoints.Add(new DataPoint(idx, summedFilterData[idx]));
             }
-            ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
+            //IDFT cmplxFFT = new ComplexFastFourierTransform();
+            IDFT cmplxFFT = new DSPGuideComplexDiscreteFourierTransform();
+
             int filterLength = 0;
 
             if (manager.ActiveWorkBook().WindowedSyncFilters.Count > 0)
