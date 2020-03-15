@@ -96,14 +96,15 @@ namespace SignalProcessor
                 fourTime.Add(idx,((double)idx / (double)timeDomainLen));
             }
 
+            Complex negOneI = new Complex(0, -1);
+            Complex euler = new Complex(Math.E, 0);
+            Complex exponentMultiplier = negOneI * Math.PI * 2;
+
             for (int fi = 1; fi <= timeDomainLen; fi++)
             {
                 Parallel.ForEach(fourTime, (timeVal) =>
                 {
-                    Complex negOneI = new Complex(0, -1);
-                    Complex euler = new Complex(Math.E, 0);
-
-                    Complex value = Complex.Pow(euler, (negOneI * Math.PI * 2 * (fi - 1) * timeVal.Value));
+                    Complex value = Complex.Pow(euler, (exponentMultiplier * (fi - 1) * timeVal.Value));
                     csw[timeVal.Key]=value;
                 });
 

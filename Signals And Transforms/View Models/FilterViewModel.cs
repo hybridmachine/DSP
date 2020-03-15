@@ -1,6 +1,7 @@
 ﻿using DSP;
 using OxyPlot;
 using SignalProcessor;
+using SignalProcessor.Interfaces;
 using SignalsAndTransforms.Interfaces;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
@@ -152,7 +153,9 @@ namespace SignalsAndTransforms.View_Models
             {
                 ImpulseResponsePoints.Add(new DataPoint(idx, summedFilterData[idx]));
             }
-            ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
+            //IDFT cmplxFFT = new ComplexFastFourierTransform();
+            IDFT cmplxFFT = new DSPGuideComplexDiscreteFourierTransform();
+
             int filterLength = 0;
 
             if (manager.ActiveWorkBook().WindowedSyncFilters.Count > 0)

@@ -4,6 +4,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using SignalProcessor;
+using SignalProcessor.Interfaces;
 using SignalsAndTransforms.Commands;
 using SignalsAndTransforms.Managers;
 using SignalsAndTransforms.Models;
@@ -132,7 +133,9 @@ namespace SignalsAndTransforms.View_Models
                 PlotPoints.Add(new DataPoint(idx, workbookSourceSignal.Samples[idx]));
             }
 
-            ComplexFastFourierTransform cmplxFFT = new ComplexFastFourierTransform();
+            //IDFT cmplxFFT = new ComplexFastFourierTransform();
+            IDFT cmplxFFT = new DSPGuideComplexDiscreteFourierTransform();
+
             FrequencyDomain frequencyDomain = cmplxFFT.Transform(workbookSourceSignal.Samples, workbookSourceSignal.SamplingHZ);
 
 
