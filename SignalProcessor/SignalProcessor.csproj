@@ -3,14 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.24.0</AssemblyVersion>
-    <FileVersion>0.1.24.0</FileVersion>
-    <PackageReleaseNotes>Implement the Complex Discrete Fourier Transform as specified in Chapter 31 page 578 of "The Scientist and Engineer's Guide to Digital Signal Processing". See class "DSPGuideComplexDiscreteFourierTransform"
-
-This version uses Parallel.For to parallelize the work of both analysis and synthesis</PackageReleaseNotes>
+    <AssemblyVersion>0.1.26.0</AssemblyVersion>
+    <FileVersion>0.1.26.0</FileVersion>
+    <PackageReleaseNotes>Added spectral analyzer that averages a signal by running through specified length FFT. For example an 8000 sample signal is broken in to dftLen segments and analyzed by the dftLen FFT , averaging frequency amplitudes and reporting those in a List. In 0.1.26, fixed sampling frequency to be double instead of int</PackageReleaseNotes>
     <Copyright>2020 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.24</Version>
+    <Version>0.1.26</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>

@@ -30,6 +30,19 @@ namespace SignalProcessor
             FrequencyAmplitudes = new Dictionary<double, double>();
             FourierCoefficients = new List<Complex>();
         }
+
+        /// <summary>
+        /// Load the real and imaginary components into 
+        /// </summary>
+        public void TestLoadRealImaginaryIntoComplex()
+        {
+            FourierCoefficients = new List<Complex>();
+            for (int idx = 0; idx < RealComponent.Count; idx++)
+            {
+                FourierCoefficients.Add(new Complex(RealComponent[idx], ImaginaryComponent[idx]));
+            }
+        }
+
         public FrequencyDomain(int timeDomainLen, IDFT dft)
         {
             frequencyDomainLen = 0;

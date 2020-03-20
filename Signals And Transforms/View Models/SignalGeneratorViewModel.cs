@@ -133,11 +133,21 @@ namespace SignalsAndTransforms.View_Models
                 PlotPoints.Add(new DataPoint(idx, workbookSourceSignal.Samples[idx]));
             }
 
+
+            List<double> frequencyAmplitudes = SpectralAnalyzer.AveragedFrequency(workbookSourceSignal.Samples, 512, workbookSourceSignal.SamplingHZ);
             //IDFT cmplxFFT = new ComplexFastFourierTransform();
-            IDFT cmplxFFT = new DSPGuideComplexDiscreteFourierTransform();
 
-            FrequencyDomain frequencyDomain = cmplxFFT.Transform(workbookSourceSignal.Samples, workbookSourceSignal.SamplingHZ);
+            FrequencyDomain frequencyDomain = new FrequencyDomain();
 
+            // Load the amplitudes for now, the frequency key is unused for this path. This 
+            // needs to be cleaned up after testing is complete
+            int idx2 = 0;
+            foreach (double amplitude in frequencyAmplitudes)
+            {
+                frequencyDomain.FrequencyAmplitudes.Add(idx2, amplitude);
+                idx2++;
+            }
+ 
 
             FrequencyViewModel = new FrequencyHistogramViewModel(frequencyDomain);
 

@@ -22,9 +22,11 @@ namespace UnitTests
         {
             //IDFT complexFourierTransform = new ComplexFastFourierTransform();
             IDFT complexFourierTransform = new DSPGuideComplexDiscreteFourierTransform();
-
+            IDFT realFourierTransform = new RealFastFourierTransform();
 
             FrequencyDomain result;
+            FrequencyDomain realResult;
+
             List<double> recreatedSignal;
 
             int sampleRate = 1000; // hz
@@ -43,8 +45,14 @@ namespace UnitTests
                 signal.Add(signalValue);
             }
 
+            List<double> signalSample = signal.GetRange(0, 1024);
             result = complexFourierTransform.Transform(signal, sampleRate);
+            realResult = realFourierTransform.Transform(signalSample, sampleRate);
+            realResult.TestLoadRealImaginaryIntoComplex();
+
             List<Tuple<double, double>> magPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(result);
+            List<Tuple<double, double>> realMagPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(realResult);
+
             FrequencyDomain fromMagPhaseList = ComplexFastFourierTransform.FromMagnitudePhaseList(magPhaseList);
 
             for (int idx = 0; idx < result.FourierCoefficients.Count; idx++)
