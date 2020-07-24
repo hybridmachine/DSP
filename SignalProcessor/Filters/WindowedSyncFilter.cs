@@ -73,7 +73,7 @@ namespace SignalProcessor.Filters
 
         public IList<Complex> FrequencyResponse()
         {
-            ComplexFastFourierTransform transform = new ComplexFastFourierTransform();
+            ComplexCorrelationFourierTransform transform = new ComplexCorrelationFourierTransform();
             List<Complex> coefficients = transform.Transform(new List<double>(ImpulseResponse()), FilterLength).FourierCoefficients;
 
             return coefficients;

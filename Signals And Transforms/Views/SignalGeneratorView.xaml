@@ -44,21 +44,28 @@
             <Button x:Name="BtnSaveWave" Grid.Row="1" Content="Save Wave" Margin="5" Command="{Binding SaveWave}"/>
             <Button x:Name="BtnPlayWave" Grid.Row="2" Content="Play Wave" Margin="5" Command="{Binding PlayWave}"/>
         </Grid>
-        <oxy:Plot Grid.Column="3" Grid.Row="4" Margin="5" Title="{Binding Title}">
-            <oxy:Plot.Series>
-                <oxy:LineSeries x:Name="SignalPlotLineSeries" ItemsSource="{Binding PlotPoints}"
+        <Grid x:Name="SignalFrequencyLayoutGrid" Grid.Column="3" Grid.Row="0" Grid.RowSpan="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <oxy:PlotView Grid.Row="0" Margin="5" Model="{Binding FrequencyViewModel}"/>
+            <oxy:Plot Grid.Row="1" Margin="5" Title="{Binding Title}">
+                <oxy:Plot.Series>
+                    <oxy:LineSeries x:Name="SignalPlotLineSeries" ItemsSource="{Binding PlotPoints}"
                                 Color="Cyan" 
                                 MarkerFill="SteelBlue" 
                                 MarkerType="None"/>
-            </oxy:Plot.Series>
-            <oxy:Plot.ContextMenu>
-                <ContextMenu>
-                    <MenuItem x:Name="SignalPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="SignalPlotMenuItem_Click"/>
-                    <MenuItem x:Name="SignalPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="SignalPlotMenuItem_Click"/>
-                    <MenuItem x:Name="SignalPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="SignalPlotMenuItem_Click"/>
-                </ContextMenu>
-            </oxy:Plot.ContextMenu>
-        </oxy:Plot>
-        <oxy:PlotView Grid.Column="3" Grid.Row="0"  Grid.RowSpan="4" Margin="5" Model="{Binding FrequencyViewModel}"/>
+                </oxy:Plot.Series>
+                <oxy:Plot.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="SignalPlotMarkerTypeNone" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_NONE}" Click="SignalPlotMenuItem_Click"/>
+                        <MenuItem x:Name="SignalPlotMarkerTypeSquare" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_SQUARE}" Click="SignalPlotMenuItem_Click"/>
+                        <MenuItem x:Name="SignalPlotMarkerTypeTriangle" Header="{x:Static res:Resources.CTXT_PLOT_MARKER_TYPE_TRIANGLE}" Click="SignalPlotMenuItem_Click"/>
+                    </ContextMenu>
+                </oxy:Plot.ContextMenu>
+            </oxy:Plot>
+        </Grid>
+
     </Grid>
 </UserControl>

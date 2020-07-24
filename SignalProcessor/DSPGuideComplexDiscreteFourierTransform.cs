@@ -101,40 +101,8 @@ namespace SignalProcessor
             frequencyDomain = new FrequencyDomain();
             frequencyDomain.FourierCoefficients = X;
             frequencyDomain.SampleRateHz = sampleRateHz;
-            LoadFrequencyAmplitudes(frequencyDomain);
+            frequencyDomain.LoadFrequencyAmplitudes();
             return frequencyDomain;
-        }
-
-        private static void LoadFrequencyAmplitudes(FrequencyDomain frequencyDomain)
-        {
-            double sampleRate = frequencyDomain.SampleRateHz;
-            int points = frequencyDomain.FourierCoefficients.Count;
-
-            List<double> frequencyVector = linspace(0, sampleRate / 2, (int)Math.Floor((double)((points / 2) + 1)));
-            List<double> amplitudesVector = new List<double>(points);
-            foreach (Complex coefficient in frequencyDomain.FourierCoefficients)
-            {
-                double amplitude = 2 * (Complex.Abs(coefficient) / points);
-                amplitudesVector.Add(amplitude);
-            }
-
-            for (int idx = 0; idx < frequencyVector.Count; idx++)
-            {
-                frequencyDomain.FrequencyAmplitudes.Add(frequencyVector[idx], amplitudesVector[idx]);
-            }
-        }
-
-        private static List<double> linspace(double start, double end, int numPoints)
-        {
-            List<double> vector = new List<double>(numPoints + 5);
-
-            double spacing = (end - start) / (double)(numPoints - 1);
-
-            for (double value = start; value <= end; value += spacing)
-            {
-                vector.Add(value);
-            }
-            return vector;
         }
     }
 }

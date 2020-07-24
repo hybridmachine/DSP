@@ -134,22 +134,14 @@ namespace SignalsAndTransforms.View_Models
             }
 
 
-            List<double> frequencyAmplitudes = SpectralAnalyzer.AveragedFrequency(workbookSourceSignal.Samples, 512, workbookSourceSignal.SamplingHZ);
-            //IDFT cmplxFFT = new ComplexFastFourierTransform();
+            //Dictionary<double,double> frequencyAmplitudes = SpectralAnalyzer.AveragedFrequency(workbookSourceSignal.Samples, 512, workbookSourceSignal.SamplingHZ);
+            IDFT fftTransform = new RealFastFourierTransform();
 
-            FrequencyDomain frequencyDomain = new FrequencyDomain();
+            //FrequencyDomain frequencyDomain = new FrequencyDomain();
+            //frequencyDomain.FrequencyAmplitudes = frequencyAmplitudes;
+             
 
-            // Load the amplitudes for now, the frequency key is unused for this path. This 
-            // needs to be cleaned up after testing is complete
-            int idx2 = 0;
-            foreach (double amplitude in frequencyAmplitudes)
-            {
-                frequencyDomain.FrequencyAmplitudes.Add(idx2, amplitude);
-                idx2++;
-            }
- 
-
-            FrequencyViewModel = new FrequencyHistogramViewModel(frequencyDomain);
+            FrequencyViewModel = new FrequencyHistogramViewModel(fftTransform.Transform(workbookSourceSignal.Samples, workbookSourceSignal.SamplingHZ));
 
             NotifyPropertyChanged(nameof(PlotPoints));
             NotifyPropertyChanged(nameof(FrequencyViewModel));

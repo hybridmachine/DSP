@@ -41,7 +41,7 @@ namespace SignalProcessor.Filters
 
         public IList<double> ImpulseResponse(bool normalize = false)
         {
-            ComplexFastFourierTransform transform = new ComplexFastFourierTransform();
+            ComplexCorrelationFourierTransform transform = new ComplexCorrelationFourierTransform();
             return transform.Synthesize(FreqDomain);
         }
     }

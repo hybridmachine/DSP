@@ -79,6 +79,11 @@ namespace SignalProcessor
             }
             #endregion
 
+            frequencyDomain.FrequencyAmplitudes.Clear();
+            for (int idx = 0; idx < frequencyDomain.RealComponent.Count; idx++)
+            {
+                frequencyDomain.FrequencyAmplitudes.Add(idx, Math.Sqrt(Math.Pow(frequencyDomain.RealComponent[idx], 2) + Math.Pow(frequencyDomain.ImaginaryComponent[idx], 2))/frequencyDomain.RealComponent.Count);
+            }
             return frequencyDomain;
         }
         /// <summary>

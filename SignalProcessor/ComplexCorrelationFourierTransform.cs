@@ -10,7 +10,7 @@ using System.Collections.Concurrent;
 namespace SignalProcessor
 {
    
-    public class ComplexFastFourierTransform : IDFT
+    public class ComplexCorrelationFourierTransform : IDFT
     {
         /// <summary>
         /// Adapted from Udemy course "Master the Fourier transform and its applications" by Mike X Cohen
@@ -74,7 +74,7 @@ namespace SignalProcessor
         public FrequencyDomain Transform(List<double> timeDomain, double sampleRateHz)
         {
             FrequencyDomain result = FindFourierCoeffecients(timeDomain, sampleRateHz);
-            LoadFrequencyAmplitudes(result);
+            result.LoadFrequencyAmplitudes();
             return result;
         }
 
@@ -167,36 +167,5 @@ namespace SignalProcessor
             return magPhaseList;
         }
 
-        private static void LoadFrequencyAmplitudes(FrequencyDomain frequencyDomain)
-        {
-            double sampleRate = frequencyDomain.SampleRateHz;
-            int points = frequencyDomain.FourierCoefficients.Count;
-
-            List<double> frequencyVector = linspace(0, sampleRate / 2, (int)Math.Floor((double)((points / 2) + 1)));
-            List<double> amplitudesVector = new List<double>(points);
-            foreach (Complex coefficient in frequencyDomain.FourierCoefficients)
-            {
-                double amplitude = 2 * (Complex.Abs(coefficient) / points);
-                amplitudesVector.Add(amplitude);
-            }
-
-            for (int idx = 0; idx < frequencyVector.Count; idx++)
-            {
-                frequencyDomain.FrequencyAmplitudes.Add(frequencyVector[idx], amplitudesVector[idx]);
-            }
-        }
-
-        private static List<double> linspace(double start, double end, int numPoints)
-        {
-            List<double> vector = new List<double>(numPoints+5);
-
-            double spacing = (end - start) / (double)(numPoints - 1);
-
-            for (double value = start; value <= end; value += spacing)
-            {
-                vector.Add(value);
-            }
-            return vector;
-        }
     }
 }

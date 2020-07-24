@@ -17,15 +17,9 @@ namespace SignalProcessor
         /// <param name="dftLen"></param>
         /// <param name="sampleHZ"></param>
         /// <returns></returns>
-        public static List<double> AveragedFrequency(List<double> sample, int dftLen, double sampleHZ)
+        public static Dictionary<double,double> AveragedFrequency(List<double> sample, int dftLen, double sampleHZ)
         {
-            List<double> averagedFrequencyRespose = new List<double>(dftLen);
-
-            // Preload list
-            for (int idx = 0; idx < dftLen; idx++)
-            {
-                averagedFrequencyRespose.Add(0.0);
-            }
+            Dictionary<double,double> averagedFrequencyRespose = new Dictionary<double, double>();
 
             int remainder = 0;
             Math.DivRem(sample.Count, dftLen, out remainder);
@@ -53,17 +47,23 @@ namespace SignalProcessor
                 IDFT dft = new DSPGuideComplexDiscreteFourierTransform();
 
                 FrequencyDomain result = dft.Transform(analyzeBlock, sampleHZ);
-                for (int magIdx = 0; magIdx < result.FourierCoefficients.Count; magIdx ++)
+                foreach (double key in result.FrequencyAmplitudes.Keys)
                 {
-                    averagedFrequencyRespose[magIdx] += result.FourierCoefficients[magIdx].Magnitude;
+                    if (!averagedFrequencyRespose.ContainsKey(key))
+                    {
+                        averagedFrequencyRespose.Add(key, 0.0);
+                    }
+                    
+                    averagedFrequencyRespose[key] += result.FrequencyAmplitudes[key];
                 }
-
+ 
                 iterationCount++;
             }
 
-            for (int idx = 0; idx < averagedFrequencyRespose.Count; idx ++)
+            List<double> keys = new List<double>(averagedFrequencyRespose.Keys);
+            foreach (double key in keys)
             {
-                averagedFrequencyRespose[idx] /= iterationCount;
+                averagedFrequencyRespose[key] /= iterationCount;
             }
 
             return averagedFrequencyRespose;

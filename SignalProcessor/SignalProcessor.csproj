@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.1.26.0</AssemblyVersion>
-    <FileVersion>0.1.26.0</FileVersion>
-    <PackageReleaseNotes>Added spectral analyzer that averages a signal by running through specified length FFT. For example an 8000 sample signal is broken in to dftLen segments and analyzed by the dftLen FFT , averaging frequency amplitudes and reporting those in a List. In 0.1.26, fixed sampling frequency to be double instead of int</PackageReleaseNotes>
+    <AssemblyVersion>0.1.29.1</AssemblyVersion>
+    <FileVersion>0.1.29.1</FileVersion>
+    <PackageReleaseNotes>Rename ComplexFast to ComplexCorrelation, it is a slower correlation algorithm, not a fast algorithm</PackageReleaseNotes>
     <Copyright>2020 Brian Tabone</Copyright>
     <Description>Digital Signal Processing (FFT and Correlation)</Description>
-    <Version>0.1.26</Version>
+    <Version>0.1.29.1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SignalProcessor.pfx</AssemblyOriginatorKeyFile>
@@ -21,6 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Utilities\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

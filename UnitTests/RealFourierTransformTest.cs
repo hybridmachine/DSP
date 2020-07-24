@@ -21,7 +21,7 @@ namespace UnitTests
             FrequencyDomain realFormatResult;
             List<double> recreatedSignal;
             
-            int sampleRate = 1000; // hz
+            int sampleRate = 16384; // hz
             List<double> timePoints = new List<double>(2 * sampleRate);
 
             for (double timePointVal = 0; timePointVal < 2.0; timePointVal += (1.0 / sampleRate))
@@ -36,8 +36,12 @@ namespace UnitTests
                 double signalValue = (2.5 * Math.Sin(2 * Math.PI * 4 * timePointVal)) + (1.5 * Math.Sin(2 * Math.PI * 6.5 * timePointVal));
                 signal.Add(signalValue);
             }
+            
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            realFormatResult = realFourierTransform.Transform(signal.GetRange(0,16384), sampleRate);
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
 
-            realFormatResult = realFourierTransform.Transform(signal.GetRange(0,256), sampleRate);
             recreatedSignal = realFourierTransform.Synthesize(realFormatResult);
             
             Assert.IsNotNull(realFormatResult);

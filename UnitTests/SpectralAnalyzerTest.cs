@@ -30,7 +30,7 @@ namespace UnitTests
                 signal.Add(signalValue);
             }
 
-            List<double> spectrum = SpectralAnalyzer.AveragedFrequency(signal, 512, sampleRate);
+            Dictionary<double,double> spectrum = SpectralAnalyzer.AveragedFrequency(signal, 512, sampleRate);
             Assert.IsNotNull(spectrum);
         }
     }

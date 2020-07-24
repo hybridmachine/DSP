@@ -108,6 +108,50 @@ namespace SignalProcessor
 
             return Math.Atan(ScaledImaginaryComponent(k) / ScaledRealComponent(k));
         }
+
+        public void LoadFrequencyAmplitudes()
+        {
+            if (FourierCoefficients == null || FourierCoefficients.Count == 0)
+            {
+                return;
+            }
+
+            double sampleRate = SampleRateHz;
+            int points = FourierCoefficients.Count;
+
+            List<double> frequencyVector = linspace(0, sampleRate / 2, (int)Math.Floor((double)((points / 2) + 1)));
+            List<double> amplitudesVector = new List<double>(points);
+            foreach (Complex coefficient in FourierCoefficients)
+            {
+                double amplitude = 2 * (Complex.Abs(coefficient) / points);
+                amplitudesVector.Add(amplitude);
+            }
+
+            for (int idx = 0; idx < frequencyVector.Count; idx++)
+            {
+                FrequencyAmplitudes.Add(frequencyVector[idx], amplitudesVector[idx]);
+            }
+        }
+
+        /// <summary>
+        /// Helper function to return an equaly spaced list of values from start to end made up of numPoints
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="numPoints"></param>
+        /// <returns></returns>
+        private static List<double> linspace(double start, double end, int numPoints)
+        {
+            List<double> vector = new List<double>(numPoints + 5);
+
+            double spacing = (end - start) / (double)(numPoints - 1);
+
+            for (double value = start; value <= end; value += spacing)
+            {
+                vector.Add(value);
+            }
+            return vector;
+        }
         #endregion
     }
 }

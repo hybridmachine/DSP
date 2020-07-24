@@ -50,10 +50,10 @@ namespace UnitTests
             realResult = realFourierTransform.Transform(signalSample, sampleRate);
             realResult.TestLoadRealImaginaryIntoComplex();
 
-            List<Tuple<double, double>> magPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(result);
-            List<Tuple<double, double>> realMagPhaseList = ComplexFastFourierTransform.ToMagnitudePhaseList(realResult);
+            List<Tuple<double, double>> magPhaseList = ComplexCorrelationFourierTransform.ToMagnitudePhaseList(result);
+            List<Tuple<double, double>> realMagPhaseList = ComplexCorrelationFourierTransform.ToMagnitudePhaseList(realResult);
 
-            FrequencyDomain fromMagPhaseList = ComplexFastFourierTransform.FromMagnitudePhaseList(magPhaseList);
+            FrequencyDomain fromMagPhaseList = ComplexCorrelationFourierTransform.FromMagnitudePhaseList(magPhaseList);
 
             for (int idx = 0; idx < result.FourierCoefficients.Count; idx++)
             {
@@ -115,7 +115,7 @@ namespace UnitTests
             List<double> frequencyDomain = new List<double>(amplitudes);
             //FrequencyDomain frequencyDomain = ComplexFastFourierTransform.LoadFourierCoefficients(new List<double>(amplitudes));
 
-            ComplexFastFourierTransform synth = new ComplexFastFourierTransform();
+            ComplexCorrelationFourierTransform synth = new ComplexCorrelationFourierTransform();
             FrequencyDomain timeDomain = synth.Transform(frequencyDomain, 2 * frequencyDomain.Count());
 
             foreach (var value in timeDomain.FrequencyAmplitudes)
